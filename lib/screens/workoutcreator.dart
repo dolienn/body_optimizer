@@ -1,12 +1,20 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class WorkoutCreator extends StatelessWidget {
   const WorkoutCreator({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const Text(
-        "Workout Creator"
+    return Scaffold(
+        body: Row(
+        children: [
+          Column(children: [Text('testowanie')],),
+          Column(children: [Text('testowanie')],),
+          Column(children: [Text('testowanie')],),
+          Column(children: [Text('testowanie')],),
+        ],
+    )
     );
   }
 }
