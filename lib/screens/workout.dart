@@ -21,10 +21,10 @@ class _WorkoutState extends State<Workout> {
 
   final List<Parts> partitions = [
     Parts(title: "ABS", image: "assets/images/abs.png"),
-    Parts(title: "BICEPS", image: "assets/images/chest.png"),
-    Parts(title: "TRICEPS", image: "name2"),
-    Parts(title: "CHEST", image: "name2"),
-    Parts(title: "BACK", image: "name2"),
+    Parts(title: "BICEPS", image: "assets/images/biceps.gif"),
+    Parts(title: "TRICEPS", image: "assets/images/triceps.png"),
+    Parts(title: "CHEST", image: "assets/images/chest.png"),
+    Parts(title: "BACK", image: "assets/images/back.gif"),
     Parts(title: "LEGS", image: "name2"),
   ];
   @override
@@ -99,21 +99,33 @@ class _WorkoutState extends State<Workout> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GridTile(
-                          child: Container(
-                            height: 200,
-                            width: 195,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: GridTile(
-                              header: SizedBox(
-                                height: 200,
-                                width: 195,
-                                  child: Image.asset(partitions[index].image),
+                          child: Stack(
+                            children: <Widget>[
+                              Container(
+                              height: 200,
+                              width: 195,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
                               ),
-                              child: Text(partitions[index].title),
+                              child: GridTile(
+                                header: Padding(
+                                  padding: const EdgeInsets.only(top: 40),
+                                  child: Center(
+                                    child: SizedBox(
+                                      height: 150,
+                                      width: 150,
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 100),
+                                        child: Text(partitions[index].title, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center,),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                child: Image.asset(partitions[index].image),
+                              ),
                             ),
+                      ]
                           ),
                         ),
                       ],
