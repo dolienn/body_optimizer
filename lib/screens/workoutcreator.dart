@@ -9,7 +9,18 @@ wybieranie cwiczen i wstawiania
 
 
 trudne to bardzo :(
+
+yooooooooo przyda sieee
+https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
+void _updateMyItems(int oldIndex, int newIndex) {
+  if (newIndex > oldIndex) {
+    newIndex -= 1;
+  }
+  final String item = items.removeAt(oldIndex);
+  items.insert(newIndex, item);
+}
  */
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -68,10 +79,42 @@ class LinkedLabelCheckbox extends StatelessWidget {
     );
   }
 }
+
 class WorkoutCreator extends StatelessWidget {
   WorkoutCreator({Key? key}) : super(key: key);
 
   final _formKey = GlobalKey<FormState>();
+
+  void _showAlertDialog(BuildContext context) {
+    showCupertinoModalPopup<void>(
+      context: context,
+      builder: (BuildContext context) => CupertinoAlertDialog(
+        title: const Text('Disgard changes?'),
+        content: const Text('Leave without saving changes?'),
+        actions: <CupertinoDialogAction>[
+          CupertinoDialogAction(
+            /// This parameter indicates this action is the default,
+            /// and turns the action's text to bold text.
+            isDefaultAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('No'),
+          ),
+          CupertinoDialogAction(
+            /// This parameter indicates the action would perform
+            /// a destructive action such as deletion, and turns
+            /// the action's text color to red.
+            isDestructiveAction: true,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text('Yes'),
+          ),
+        ],
+      ),
+    );
+  }
 
 
 
@@ -126,7 +169,8 @@ class WorkoutCreator extends StatelessWidget {
                      child: const Text('Create'),
                    ),
                    //ten przycisk dać obok zamiast pod
-                    OutlinedButton(onPressed: () {}, child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),)),
+                   //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
+                    OutlinedButton(onPressed: () => _showAlertDialog(context), child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),)),
                  ],
              ),
 
@@ -233,16 +277,47 @@ class workoutcreator_exercisesabs extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
+              CheckboxListTile(
+                  isThreeLine: true,
+                  title: const Text('ABS training 1'),
+                  subtitle: Text('niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem'),
+                  onChanged: (val) {},
+                  value: false,
+              ),
+              CheckboxListTile(
+                title: const Text('Animate Slowly'),
+                onChanged: (val) {},
+                value: false,
+              ),
+              CheckboxListTile(
+                title: const Text('Animate Slowly'),
+                onChanged: (val) {},
+                value: false,
+              ),
+              CheckboxListTile(
+                title: const Text('Animate Slowly'),
+                onChanged: (val) {},
+                value: false,
+              ),
+              CheckboxListTile(
+                title: const Text('Animate Slowly'),
+                onChanged: (val) {},
+                value: false,
+              ),
               Container(
-                height: 50,
                 color: Colors.amber[500],
-                child: const Center(child: Text('Entry E')),
+                child: const Center(child: Text('Abs workout, pod tym text, obok obrazek, checkbox oraz na dole przycisk DODAJ MNIEEE (ale bardziej poważny ten przycisk chyba, że rebrand na body booster/optimizer/formatter KIDS)')),
               ),
               Container(
                 height: 50,
                 color: Colors.amber[100],
                 child: const Center(child: Text('Entry C')),
               ),
+              ElevatedButton(onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => WorkoutCreator()));
+              }, child: Icon(Icons.add))
             ],
           )
       ),
@@ -250,7 +325,19 @@ class workoutcreator_exercisesabs extends StatelessWidget {
   }
 }
 
+/*
+CheckboxListTile(
+      title: const Text('Animate Slowly'),
+      value: timeDilation != 1.0,
+      onChanged: (bool? value) {
+        setState(() {
+          timeDilation = value! ? 10.0 : 1.0;
+        });
+      },
+      secondary: const Icon(Icons.hourglass_empty),
+    );
 
+ */
 
 
 
