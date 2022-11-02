@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,19 +8,29 @@ class Workout extends StatefulWidget {
   State<Workout> createState() => _WorkoutState();
 }
 
+class Parts {
+  final String title;
+  final String image;
+
+  Parts({
+    required this.title, required this.image,
+  });
+}
+
 class _WorkoutState extends State<Workout> {
 
-  final List partitions = [
-    "abs",
-    "biceps",
-    "triceps",
-    "chest",
-    "legs",
-    "back"
+  final List<Parts> partitions = [
+    Parts(title: "ABS", image: "assets/images/abs.png"),
+    Parts(title: "BICEPS", image: "assets/images/chest.png"),
+    Parts(title: "TRICEPS", image: "name2"),
+    Parts(title: "CHEST", image: "name2"),
+    Parts(title: "BACK", image: "name2"),
+    Parts(title: "LEGS", image: "name2"),
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
         width: double.infinity,
@@ -75,145 +84,42 @@ class _WorkoutState extends State<Workout> {
                 ),
               ],
             ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 1 cliked!");
-                      }
-                    },
-                  child: SizedBox(
-                      width: 190,
-                      height: 200,
-                              child: Container(
-                                height: 190,
-                                width: 200,
-                                decoration: BoxDecoration(
-                                    color: Colors.deepPurple,
-                                    borderRadius: BorderRadius.circular(50)
-                                ),
-                              ),
+            SizedBox(
+                width: MediaQuery.of(context).size.width,
+                height: MediaQuery.of(context).size.height-284,
+              child: GridView.builder(
+                shrinkWrap: true,
+                reverse: true,
+                scrollDirection: Axis.vertical,
+                itemCount: partitions.length,
+                itemBuilder: (BuildContext context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GridTile(
+                          child: Container(
+                            height: 200,
+                            width: 195,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(50),
                             ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 2 cliked!");
-                      }
-                    },
-                    child: SizedBox(
-                      width: 190,
-                      height: 200,
-                        child: Container(
-                          height: 190,
-                          width: 200,
-                          decoration: BoxDecoration(
-                              color: Colors.deepPurple,
-                              borderRadius: BorderRadius.circular(50)
+                            child: GridTile(
+                              header: SizedBox(
+                                height: 200,
+                                width: 195,
+                                  child: Image.asset(partitions[index].image),
+                              ),
+                              child: Text(partitions[index].title),
+                            ),
                           ),
                         ),
-                      ),
+                      ],
                     ),
-      ],
-    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 1 cliked!");
-                      }
-                    },
-                    child: SizedBox(
-                      width: 190,
-                      height: 200,
-                      child: Container(
-                        height: 190,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(50)
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 2 cliked!");
-                      }
-                    },
-                    child: SizedBox(
-                      width: 190,
-                      height: 200,
-                      child: Container(
-                        height: 190,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(50)
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 1 cliked!");
-                      }
-                    },
-                    child: SizedBox(
-                      width: 190,
-                      height: 200,
-                      child: Container(
-                        height: 190,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(50)
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: (){
-                      if (kDebugMode) {
-                        print("Container 2 cliked!");
-                      }
-                    },
-                    child: SizedBox(
-                      width: 190,
-                      height: 200,
-                      child: Container(
-                        height: 190,
-                        width: 200,
-                        decoration: BoxDecoration(
-                            color: Colors.deepPurple,
-                            borderRadius: BorderRadius.circular(50)
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+                  );
+                }, gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220),
               ),
             ),
           ],
