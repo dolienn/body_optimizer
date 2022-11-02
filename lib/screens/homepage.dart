@@ -1,49 +1,23 @@
 import 'package:flutter/material.dart';
 
 
-
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
+class HomePage extends StatefulWidget {
+  const HomePage({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<HomePage> createState() => _HomePage();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class _HomePage extends State<HomePage> {
 
 
   // Index variable
-  int _selectedIndex = 0;
   // Screen name variable
   String screen = "Home";
   // Number of exercises variable
   int exercises = 0;
   // Custom workout variable
   String customWorkout = "Example workout";
-  // Changing app state
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-    screenChanging(index);
-  }
-  // Word when you change your screen
-  void screenChanging(int index) {
-    switch(_selectedIndex){
-      case 1:
-        screen = "Statistics";
-        break;
-      case 2:
-        screen = "Workout";
-        break;
-      case 3:
-        screen = "Settings";
-        break;
-      default:
-        screen = "Home";
-        break;
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -135,9 +109,13 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               children: [
 
                 SizedBox(
-                  width: 180,
+                  width: 150,
                   child: Text(
                     "$exercises exercised left",
+                    style: const TextStyle(
+                      fontSize: 16,
+                      color: Colors.black,
+                    ),
                   ),
                 ),
               ],
@@ -179,46 +157,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
             ),
           ],
         ),
-      ),
-      // ------------ BOTTOM NAVIGATION BAR -------------- //
-      bottomNavigationBar: BottomNavigationBar(
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: _selectedIndex == 0 ? Colors.grey : const Color(0xFFEFEFEF),
-            ),
-            label: screen,
-            backgroundColor: const Color(0xff5650DE),
-
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.analytics_outlined,
-              color: _selectedIndex == 1 ? Colors.grey : const Color(0xFFEFEFEF),
-            ),
-            label: screen,
-            backgroundColor: const Color(0xff5650DE),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.wheelchair_pickup_outlined,
-              color: _selectedIndex == 2 ? Colors.grey : const Color(0xFFEFEFEF),
-            ),
-            label: screen,
-            backgroundColor: const Color(0xff5650DE),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings,
-              color: _selectedIndex == 3 ? Colors.grey : const Color(0xFFEFEFEF),
-            ),
-            label: screen,
-            backgroundColor: const Color(0xff5650DE),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
       ),
     );
   }
