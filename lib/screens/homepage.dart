@@ -25,7 +25,7 @@ class _HomePage extends State<HomePage> {
   );
 
   // DATE VARIABLES FOR CALENDAR //
-  DateTime focusedDay = DateTime.now();
+  DateTime _focusedDay = DateTime.now();
   DateTime _selectedDay = DateTime.now();
   var _calendarFormat = CalendarFormat.month;
 
@@ -48,7 +48,7 @@ class _HomePage extends State<HomePage> {
           onDaySelected: (selectedDay, focusedDay) {
             setState(() {
               _selectedDay = selectedDay;
-              focusedDay = focusedDay;
+              _focusedDay = focusedDay;
             });
           },
           calendarFormat: _calendarFormat,
@@ -58,7 +58,7 @@ class _HomePage extends State<HomePage> {
             });
           },
           onPageChanged: (focusedDay) {
-            focusedDay = focusedDay;
+            _focusedDay = focusedDay;
           },
         ),
 
