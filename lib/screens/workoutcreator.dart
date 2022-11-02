@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutCreator extends StatelessWidget {
@@ -6,17 +5,41 @@ class WorkoutCreator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Row(
-        children: [
-          Column(children: [Text('testowanie')],),
-          Column(children: [Text('testowanie')],),
-          Column(children: [Text('testowanie')],),
-          Column(children: [Text('testowanie')],),
-        ],
+    return MaterialApp(
+      title: '_title',
+      home: Scaffold(
+        appBar: AppBar(title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900),
+        body:  Container(
+
+          child: ListView(
+            scrollDirection: Axis.vertical,
+            children: <Widget>[
+              //tutaj będą dodawane ćwiczenia od klienta
+              Container(
+                width: 150.0,
+                color: Colors.black12,
+                child: Stack(
+                  children: <Widget>[
+                    ListTile(
+                      title: Text('Home'),
+                      trailing: Icon(Icons.notes),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+
+        ),
+
+
     )
     );
   }
 }
-//super komentarz 42012 ygubchsyjtdjvbhncjjsuehgj
+
+
+
+
+
 
