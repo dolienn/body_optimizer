@@ -1,3 +1,9 @@
+/*
+Do zrobienia:
+-Zmiana Danych Urzytkownika
+-Zmiana Celu i Odpoczynku
+-Wczytywanie wszystkich danych z pliku i updateowanie ich
+*/
 import 'package:flutter/material.dart';
 
 class SettingsPage extends StatelessWidget {
