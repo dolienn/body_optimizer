@@ -12,8 +12,10 @@ class _WorkoutCreator extends State<WorkoutCreator> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Workout creator"),
+      ),
     );
   }
 }

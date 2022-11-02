@@ -11,8 +11,10 @@ class Workout extends StatefulWidget {
 class _Workout extends State<Workout> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text("Workout"),
+      ),
     );
   }
 }

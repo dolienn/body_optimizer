@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -9,155 +10,92 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
+  // TEXT STYLE DEFINITION //
+  static const TextStyle headerText = TextStyle(
+      fontFamily: 'Montserrat',
+      color: Colors.black,
+      fontSize: 40,
+      fontWeight: FontWeight.w600
+  );
+  static const TextStyle normalText = TextStyle(
+      fontFamily: 'Montserrat',
+      color: Colors.black,
+      fontSize: 24,
+      fontStyle: FontStyle.italic
+  );
 
+  // DATE VARIABLES FOR CALENDAR //
+  DateTime focusedDay = DateTime.now();
+  DateTime _selectedDay = DateTime.now();
+  var _calendarFormat = CalendarFormat.month;
 
-  // Index variable
-  // Screen name variable
-  String screen = "Home";
-  // Number of exercises variable
-  int exercises = 0;
-  // Custom workout variable
-  String customWorkout = "Example workout";
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Home"),
-      ),
-      // ------------ MAIN PAGE CONTENT ------------ //
-      body: Container(
-        margin: const EdgeInsets.fromLTRB(10.0,10.0,10.0,5.0),
-        padding: const EdgeInsets.symmetric(vertical: 5.0,horizontal: 10.0),
-        child: Column(
-          children: [
-            Row(
-              children: const [
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    "This week",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
+      appBar: AppBar(title: const Text("Home")),
+      body: Column(children: [
+        Row(children: const [
+          Text("This week", style: headerText),
+        ]),
+        TableCalendar(
+          firstDay: DateTime.utc(2010, 10, 16),
+          lastDay: DateTime.utc(2030, 3, 14),
+          focusedDay: DateTime.now(),
+          selectedDayPredicate: (day) {
+            return isSameDay(_selectedDay, day);
+          },
+          onDaySelected: (selectedDay, focusedDay) {
+            setState(() {
+              _selectedDay = selectedDay;
+              focusedDay = focusedDay;
+            });
+          },
+          calendarFormat: _calendarFormat,
+          onFormatChanged: (format) {
+            setState(() {
+              _calendarFormat = format;
+            });
+          },
+          onPageChanged: (focusedDay) {
+            focusedDay = focusedDay;
+          },
+        ),
+
+        Row(children: const [
+          Text("Today", style: headerText),
+        ]),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            SizedBox(
+              width: 150, height: 20,
+              child: ColoredBox(
+                color: Color(0xff5650DE),
+              ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(25.0),
+            SizedBox(
+              width: 150, height: 20,
+              child: ColoredBox(
                 color: Colors.grey,
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    width: 300,
-                    height: 100,
-                    child: Text(
-                      "Calendar placeholder",
-                      style: TextStyle(
-                        fontSize: 30,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              children: const [
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    "Today",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: const [
-                  SizedBox(
-                    width: 150,
-                    height: 20,
-                    child: ColoredBox(
-                      color: Color(0xff5650DE),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 180,
-                    height: 20,
-                    child: ColoredBox(
-                      color: Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    "$exercises exercised left",
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Row(
-              children: const [
-                SizedBox(
-                  width: 150,
-                  child: Text(
-                    "Tomorrow",
-                    style: TextStyle(
-                      fontSize: 30,
-                      color: Colors.black,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.symmetric(vertical: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 200,
-                    child: Text(
-                      customWorkout,
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.w500,
-                        fontStyle: FontStyle.italic,
-                        //FontWeight.bold,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            )
           ],
         ),
-      ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [
+            Text("0 exercises left", style: normalText),
+          ],
+        ),
+        Row(children: const [
+          Text("Tomorrow", style: headerText),
+        ]),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: const [Text("Custom Workout", style: normalText)],
+        ),
+      ]),
     );
   }
 }
