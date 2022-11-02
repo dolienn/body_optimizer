@@ -316,6 +316,7 @@ class workoutcreator_exercisesabs extends StatelessWidget {
               ElevatedButton(onPressed: () {
                 Navigator.push(
                     context,
+                    //przycisk nie działa bo nav bar znika oraz można cofnąć się do poprzedniego ekranu!1!11!! cringe
                     MaterialPageRoute(builder: (context) => WorkoutCreator()));
               }, child: Icon(Icons.add))
             ],
