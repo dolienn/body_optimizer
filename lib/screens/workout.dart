@@ -64,6 +64,7 @@ class _WorkoutState extends State<Workout> {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
                   padding: const EdgeInsets.all(25.0),
@@ -74,45 +75,71 @@ class _WorkoutState extends State<Workout> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                InkWell(
-                  onTap: (){
-                    if (kDebugMode) {
-                      print("Container 1 cliked!");
-                    }
-                  },
-                child: SizedBox(
-                    width: 200,
-                    height: 226,
-                          child: Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: Container(
-                              height: 226,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                  color: Colors.deepPurple,
-                                  borderRadius: BorderRadius.circular(50)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 1 cliked!");
+                      }
+                    },
+                  child: SizedBox(
+                      width: 190,
+                      height: 200,
+                              child: Container(
+                                height: 190,
+                                width: 200,
+                                decoration: BoxDecoration(
+                                    color: Colors.deepPurple,
+                                    borderRadius: BorderRadius.circular(50)
+                                ),
                               ),
                             ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 2 cliked!");
+                      }
+                    },
+                    child: SizedBox(
+                      width: 190,
+                      height: 200,
+                        child: Container(
+                          height: 190,
+                          width: 200,
+                          decoration: BoxDecoration(
+                              color: Colors.deepPurple,
+                              borderRadius: BorderRadius.circular(50)
                           ),
-                ),
+                        ),
+                      ),
+                    ),
+      ],
+    ),
             ),
-                InkWell(
-                  onTap: (){
-                    if (kDebugMode) {
-                      print("Container 2 cliked!");
-                    }
-                  },
-                  child: SizedBox(
-                    width: 200,
-                    height: 226,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 10),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 1 cliked!");
+                      }
+                    },
+                    child: SizedBox(
+                      width: 190,
+                      height: 200,
                       child: Container(
-                        height: 226,
-                        width: 195,
+                        height: 190,
+                        width: 200,
                         decoration: BoxDecoration(
                             color: Colors.deepPurple,
                             borderRadius: BorderRadius.circular(50)
@@ -120,9 +147,75 @@ class _WorkoutState extends State<Workout> {
                       ),
                     ),
                   ),
-                ),
-      ],
-    ),
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 2 cliked!");
+                      }
+                    },
+                    child: SizedBox(
+                      width: 190,
+                      height: 200,
+                      child: Container(
+                        height: 190,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 1 cliked!");
+                      }
+                    },
+                    child: SizedBox(
+                      width: 190,
+                      height: 200,
+                      child: Container(
+                        height: 190,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      if (kDebugMode) {
+                        print("Container 2 cliked!");
+                      }
+                    },
+                    child: SizedBox(
+                      width: 190,
+                      height: 200,
+                      child: Container(
+                        height: 190,
+                        width: 200,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),
