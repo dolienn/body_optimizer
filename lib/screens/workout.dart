@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -62,38 +63,66 @@ class _WorkoutState extends State<Workout> {
                 ),
               ],
             ),
-            Column(
+            Row(
               children: [
                 Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
-                    "Select body partitions",
+                    "Select body part:",
                     style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: Colors.white70),
                   ),
                 ),
-                Container(
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                InkWell(
+                  onTap: (){
+                    if (kDebugMode) {
+                      print("Container 1 cliked!");
+                    }
+                  },
+                child: SizedBox(
+                    width: 200,
                     height: 226,
-                    width: MediaQuery.of(context).size.width,
-                    child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: partitions.length,
-                        itemBuilder: (BuildContext context, index){
-                          return Padding(
+                          child: Padding(
                             padding: const EdgeInsets.only(right: 10),
                             child: Container(
                               height: 226,
-                              width: 195,
+                              width: 150,
                               decoration: BoxDecoration(
                                   color: Colors.deepPurple,
                                   borderRadius: BorderRadius.circular(50)
                               ),
                             ),
-                          );
-                        }
-                    )
-                )
-              ],
+                          ),
+                ),
             ),
+                InkWell(
+                  onTap: (){
+                    if (kDebugMode) {
+                      print("Container 2 cliked!");
+                    }
+                  },
+                  child: SizedBox(
+                    width: 200,
+                    height: 226,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Container(
+                        height: 226,
+                        width: 195,
+                        decoration: BoxDecoration(
+                            color: Colors.deepPurple,
+                            borderRadius: BorderRadius.circular(50)
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+      ],
+    ),
           ],
         ),
       ),
