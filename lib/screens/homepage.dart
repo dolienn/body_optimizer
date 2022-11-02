@@ -58,7 +58,6 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
         child: Column(
           children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: const [
                 SizedBox(
                   width: 150,
@@ -73,6 +72,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ],
             ),
             Container(
+              margin: const EdgeInsets.symmetric(vertical: 10.0),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25.0),
                 color: Colors.grey,
@@ -108,24 +108,27 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                SizedBox(
-                  width: 150,
-                  height: 20,
-                  child: ColoredBox(
-                    color: Color(0xff5650DE),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const [
+                  SizedBox(
+                    width: 150,
+                    height: 20,
+                    child: ColoredBox(
+                      color: Color(0xff5650DE),
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: 180,
-                  height: 20,
-                  child: ColoredBox(
-                    color: Colors.grey,
+                  SizedBox(
+                    width: 180,
+                    height: 20,
+                    child: ColoredBox(
+                      color: Colors.grey,
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -153,23 +156,26 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  width: 350,
-                  child: Text(
-                    customWorkout,
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.italic,
-                      //FontWeight.bold,
-                      color: Colors.black,
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 10.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 200,
+                    child: Text(
+                      customWorkout,
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w500,
+                        fontStyle: FontStyle.italic,
+                        //FontWeight.bold,
+                        color: Colors.black,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ],
         ),
@@ -196,7 +202,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-                Icons.wheelchair_pickup_outlined,
+              Icons.wheelchair_pickup_outlined,
               color: _selectedIndex == 2 ? Colors.grey : const Color(0xFFEFEFEF),
             ),
             label: screen,
