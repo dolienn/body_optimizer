@@ -10,7 +10,9 @@ wybieranie cwiczen i wstawiania
 
 trudne to bardzo :(
  */
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class zmienne{
   var iloscCwiczen = 0; //liczba jest dodawana kiedy uzytkownik dodaje cwiczenia
@@ -19,6 +21,53 @@ class zmienne{
 
 //moze tworzyc klase o danych cwicenia ??? class cw nr 1 za pomoca jakiejs pentli a nastepnie var tytul var opis var link do zdj
 
+//ta klasa tutaj nie wiem czy bedzie wogule uzywana ale jest bo tak :D
+class LinkedLabelCheckbox extends StatelessWidget {
+  const LinkedLabelCheckbox({
+    super.key,
+    required this.label,
+    required this.padding,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final String label;
+  final EdgeInsets padding;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: padding,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                text: label,
+                style: const TextStyle(
+                  color: Colors.blueAccent,
+                  decoration: TextDecoration.underline,
+                ),
+                recognizer: TapGestureRecognizer()
+                  ..onTap = () {
+                    debugPrint('Label has been tapped.');
+                  },
+              ),
+            ),
+          ),
+          Checkbox(
+            value: value,
+            onChanged: (bool? newValue) {
+              onChanged(newValue!);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
 class WorkoutCreator extends StatelessWidget {
   WorkoutCreator({Key? key}) : super(key: key);
 
@@ -31,7 +80,21 @@ class WorkoutCreator extends StatelessWidget {
     return MaterialApp(
       title: '_title',
       home: Scaffold(
-        appBar: AppBar(title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900),
+        appBar: AppBar(
+            title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+            actions: <Widget>[
+        IconButton(
+        icon: const Icon(Icons.add),
+        tooltip: 'Add exercise',
+        onPressed: () {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const workoutcreator_choosecategory()),
+          );
+        },
+      ),
+        ]),
+
         body: Column(
           children: [
             Form(
@@ -86,7 +149,9 @@ class WorkoutCreator extends StatelessWidget {
                   ],
                 ),
               ),
-            ],*/
+            ],
+            //jakiś button do dodawania do listy jeśli nie chcę w appbarze
+            */
           ),
           ],
           //tutaj przyciski dodaj cwiczenie, odrzuc/zapisz zmiany
@@ -98,7 +163,92 @@ class WorkoutCreator extends StatelessWidget {
     );
   }
 }
+class workoutcreator_choosecategory extends StatelessWidget {
+  const workoutcreator_choosecategory({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Select workout category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+      ),
+      body: Center(
+          child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              Container(
+                child: Text('tutaj była by zmodyfikowana strona dominika'),
+              ),
+              SizedBox(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => workoutcreator_exercisesabs())
+                    );},
+                  child: const Text('ABS exercises'),
+                ),
+              ),
+              SizedBox(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Gradient'),
+                ),
+              ),
+              SizedBox(
+                child: TextButton(
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.all(16.0),
+                    textStyle: const TextStyle(fontSize: 20),
+                  ),
+                  onPressed: () {},
+                  child: const Text('Gradient'),
+                ),
+              ),
+            ],
+          )
+        ),
+      );
+  }
+}
+
+class workoutcreator_exercisesabs extends StatelessWidget {
+  workoutcreator_exercisesabs({super.key});
+  bool _isSelected = false;
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Select abs workouts'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+      ),
+      body: Center(
+          child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              Container(
+                height: 50,
+                color: Colors.amber[500],
+                child: const Center(child: Text('Entry E')),
+              ),
+              Container(
+                height: 50,
+                color: Colors.amber[100],
+                child: const Center(child: Text('Entry C')),
+              ),
+            ],
+          )
+      ),
+    );
+  }
+}
 
 
 
