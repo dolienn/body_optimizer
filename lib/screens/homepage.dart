@@ -1,6 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:table_calendar/table_calendar.dart';
+import 'package:body_optimizer/screens/settings.dart';
+import 'package:body_optimizer/screens/workout.dart';
+import 'package:body_optimizer/screens/workoutcreator.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -33,7 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
   var _calendarFormat = CalendarFormat.week;
 
   // VARIABLES FROM OTHER SITES (for the time placeholder) //
-  // ignore: non_constant_identifier_names
   int numOfExercises = 0;
   String workoutName = "Custom workout 1";
 
@@ -56,7 +59,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding: const EdgeInsets.symmetric(vertical: 5.0),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [Text("Body optimizer", style: titleText)],
+                        children: const [
+                          Text("Body optimizer", style: titleText)
+                        ],
                       ),
                     ),
                     Padding(
@@ -85,8 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             _calendarFormat = format;
                           });
                         },
-                        onPageChanged: (focusedDay) {
-                        },
+                        onPageChanged: (focusedDay) {},
                       ),
                     ),
                     Padding(
@@ -98,14 +102,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
-                        // PROGRESS BAR ADD //
-                      ),
+                          // PROGRESS BAR ADD //
+                          ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: [Text("$numOfExercises exercises left", style: normalText)],
+                        children: [
+                          Text("$numOfExercises exercises left",
+                              style: normalText)
+                        ],
                       ),
                     ),
                     Padding(
@@ -124,6 +131,50 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
+              /* ------ NavBar (Nie działa) ----- /
+              PersistentTabView(
+                context,
+                screens: const [
+                  MyHomePage(),
+                  Workout(),
+                  WorkoutCreator(),
+                  Settings()
+                ],
+                items: [
+                  PersistentBottomNavBarItem(
+                    icon: const Icon(CupertinoIcons.home),
+                    title: "Home",
+                    activeColorPrimary: Colors.purple,
+                    inactiveColorPrimary: CupertinoColors.systemGrey,
+                  ),
+                  PersistentBottomNavBarItem(
+                    icon: const Icon(Icons.note_add_outlined),
+                    title: "Workout Creator",
+                    activeColorPrimary: Colors.purple,
+                    inactiveColorPrimary: CupertinoColors.systemGrey,
+                  ),
+                  PersistentBottomNavBarItem(
+                    icon: const Icon(Icons.fitness_center_outlined),
+                    title: "Workout",
+                    activeColorPrimary: Colors.purple,
+                    inactiveColorPrimary: CupertinoColors.systemGrey,
+                  ),
+                  PersistentBottomNavBarItem(
+                    icon: const Icon(CupertinoIcons.settings),
+                    title: "Settings",
+                    activeColorPrimary: Colors.purple,
+                    inactiveColorPrimary: CupertinoColors.systemGrey,
+                  ),
+                ],
+                backgroundColor: Colors.white,
+                resizeToAvoidBottomInset: true,
+                decoration: NavBarDecoration(
+                  borderRadius: BorderRadius.circular(10.0),
+                  colorBehindNavBar: Colors.white,
+                ),
+                navBarStyle: NavBarStyle.style10,
+              ),
+               */
             ],
           ),
         ),
@@ -131,3 +182,4 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
