@@ -1,12 +1,8 @@
 /*
 do zrobienia:
-nazwa cwiczenia
 możliwość dodawania ćwiczeń
 usuwanie ćwiczeń
-wejscie w drugi ekran w ktorym sa kategorie cwiczen
-nastepnie lista cwiczen
 wybieranie cwiczen i wstawiania
-
 
 trudne to bardzo :(
 
@@ -25,11 +21,6 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
-
-/*class zmienne{
-  var iloscCwiczen = 0; //liczba jest dodawana kiedy uzytkownik dodaje cwiczenia
-  // jest uzywana do tworzenia cwiczen w liscie
-}*/
 
 //moze tworzyc klase o danych cwicenia ??? class cw nr 1 za pomoca jakiejs pentli a nastepnie var tytul var opis var link do zdj
 //ta klasa tutaj nie wiem czy bedzie wogule uzywana ale jest bo tak :D
@@ -121,14 +112,11 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
     );
   }
 
-
-
-  @override
+/*
+@override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: '_title',
-      home: Scaffold(
-        appBar: AppBar(
+    return Scaffold(
+      appBar: AppBar(
             title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
             actions: <Widget>[
         IconButton(
@@ -137,16 +125,16 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         onPressed: () {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const workoutcreator_choosecategory()),
+          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
           );
         },
       ),
-        ]),
-
-        body: Column(
-          children: [
-            Text('$Exercises'),/*
-            Form(
+      body: Center(
+          child: ListView(
+            padding: const EdgeInsets.all(8),
+            children: <Widget>[
+              Text('$Exercises'),
+              Form(
                key: _formKey,
                child: Column(
                  children: [
@@ -202,19 +190,122 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
             ],
             //jakiś button do dodawania do listy jeśli nie chcę w appbarze
             */
-          ),*/
-          ],
-          //tutaj przyciski dodaj cwiczenie, odrzuc/zapisz zmiany
-          //nastepnie strony do dodawania cwiczen
+          ),
+              CheckboxListTile(
+                  isThreeLine: true,
+                  title: Text('$AbsTitleOne'),
+                  subtitle: Text('$AbsDescriptionOne'),
+                  value: AbsTriggerOne,
+                  onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerOne = value!;
+                  });
+                },
+              ),
+           )
         ),
+      );
+  }
+}
+ */
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '_title',
+      home: Scaffold(
+        appBar: AppBar(
+            title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+            actions: <Widget>[
+        IconButton(
+        icon: const Icon(Icons.add),
+        tooltip: 'Add exercise',
+        onPressed: () {
+          Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
+          );
+        },
+      ),
+        ]),
+
+        body: Center(
+          child: ListView(
+          children: <Widget>[
+            Text('$Exercises'),
+            Form(
+               key: _formKey,
+               child: Column(
+                 children: [
+                   TextFormField(
+                     //jakoś text w tym wyśrodkować
+                     decoration: const InputDecoration(
+                     //icon: Icon(Icons.person),
+                     hintText: 'Custom workout name'
+                   ),
+                     onSaved: (String? value) {
+                       // This optional block of code can be used to run
+                       // code when the user saves the form.
+                     },
+                     //tutaj dać, że nazwa workoutu nie może być pusta (oraz może, że nie może być dłuższa niż x znaków
+                     validator: (String? value) {
+                       return (value != null && value.contains('@')) ? 'Workout name must not be empty!' : null;
+                     },
+                   ),
+                   //ten przycisk dać na sam dół do zapisywania wszystkiego na tej stronie
 
 
-    )
+                  ],
+                ),
+          ),
+            ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              children: <Widget>[
+                //tutaj będą dodawane ćwiczenia od klienta
+                //dać jakieś id aby móc dodawać tutaj container list tile?
+                Container(
+                  color: Colors.black12,
+                  child: Stack(
+                    children: const <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.recycling), //znalesc kosz
+                        title: Text('Exercise'),
+                        trailing: Icon(Icons.notes),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+              //jakiś button do dodawania do listy jeśli nie chcę w appbarze
+
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+              ),
+              //onPressed: zapisz cały workout
+              onPressed: () {},
+              child: const Text('Create'),
+            ),
+            //ten przycisk dać obok zamiast pod
+            //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
+            OutlinedButton(
+                onPressed: () => _showAlertDialog(context),
+                child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
+                )
+            ),
+
+
+            ]
+          )
+        )
+      )
     );
   }
 }
-class workoutcreator_choosecategory extends StatelessWidget {
-  const workoutcreator_choosecategory({super.key});
+class WorkoutCreatorChooseCategory extends StatelessWidget {
+  const WorkoutCreatorChooseCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -278,13 +369,13 @@ class WorkoutCreatorExercisesAbs extends StatefulWidget {
 }
 class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>{
   //sprawdzanie czy checkboxy są zaznaczone
-  //może zrobić jakiś plik lub klasę ExerciseData? może w app data
   bool AbsTriggerOne = false;
   bool AbsTriggerTwo = false;
   bool AbsTriggerThree = false;
   bool AbsTriggerFour = false;
   bool AbsTriggerFive = false;
   //Nazwy ćwiczeń jako zmienne aby koledzy mogli wykożystywać je w innych częściach programu (pewnie trzeba będzię gdzieś indziej dać te zmienna)
+  //może zrobić jakiś plik lub klasę ExerciseData? może w app data
   String AbsTitleOne = "Crunches";
   String AbsTitleTwo = "Plank";
   String AbsTitleThree = "Crunches";
@@ -386,7 +477,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
               }, child: const Icon(Icons.add)),
-              Text('usunac pozniej: $_WorkoutCreatorState.Exercises')
+              Text('usunac pozniej: ${_WorkoutCreatorState.Exercises}')
             ],
           )
       ),
@@ -394,32 +485,3 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
   }
 
 }
-
-/*
-CheckboxListTile(
-      title: const Text('Animate Slowly'),
-      value: timeDilation != 1.0,
-      onChanged: (bool? value) {
-        setState(() {
-          timeDilation = value! ? 10.0 : 1.0;
-        });
-      },
-      secondary: const Icon(Icons.hourglass_empty),
-    );
-
-// Widget class
-class MyWidget extends StatefulWidget {
-  const MyWidget({super.key});
-
-  @override
-  State<MyWidget> createState() => _MyWidgetState();
-}
-
-// State class
-class _MyWidgetState extends State<MyWidget> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
- */
