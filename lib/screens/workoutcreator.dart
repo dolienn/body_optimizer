@@ -24,6 +24,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 class zmienne{
   var iloscCwiczen = 0; //liczba jest dodawana kiedy uzytkownik dodaje cwiczenia
@@ -264,9 +265,18 @@ class workoutcreator_choosecategory extends StatelessWidget {
   }
 }
 
-class workoutcreator_exercisesabs extends StatelessWidget {
+class workoutcreator_exercisesabs extends StatefulWidget {
   workoutcreator_exercisesabs({super.key});
-  bool _isSelected = false;
+
+  @override
+  State<workoutcreator_exercisesabs> createState() => _workoutcreator_exercisesabsState();
+}
+class _workoutcreator_exercisesabsState extends State<workoutcreator_exercisesabs>{
+  bool AbsTriggerOne = false;
+  bool AbsTriggerTwo = false;
+  bool AbsTriggerThree = false;
+  bool AbsTriggerFour = false;
+  bool AbsTriggerFive = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -279,51 +289,81 @@ class workoutcreator_exercisesabs extends StatelessWidget {
             children: <Widget>[
               CheckboxListTile(
                   isThreeLine: true,
-                  title: const Text('ABS training 1'),
-                  subtitle: Text('niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem niewiem'),
-                  onChanged: (val) {},
-                  value: false,
+                  title: const Text('Crunches'),
+                  subtitle: const Text('Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles'),
+                  value: AbsTriggerOne,
+                  onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerOne = value!;
+                  });
+                },
+              ),
+              CheckboxListTile(
+                title: const Text('Plank'),
+                subtitle: const Text('Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.'),
+                value: AbsTriggerTwo,
+                onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerTwo = value!;
+                  });
+                },
               ),
               CheckboxListTile(
                 title: const Text('Animate Slowly'),
-                onChanged: (val) {},
-                value: false,
+                value: AbsTriggerThree,
+                onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerThree = value!;
+                  });
+                },
               ),
               CheckboxListTile(
                 title: const Text('Animate Slowly'),
-                onChanged: (val) {},
-                value: false,
+                value: AbsTriggerFour,
+                onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerFour = value!;
+                  });
+                },
               ),
               CheckboxListTile(
                 title: const Text('Animate Slowly'),
-                onChanged: (val) {},
-                value: false,
+                value: AbsTriggerFive,
+                onChanged: (bool? value) {
+                  setState(() {
+                    AbsTriggerFive = value!;
+                  });
+                },
               ),
-              CheckboxListTile(
-                title: const Text('Animate Slowly'),
-                onChanged: (val) {},
-                value: false,
-              ),
-              Container(
-                color: Colors.amber[500],
-                child: const Center(child: Text('Abs workout, pod tym text, obok obrazek, checkbox oraz na dole przycisk DODAJ MNIEEE (ale bardziej poważny ten przycisk chyba, że rebrand na body booster/optimizer/formatter KIDS)')),
-              ),
-              Container(
+              /*Container(
                 height: 50,
                 color: Colors.amber[100],
                 child: const Center(child: Text('Entry C')),
-              ),
-              ElevatedButton(onPressed: () {
-                Navigator.push(
-                    context,
-                    //przycisk nie działa bo nav bar znika oraz można cofnąć się do poprzedniego ekranu!1!11!! cringe
-                    MaterialPageRoute(builder: (context) => WorkoutCreator()));
-              }, child: Icon(Icons.add))
+              ),*/
+              ElevatedButton(
+                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),),
+                  onPressed: () {
+                    final snackBar = SnackBar(
+                      content: const Text('Added exercises to the workout!'),
+                      action: SnackBarAction(
+                      label: '',
+                      onPressed: () {
+                        // Some code to undo the change.
+                      },
+                      ),
+                    );
+
+                    // Find the ScaffoldMessenger in the widget tree
+                    // and use it to show a SnackBar.
+                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+              }, child: const Icon(Icons.add))
             ],
           )
       ),
     );
   }
+
 }
 
 /*
@@ -343,3 +383,21 @@ CheckboxListTile(
 
 
 //a
+
+/*
+// Widget class
+class MyWidget extends StatefulWidget {
+  const MyWidget({super.key});
+
+  @override
+  State<MyWidget> createState() => _MyWidgetState();
+}
+
+// State class
+class _MyWidgetState extends State<MyWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+ */
