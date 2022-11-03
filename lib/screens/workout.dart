@@ -85,7 +85,7 @@ class _WorkoutState extends State<Workout> {
                 Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
-                    "Choose body part:",
+                    "Choose body part",
                     style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
                         0xFF232323)),
                   ),
@@ -136,7 +136,7 @@ class _WorkoutState extends State<Workout> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 140),
-                                  child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                                  child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                                 ),
                               ),
                                 ),
