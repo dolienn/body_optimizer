@@ -57,7 +57,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
     SizedBox(
       height: 90,
       child:Row(
-        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.all(7.5),
@@ -66,70 +66,68 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               child: Image.network("https://i1.sndcdn.com/artworks-DfDLRYUqkm9IDWcy-AYXT0w-t500x500.jpg",),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(10),
-            child: Text("Nickname",
-                style: TextStyle(
-                  fontSize: 14,
-                  color: Colors.black,
-                  letterSpacing: 1,
-                )
-            ),
-          )
         ],
       ),
     ),
-            const Padding(
-              padding: EdgeInsets.fromLTRB(15,25,0,15),
-              child: Text(
-                'Sex: Male',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  const Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text("Nickname",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          letterSpacing: 1,
+                        )
+                    ),
+                  )
+                ],
               ),
+            const Padding(
+              padding: EdgeInsets.fromLTRB(15,0,15,10),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Your sex',
+                  border: OutlineInputBorder()
+                ),
+              )
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(15,0,0,15),
-              child: Text(
-                'Age: 32',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
+              padding: EdgeInsets.fromLTRB(15,0,15,10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Your Age',
+                      border: OutlineInputBorder()
+                  ),
+                )
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(15,0,0,15),
-              child: Text(
-                'Weight: 95kg',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
+              padding: EdgeInsets.fromLTRB(15,0,15,10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Your Weight',
+                      border: OutlineInputBorder()
+                  ),
+                )
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(15,0,0,15),
-              child: Text(
-                'Height: 210cm',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-              ),
+              padding: EdgeInsets.fromLTRB(15,0,15,10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Your Height',
+                      border: OutlineInputBorder()
+                  ),
+                )
             ),
             Container(
-              height: 60,
+              height: 50,
               margin: const EdgeInsets.fromLTRB(125, 5, 125, 25),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: const BorderRadius.all(
                     Radius.circular(10),
                   ),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      color: Colors.purple.withOpacity(.3),
-                      offset: const Offset(1,1),
-                    )
-                  ]
               ),
               child: TextButton(
                 onPressed: () {buildAlert();},
@@ -141,7 +139,71 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   ),
                 ),
                 child: const Text(
-                  'Edit',
+                  'Save',
+                  style: TextStyle(
+                      fontSize: 18,
+                      letterSpacing: 1
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 90,
+              child:Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text("Preferences",
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.black,
+                          letterSpacing: 1,
+                        )
+                    ),
+                  )
+                ],
+              ),
+            ),
+            const Padding(
+                padding: EdgeInsets.fromLTRB(15,0,15,10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Your Rest Time',
+                      border: OutlineInputBorder()
+                  ),
+                )
+            ),
+            const Padding(
+                padding: EdgeInsets.fromLTRB(15,0,15,10),
+                child: TextField(
+                  decoration: InputDecoration(
+                      hintText: 'Your Goal',
+                      border: OutlineInputBorder()
+                  ),
+                )
+            ),
+            Container(
+              height: 50,
+              margin: const EdgeInsets.fromLTRB(125, 10, 125, 25),
+              decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(10),
+                  ),
+              ),
+              child: TextButton(
+                onPressed: () {buildAlert();},
+                style: TextButton.styleFrom(
+                  foregroundColor: Colors.blue,
+                  side: const BorderSide(
+                    width: 1.0,
+                    color: Colors.blue,
+                  ),
+                ),
+                child: const Text(
+                  'Save',
                   style: TextStyle(
                       fontSize: 18,
                       letterSpacing: 1
@@ -157,15 +219,15 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   Padding(
                     padding: EdgeInsets.fromLTRB(25,0,20,0),
                     child: Icon(
-                      Icons.settings_sharp,
+                      Icons.info,
                       size: 40,
                     ),
                   ),
                   Padding(
                     padding: EdgeInsets.all(10),
-                    child: Text("Preferences",
+                    child: Text("About Us",
                         style: TextStyle(
-                          fontSize: 14,
+                          fontSize: 22,
                           color: Colors.black,
                           letterSpacing: 1,
                         )
@@ -175,73 +237,23 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ),
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(15,25,0,15),
+              padding: EdgeInsets.fromLTRB(15,0,0,15),
               child: Text(
-                'Rest Time: 2min',
+                'App Made By:',
                 style: TextStyle(
-                  fontSize: 16,
+                  fontSize: 20,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
             ),
             const Padding(
-              padding: EdgeInsets.fromLTRB(15,0,0,15),
+              padding: EdgeInsets.fromLTRB(25,0,0,15),
               child: Text(
-                'Personal Goal: Lose Weight',
+                'Bartłoemiej Dzik\nKamil Ludwikowski\nDominik Bigus\nJakub Cendecki',
                 style: TextStyle(
                   fontSize: 16,
-
                 ),
               ),
-            ),
-            Container(
-              height: 60,
-              margin: const EdgeInsets.fromLTRB(125, 10, 125, 25),
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(10),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 10,
-                      offset: const Offset(1,1),
-                      color: Colors.purple.withOpacity(.3),
-                    )
-                  ]
-              ),
-              child: TextButton(
-                onPressed: () {buildAlert();},
-                style: TextButton.styleFrom(
-                  foregroundColor: Colors.blue,
-                  side: const BorderSide(
-                    width: 1.0,
-                    color: Colors.blue,
-                  ),
-                ),
-                child: const Text(
-                  'Change',
-                  style: TextStyle(
-                      fontSize: 18,
-                      letterSpacing: 1
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-                padding: const EdgeInsets.fromLTRB(330,30,0,0),
-                child: TextButton(
-                  onPressed: () => showDialog<String>(
-                    context: context,
-                    builder: (BuildContext context) => const AlertDialog(
-                      title: Text('About Us'),
-                      content:
-                      Text(
-                          'App made by:\n   Bartłomiej Dzik\n   Kamil Ludwikowski\n   Dominik Bigus\n   Jakub Cendecki'
-                      ),
-                    ),
-                  ),
-                  child: const Icon(Icons.info_outline, size: 40, color: Colors.black,),
-                )
             ),
           ],
       ),
