@@ -1,3 +1,4 @@
+import 'package:body_optimizer/screens/workout/workoutscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -11,21 +12,24 @@ class Workout extends StatefulWidget {
 class Parts {
   final String title;
   final String image;
+  final String excercises;
 
   Parts({
-    required this.title, required this.image,
+    required this.title, required this.image, required this.excercises
   });
 }
 
 class _WorkoutState extends State<Workout> {
 
   final List<Parts> partitions = [
-    Parts(title: "ABS", image: "assets/images/bese.png"),
-    Parts(title: "BICEPS", image: "assets/images/muscle.png"),
-    Parts(title: "TRICEPS", image: "assets/images/muscle-pain.png"),
-    Parts(title: "CHEST", image: "assets/images/treasure.png"),
-    Parts(title: "BACK", image: "assets/images/backpack.png"),
-    Parts(title: "LEGS", image: "assets/images/turkey-legs.png"),
+    Parts(title: "ABS", image: "assets/images/abs.png", excercises: ''),
+    Parts(title: "BICEPS", image: "assets/images/biceps.png", excercises: ''),
+    Parts(title: "TRICEPS", image: "assets/images/triceps.png", excercises: ''),
+    Parts(title: "CHEST", image: "assets/images/chest.png", excercises: ''),
+    Parts(title: "BACK", image: "assets/images/back.png", excercises: ''),
+    Parts(title: "LEGS", image: "assets/images/legs.png", excercises: ''),
+    Parts(title: "SHOULDERS", image: "assets/images/shoulders.png", excercises: ''),
+    Parts(title: "REAR", image: "assets/images/rear.png", excercises: ''),
   ];
   @override
   Widget build(BuildContext context) {
@@ -54,7 +58,7 @@ class _WorkoutState extends State<Workout> {
                     "Time to ",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
-                      color: Colors.white,
+                      color: Colors.black,
                       letterSpacing: 3,
                     ),
                   ),
@@ -68,7 +72,7 @@ class _WorkoutState extends State<Workout> {
                     "Workout",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
-                      color: Colors.redAccent,
+                      color: Colors.red,
                       letterSpacing: 3,
                     ),
                   ),
@@ -82,13 +86,14 @@ class _WorkoutState extends State<Workout> {
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
                     "Choose body part:",
-                    style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: Colors.white70),
+                    style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
+                        0xFF232323)),
                   ),
                 ),
               ],
             ),
-            SizedBox(
-                width: MediaQuery.of(context).size.width,
+            Container(
+                width: 380,
                 height: MediaQuery.of(context).size.height-284,
               child: GridView.builder(
                 shrinkWrap: true,
@@ -99,47 +104,51 @@ class _WorkoutState extends State<Workout> {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         GridTile(
-                          child: Container(
-                          height: 190,
-                          width: 185,
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                                begin: Alignment.topRight,
-                                end: Alignment.bottomLeft,
-                                colors: [
-                                  Color(0xFFE1E1E1),
-                                  Color(0xFFEDEDED)
-                                ]
-                            ),
-                            borderRadius: BorderRadius.circular(50),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Color(0xff9d9898),
-                                    blurRadius: 4,
-                                    offset: Offset(4,8)
-                                )
-                              ]
-                          ),
-                          child: GridTile(
-                            header: Padding(
-                              padding: const EdgeInsets.only(top: 40),
-                              child: Center(
-                                child: SizedBox(
-                                  height: 150,
-                                  width: 150,
-                                  child: Image.asset(partitions[index].image, scale: 4.8,),
+                          child: Expanded(
+                            child: GestureDetector(
+                              child: Container(
+                              height: 180,
+                              width: 165,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(50),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Color(0xff9d9898),
+                                        blurRadius: 4,
+                                        offset: Offset(2,7)
+                                    )
+                                  ]
+                              ),
+                              child: GridTile(
+                                header: Padding(
+                                  padding: const EdgeInsets.only(top: 10),
+                                  child: Center(
+                                    child: SizedBox(
+                                      height: 150,
+                                      width: 150,
+                                      child: Image.asset(partitions[index].image, scale: 6),
+                                    ),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(top: 150),
+                                  child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                                 ),
                               ),
+                                ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => WorkoutScreen(),
+                                  settings: RouteSettings()),
+                                );
+                              },
                             ),
-                            child: Padding(
-                              padding: const EdgeInsets.only(top: 20),
-                              child: Text(partitions[index].title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
-                            ),
-                          ),
-                            ),
+                          ) ,
                         ),
                       ],
                     ),
@@ -153,3 +162,4 @@ class _WorkoutState extends State<Workout> {
     );
   }
 }
+
