@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-
 class Settings extends StatefulWidget {
   const Settings({super.key});
 
