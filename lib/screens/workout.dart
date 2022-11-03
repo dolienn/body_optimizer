@@ -55,7 +55,7 @@ class _WorkoutState extends State<Workout> {
                 Padding(
                   padding: const EdgeInsets.only(top: 100.0),
                   child: Text(
-                    "Time to ",
+                    "choose to ",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
                       color: Colors.black,
@@ -85,14 +85,14 @@ class _WorkoutState extends State<Workout> {
                 Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
-                    "Choose body part",
+                    "",
                     style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
                         0xFF232323)),
                   ),
                 ),
               ],
             ),
-            Container(
+            SizedBox(
                 width: 380,
                 height: MediaQuery.of(context).size.height-284,
               child: GridView.builder(
@@ -143,8 +143,8 @@ class _WorkoutState extends State<Workout> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => WorkoutScreen(),
-                                  settings: RouteSettings()),
+                                  MaterialPageRoute(builder: (context) => const WorkoutScreen(),
+                                  settings: const RouteSettings()),
                                 );
                               },
                             ),
