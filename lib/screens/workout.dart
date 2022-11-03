@@ -20,12 +20,12 @@ class Parts {
 class _WorkoutState extends State<Workout> {
 
   final List<Parts> partitions = [
-    Parts(title: "ABS", image: "assets/images/abs.png"),
-    Parts(title: "BICEPS", image: "assets/images/biceps.gif"),
-    Parts(title: "TRICEPS", image: "assets/images/triceps.png"),
-    Parts(title: "CHEST", image: "assets/images/chest.png"),
-    Parts(title: "BACK", image: "assets/images/back.gif"),
-    Parts(title: "LEGS", image: "name2"),
+    Parts(title: "ABS", image: "assets/images/bese.png"),
+    Parts(title: "BICEPS", image: "assets/images/muscle.png"),
+    Parts(title: "TRICEPS", image: "assets/images/muscle-pain.png"),
+    Parts(title: "CHEST", image: "assets/images/treasure.png"),
+    Parts(title: "BACK", image: "assets/images/backpack.png"),
+    Parts(title: "LEGS", image: "assets/images/turkey-legs.png"),
   ];
   @override
   Widget build(BuildContext context) {
@@ -35,10 +35,14 @@ class _WorkoutState extends State<Workout> {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
+          gradient: LinearGradient(
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
+            colors: [
+              Color(0xFF0800CE),
+              Color(0xFFF869D5)
+            ]
+          )
         ),
         child: Column(
           children: [
@@ -107,6 +111,13 @@ class _WorkoutState extends State<Workout> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(50),
+                                boxShadow: const [
+                                  BoxShadow(
+                                    color: Colors.red,
+                                    blurRadius: 4,
+                                    offset: Offset(4,8)
+                                  )
+                                ]
                               ),
                               child: GridTile(
                                 header: Padding(
@@ -115,14 +126,14 @@ class _WorkoutState extends State<Workout> {
                                     child: SizedBox(
                                       height: 150,
                                       width: 150,
-                                      child: Padding(
-                                        padding: const EdgeInsets.only(top: 100),
-                                        child: Text(partitions[index].title, style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold, fontSize: 35), textAlign: TextAlign.center,),
-                                      ),
+                                      child: Image.asset(partitions[index].image, width: 1, height: 1, fit: BoxFit.fill,),
                                     ),
                                   ),
                                 ),
-                                child: Image.asset(partitions[index].image),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Text(partitions[index].title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
+                                ),
                               ),
                             ),
                       ]
