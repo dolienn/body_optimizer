@@ -264,6 +264,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                                         height: 150,
                                         width: 150,
                                         child: Icon(Icons.sports_gymnastics),
+
                                       ),
                                     ),
                                   ),
