@@ -219,13 +219,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
                     "Choose exercise category",
-                    style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
+                    style: GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.bold, color: const Color(
                         0xFF232323)),
                   ),
                 ),
               ],
             ),
-            Container(
+            SizedBox(
               width: 380,
               height: MediaQuery.of(context).size.height-284,
               child: GridView.builder(
@@ -263,7 +263,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                                       child: SizedBox(
                                         height: 150,
                                         width: 150,
-                                        child: Image.asset(partitions[index].image, scale: 6),
+                                        child: Icon(Icons.sports_gymnastics),
                                       ),
                                     ),
                                   ),
