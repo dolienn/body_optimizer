@@ -135,7 +135,7 @@ class _WorkoutState extends State<Workout> {
                                   ),
                                 ),
                                 child: Padding(
-                                  padding: const EdgeInsets.only(top: 150),
+                                  padding: const EdgeInsets.only(top: 140),
                                   child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 23, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                                 ),
                               ),
