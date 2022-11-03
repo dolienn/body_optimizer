@@ -1,6 +1,6 @@
 /*
 Do zrobienia:
--Zmiana Danych Urzytkownika
+-Zmiana Danych Uzytkownika
 -Zmiana Celu i Odpoczynku
 -Wczytywanie wszystkich danych z pliku i updateowanie ich
 */
