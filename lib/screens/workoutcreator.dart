@@ -19,8 +19,6 @@ void _updateMyItems(int oldIndex, int newIndex) {
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
 
 //moze tworzyc klase o danych cwicenia ??? class cw nr 1 za pomoca jakiejs pentli a nastepnie var tytul var opis var link do zdj
 //ta klasa tutaj nie wiem czy bedzie wogule uzywana ale jest bo tak :D
@@ -112,103 +110,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
     );
   }
 
-/*
-@override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-            title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
-            actions: <Widget>[
-        IconButton(
-        icon: const Icon(Icons.add),
-        tooltip: 'Add exercise',
-        onPressed: () {
-          Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
-          );
-        },
-      ),
-      body: Center(
-          child: ListView(
-            padding: const EdgeInsets.all(8),
-            children: <Widget>[
-              Text('$Exercises'),
-              Form(
-               key: _formKey,
-               child: Column(
-                 children: [
-                   TextFormField(
-                     //jakoś text w tym wyśrodkować
-                     decoration: const InputDecoration(
-                     //icon: Icon(Icons.person),
-                     hintText: 'Custom workout name'
-                   ),
-                     onSaved: (String? value) {
-                       // This optional block of code can be used to run
-                       // code when the user saves the form.
-                     },
-                     //tutaj dać, że nazwa workoutu nie może być pusta (oraz może, że nie może być dłuższa niż x znaków
-                     validator: (String? value) {
-                       return (value != null && value.contains('@')) ? 'Workout name must not be empty!' : null;
-                     },
-                   ),
-                   //ten przycisk dać na sam dół do zapisywania wszystkiego na tej stronie
-                   ElevatedButton(
-                     style: ButtonStyle(
-                       backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
-                     ),
-                     //onPressed: zapisz cały workout
-                     onPressed: () {},
-                     child: const Text('Create'),
-                   ),
-                   //ten przycisk dać obok zamiast pod
-                   //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
-                    OutlinedButton(onPressed: () => _showAlertDialog(context), child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),)),
-                 ],
-             ),
-
-          //tutaj jakos form dac dla nazwy workoutu
-          /*ListView(
-            scrollDirection: Axis.vertical,
-            children: <Widget>[
-              //tutaj będą dodawane ćwiczenia od klienta
-              //dać jakieś id aby móc dodawać tutaj container list tile?
-              Container(
-                width: 150.0,
-                color: Colors.black12,
-                child: Stack(
-                  children: <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.recycling), //znalesc kosz
-                      title: Text('Exercise'),
-                      trailing: Icon(Icons.notes),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-            //jakiś button do dodawania do listy jeśli nie chcę w appbarze
-            */
-          ),
-              CheckboxListTile(
-                  isThreeLine: true,
-                  title: Text('$AbsTitleOne'),
-                  subtitle: Text('$AbsDescriptionOne'),
-                  value: AbsTriggerOne,
-                  onChanged: (bool? value) {
-                  setState(() {
-                    AbsTriggerOne = value!;
-                  });
-                },
-              ),
-           )
-        ),
-      );
-  }
-}
- */
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -276,25 +177,53 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                     ],
                   ),
                 ),
+                //cały container jako ćwiczenie
+                Container(
+                  color: Colors.black12,
+                  child: Stack(
+                    children: const <Widget>[
+                      ListTile(
+                        leading: Icon(Icons.recycling), //znalesc kosz
+                        title: Text('Exercise'),
+                        trailing: Icon(Icons.notes),
+                      ),
+                    ],
+                  ),
+                ),
               ],
               //jakiś button do dodawania do listy jeśli nie chcę w appbarze
 
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
-              ),
-              //onPressed: zapisz cały workout
-              onPressed: () {},
-              child: const Text('Create'),
-            ),
-            //ten przycisk dać obok zamiast pod
-            //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
-            OutlinedButton(
-                onPressed: () => _showAlertDialog(context),
-                child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
-                )
-            ),
+              Row(
+                children: <Widget>[
+                  //ten przycisk dać obok zamiast pod
+                  //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
+                  SizedBox(
+                    width: 200,
+                  child: OutlinedButton(
+                      onPressed: () => _showAlertDialog(context),
+                      child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
+                      )
+                  ),
+                  ),
+                  SizedBox(
+                    width: 200,
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                    ),
+                    //onPressed: zapisz cały workout
+                    onPressed: () {
+                      const snackBar = SnackBar(
+                        content: Text('Created workout!'),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                    child: const Text('Create'),
+                  ),
+                  )
+                ]
+              )
 
 
             ]
