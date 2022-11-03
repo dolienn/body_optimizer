@@ -1,10 +1,10 @@
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:body_optimizer/screens/settings.dart';
 import 'package:body_optimizer/screens/workout.dart';
 import 'package:body_optimizer/screens/workoutcreator.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -39,6 +39,48 @@ class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for the time placeholder) //
   int numOfExercises = 0;
   String workoutName = "Custom workout 1";
+
+  // NavBar things
+  final PersistentTabController _controller =
+      PersistentTabController(initialIndex: 0);
+
+  List<Widget> _buildScreens() {
+    return const [
+      MyHomePage(),
+      Workout(),
+      WorkoutCreator(),
+      Settings(),
+    ];
+  }
+
+  List<PersistentBottomNavBarItem> _navBarsItems() {
+    return [
+      PersistentBottomNavBarItem(
+        icon: const Icon(CupertinoIcons.home),
+        title: ("Home"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.note_add_outlined),
+        title: ("Workout Creator"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(Icons.fitness_center_outlined),
+        title: ("Workout"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+      PersistentBottomNavBarItem(
+        icon: const Icon(CupertinoIcons.settings),
+        title: ("Settings"),
+        activeColorPrimary: CupertinoColors.activeBlue,
+        inactiveColorPrimary: CupertinoColors.systemGrey,
+      ),
+    ];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -131,50 +173,39 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              /* ------ NavBar (Nie działa) ----- /
               PersistentTabView(
                 context,
-                screens: const [
-                  MyHomePage(),
-                  Workout(),
-                  WorkoutCreator(),
-                  Settings()
-                ],
-                items: [
-                  PersistentBottomNavBarItem(
-                    icon: const Icon(CupertinoIcons.home),
-                    title: "Home",
-                    activeColorPrimary: Colors.purple,
-                    inactiveColorPrimary: CupertinoColors.systemGrey,
-                  ),
-                  PersistentBottomNavBarItem(
-                    icon: const Icon(Icons.note_add_outlined),
-                    title: "Workout Creator",
-                    activeColorPrimary: Colors.purple,
-                    inactiveColorPrimary: CupertinoColors.systemGrey,
-                  ),
-                  PersistentBottomNavBarItem(
-                    icon: const Icon(Icons.fitness_center_outlined),
-                    title: "Workout",
-                    activeColorPrimary: Colors.purple,
-                    inactiveColorPrimary: CupertinoColors.systemGrey,
-                  ),
-                  PersistentBottomNavBarItem(
-                    icon: const Icon(CupertinoIcons.settings),
-                    title: "Settings",
-                    activeColorPrimary: Colors.purple,
-                    inactiveColorPrimary: CupertinoColors.systemGrey,
-                  ),
-                ],
-                backgroundColor: Colors.white,
-                resizeToAvoidBottomInset: true,
+                controller: _controller,
+                screens: _buildScreens(),
+                items: _navBarsItems(),
+                confineInSafeArea: true,
+                backgroundColor: Colors.white, // Default is Colors.white.
+                handleAndroidBackButtonPress: true, // Default is true.
+                resizeToAvoidBottomInset:
+                    true, // This needs to be true if you want to move up the screen when keyboard appears. Default is true.
+                stateManagement: true, // Default is true.
+                hideNavigationBarWhenKeyboardShows:
+                    true, // Recommended to set 'resizeToAvoidBottomInset' as true while using this argument. Default is true.
                 decoration: NavBarDecoration(
                   borderRadius: BorderRadius.circular(10.0),
                   colorBehindNavBar: Colors.white,
                 ),
-                navBarStyle: NavBarStyle.style10,
+                popAllScreensOnTapOfSelectedTab: true,
+                popActionScreens: PopActionScreensType.all,
+                itemAnimationProperties: const ItemAnimationProperties(
+                  // Navigation Bar's items animation properties.
+                  duration: Duration(milliseconds: 200),
+                  curve: Curves.ease,
+                ),
+                screenTransitionAnimation: const ScreenTransitionAnimation(
+                  // Screen transition animation on change of selected tab.
+                  animateTabTransition: true,
+                  curve: Curves.ease,
+                  duration: Duration(milliseconds: 200),
+                ),
+                navBarStyle: NavBarStyle
+                    .style1, // Choose the nav bar style with this property.
               ),
-               */
             ],
           ),
         ),
@@ -182,4 +213,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
