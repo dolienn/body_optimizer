@@ -22,6 +22,7 @@ void _updateMyItems(int oldIndex, int newIndex) {
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 
 class WorkoutCreator extends StatefulWidget {
@@ -79,7 +80,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         onPressed: () {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
+          MaterialPageRoute(builder: (context) => WorkoutCreatorChooseCategory()),
           );
         },
       ),
@@ -176,12 +177,127 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
     );
   }
 }
+class Parts {
+  final String title;
+  final String image;
+  final String excercisez;
+
+  Parts({
+    required this.title, required this.image, required this.excercisez
+  });
+}
 class WorkoutCreatorChooseCategory extends StatelessWidget {
-  const WorkoutCreatorChooseCategory({super.key});
+   WorkoutCreatorChooseCategory({super.key});
+
+  final List<Parts> partitions = [
+    Parts(title: "ABS", image: "assets/images/abs.png", excercisez: ''),
+    Parts(title: "BICEPS", image: "assets/images/biceps.png", excercisez: ''),
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        decoration: const BoxDecoration(
+            gradient: RadialGradient(
+                radius: 1,
+                colors: [
+                  Color(0xFFB7B7B7),
+                  Color(0xFFFFFFFF)
+                ]
+            )
+        ),
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(25.0),
+                  child: Text(
+                    "Choose exercise category",
+                    style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
+                        0xFF232323)),
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              width: 380,
+              height: MediaQuery.of(context).size.height-284,
+              child: GridView.builder(
+                shrinkWrap: true,
+                reverse: true,
+                scrollDirection: Axis.vertical,
+                itemCount: partitions.length,
+                itemBuilder: (BuildContext context, index) {
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 10),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        GridTile(
+                          child: Expanded(
+                            child: GestureDetector(
+                              child: Container(
+                                height: 180,
+                                width: 165,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(50),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                          color: Color(0xff9d9898),
+                                          blurRadius: 4,
+                                          offset: Offset(2,7)
+                                      )
+                                    ]
+                                ),
+                                child: GridTile(
+                                  header: Padding(
+                                    padding: const EdgeInsets.only(top: 10),
+                                    child: Center(
+                                      child: SizedBox(
+                                        height: 150,
+                                        width: 150,
+                                        child: Image.asset(partitions[index].image, scale: 6),
+                                      ),
+                                    ),
+                                  ),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 140),
+                                    child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                                  ),
+                                ),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => WorkoutCreatorExercisesAbs(),
+                                      settings: RouteSettings()),
+                                );
+                              },
+                            ),
+                          ) ,
+                        ),
+                      ],
+                    ),
+                  );
+                }, gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+
+    /*return Scaffold(
       appBar: AppBar(
         title: const Text('Select workout category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
       ),
@@ -219,7 +335,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
         ),
       );
   }
-}
+}*/
 
 class WorkoutCreatorExercisesAbs extends StatefulWidget {
   WorkoutCreatorExercisesAbs({super.key}); //Safer without const
