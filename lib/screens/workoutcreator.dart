@@ -4,9 +4,7 @@ możliwość dodawania ćwiczeń
 usuwanie ćwiczeń
 wybieranie cwiczen i wstawiania
 
-trudne to bardzo :(
-
-yooooooooo przyda sieee
+przydatne linki itp
 https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
 void _updateMyItems(int oldIndex, int newIndex) {
   if (newIndex > oldIndex) {
@@ -70,13 +68,13 @@ class LinkedLabelCheckbox extends StatelessWidget {
 }
 
 class WorkoutCreator extends StatefulWidget {
-  WorkoutCreator({Key? key}) : super(key: key);
+  WorkoutCreator({Key? key}) : super(key: key); //nie dawać const teraz bo później chyba popsuje
 
   @override
   State<WorkoutCreator> createState() => _WorkoutCreatorState();
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
-  static double Exercises = 0;
+  static double exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
   void _showAlertDialog(BuildContext context) {
@@ -129,31 +127,32 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         },
       ),
         ]),
-
+        
         body: Center(
-          child: ListView(
+          child: Padding(
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0), //chyba bezpieczniej bez const
+              child: ListView(
           children: <Widget>[
-            Text('$Exercises'),
+            //Text('$Exercises'),
             Form(
                key: _formKey,
                child: Column(
                  children: [
                    TextFormField(
-                     //jakoś text w tym wyśrodkować
+                     textAlign: TextAlign.center,
                      decoration: const InputDecoration(
                      //icon: Icon(Icons.person),
                      hintText: 'Custom workout name'
                    ),
                      onSaved: (String? value) {
                        // This optional block of code can be used to run
-                       // code when the user saves the form.
+                       // code when the user saves the form.@
                      },
                      //tutaj dać, że nazwa workoutu nie może być pusta (oraz może, że nie może być dłuższa niż x znaków
                      validator: (String? value) {
                        return (value != null && value.contains('@')) ? 'Workout name must not be empty!' : null;
                      },
                    ),
-                   //ten przycisk dać na sam dół do zapisywania wszystkiego na tej stronie
 
 
                   ],
@@ -165,49 +164,59 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
               children: <Widget>[
                 //tutaj będą dodawane ćwiczenia od klienta
                 //dać jakieś id aby móc dodawać tutaj container list tile?
-                Container(
-                  color: Colors.black12,
-                  child: Stack(
-                    children: const <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.recycling), //znalesc kosz
-                        title: Text('Exercise'),
-                        trailing: Icon(Icons.notes),
-                      ),
-                    ],
-                  ),
+                Stack(
+                  children: const <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.recycling), //znalesc kosz
+                      title: Text('Exercise'),
+                      trailing: Icon(Icons.notes),
+                    ),
+                  ],
                 ),
-                //cały container jako ćwiczenie
-                Container(
-                  color: Colors.black12,
-                  child: Stack(
-                    children: const <Widget>[
-                      ListTile(
-                        leading: Icon(Icons.recycling), //znalesc kosz
-                        title: Text('Exercise'),
-                        trailing: Icon(Icons.notes),
-                      ),
-                    ],
-                  ),
+                //cały stack jako ćwiczenie
+                Stack(
+                  children: const <Widget>[
+                    ListTile(
+                      leading: Icon(Icons.recycling), //znalesc kosz
+                      title: Text('Exercise'),
+                      trailing: Icon(Icons.notes),
+                    ),
+                  ],
                 ),
               ],
               //jakiś button do dodawania do listy jeśli nie chcę w appbarze
 
             ),
+              //tutaj znajduję się przycisk "Add exercise" jaki był w designie, uważam, że w app bardze przycisk + jest dobrą alternatywą
+              //ale zawsze można dać tutaj jakoś padding i mieć przycisk jak w designie :)
+              /*Row(
+                  children: <Widget>[
+              ElevatedButton(
+                  onPressed: (){},
+                  child: Text('Add exercise', style: TextStyle(color: Colors.white)),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                  ),
+              ),
+                  ]
+              ),*/
+              //jakoś trzeba przesunąć ten row ale jest w list view
               Row(
+                //crossAxisAlignment: CrossAxisAlignment.,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   //ten przycisk dać obok zamiast pod
                   //haha nie no może iPhone przycisk nie ale haha śmieszne bo na andrioidzie
-                  SizedBox(
-                    width: 200,
+                  Expanded(
+                    //width: 185,
                   child: OutlinedButton(
                       onPressed: () => _showAlertDialog(context),
                       child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
                       )
                   ),
                   ),
-                  SizedBox(
-                    width: 200,
+                  Expanded(
+                    //width: 185,
                   child: ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
@@ -228,6 +237,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
 
             ]
           )
+          )
         )
       )
     );
@@ -246,9 +256,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
-              Container(
-                child: Text('tutaj była by zmodyfikowana strona dominika'),
-              ),
+              const Text('tutaj była by zmodyfikowana strona dominika'),
               SizedBox(
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -291,30 +299,31 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
 }
 
 class WorkoutCreatorExercisesAbs extends StatefulWidget {
-  WorkoutCreatorExercisesAbs({super.key});
+  WorkoutCreatorExercisesAbs({super.key}); //bezpieczniej bez const
 
   @override
   State<WorkoutCreatorExercisesAbs> createState() => _WorkoutCreatorExercisesAbsState();
 }
 class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>{
   //sprawdzanie czy checkboxy są zaznaczone
-  bool AbsTriggerOne = false;
-  bool AbsTriggerTwo = false;
-  bool AbsTriggerThree = false;
-  bool AbsTriggerFour = false;
-  bool AbsTriggerFive = false;
+  bool absTriggerOne = false;
+  bool absTriggerTwo = false;
+  bool absTriggerThree = false;
+  bool absTriggerFour = false;
+  bool absTriggerFive = false;
   //Nazwy ćwiczeń jako zmienne aby koledzy mogli wykożystywać je w innych częściach programu (pewnie trzeba będzię gdzieś indziej dać te zmienna)
   //może zrobić jakiś plik lub klasę ExerciseData? może w app data
-  String AbsTitleOne = "Crunches";
-  String AbsTitleTwo = "Plank";
-  String AbsTitleThree = "Crunches";
-  String AbsTitleFour = "Crunches";
-  String AbsTitleFive = "Crunches";
+  String absTitleOne = "Crunches";
+  String absTitleTwo = "Plank";
+  String absTitleThree = "Crunches";
+  String absTitleFour = "Crunches";
+  String absTitleFive = "Crunches";
   //Opisy ćwiczeń -||-
-  String AbsDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-  String AbsDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+  String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+  String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
   //jakieś value które było by używane dla np czasu ćwiczenia
   //Ilość ćwiczeń -||-, to tuaj będzie tylko w workout creator chyba
+  //trzeba dać ćwiczenom/ćwiczenią jakieś ID
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -327,78 +336,77 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
             children: <Widget>[
               CheckboxListTile(
                   isThreeLine: true,
-                  title: Text('$AbsTitleOne'),
-                  subtitle: Text('$AbsDescriptionOne'),
-                  value: AbsTriggerOne,
+                  title: Text(absTitleOne),
+                  subtitle: Text(absDescriptionOne),
+                  controlAffinity: ListTileControlAffinity.leading,
+                  value: absTriggerOne,
                   onChanged: (bool? value) {
                   setState(() {
-                    AbsTriggerOne = value!;
+                    absTriggerOne = value!;
                   });
                 },
               ),
               CheckboxListTile(
-                title: Text('$AbsTitleTwo'),
-                subtitle: Text('$AbsDescriptionTwo'),
-                value: AbsTriggerTwo,
+                title: Text(absTitleTwo),
+                subtitle: Text(absDescriptionTwo),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: absTriggerTwo,
                 onChanged: (bool? value) {
                   setState(() {
-                    AbsTriggerTwo = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Animate Slowly'),
-                value: AbsTriggerThree,
-                onChanged: (bool? value) {
-                  setState(() {
-                    AbsTriggerThree = value!;
+                    absTriggerTwo = value!;
                   });
                 },
               ),
               CheckboxListTile(
                 title: const Text('Animate Slowly'),
-                value: AbsTriggerFour,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: absTriggerThree,
                 onChanged: (bool? value) {
                   setState(() {
-                    AbsTriggerFour = value!;
+                    absTriggerThree = value!;
                   });
                 },
               ),
               CheckboxListTile(
                 title: const Text('Animate Slowly'),
-                value: AbsTriggerFive,
+                controlAffinity: ListTileControlAffinity.leading,
+                value: absTriggerFour,
                 onChanged: (bool? value) {
                   setState(() {
-                    AbsTriggerFive = value!;
+                    absTriggerFour = value!;
                   });
                 },
               ),
-              /*Container(
-                Contener z tekstem, może się przyda
-                height: 50,
-                color: Colors.amber[100],
-                child: const Center(child: Text('Entry C')),
-              ),*/
+              CheckboxListTile(
+                title: const Text('Animate Slowly'),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: absTriggerFive,
+                onChanged: (bool? value) {
+                  setState(() {
+                    absTriggerFive = value!;
+                  });
+                },
+              ),
               //przycisk ten jakoś przesunąć
               ElevatedButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
                   ),
                   onPressed: () {
-                    if(AbsTriggerOne == true){
-                      _WorkoutCreatorState.Exercises += 1;
+                    if(absTriggerOne == true){
+                      _WorkoutCreatorState.exercises += 1;
                     }
-                    if(AbsTriggerTwo == true){
-                      _WorkoutCreatorState.Exercises += 1;
+                    if(absTriggerTwo == true){
+                      _WorkoutCreatorState.exercises += 1;
                     }
-                    if(AbsTriggerThree == true){
-                      _WorkoutCreatorState.Exercises += 1;
+                    if(absTriggerThree == true){
+                      _WorkoutCreatorState.exercises += 1;
                     }
-                    if(AbsTriggerFour == true){
-                      _WorkoutCreatorState.Exercises += 1;
+                    if(absTriggerFour == true){
+                      _WorkoutCreatorState.exercises += 1;
                     }
-                    if(AbsTriggerFive == true){
-                      _WorkoutCreatorState.Exercises += 1;
+                    if(absTriggerFive == true){
+                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
@@ -406,7 +414,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
               }, child: const Icon(Icons.add)),
-              Text('usunac pozniej: ${_WorkoutCreatorState.Exercises}')
+              Text('usunac pozniej: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
