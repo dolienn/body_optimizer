@@ -35,12 +35,11 @@ class _WorkoutState extends State<Workout> {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topRight,
-            end: Alignment.bottomLeft,
+          gradient: RadialGradient(
+            radius: 1,
             colors: [
-              Color(0xFF0800CE),
-              Color(0xFFF869D5)
+              Color(0xFFB7B7B7),
+              Color(0xFFFFFFFF)
             ]
           )
         ),
@@ -82,7 +81,7 @@ class _WorkoutState extends State<Workout> {
                 Padding(
                   padding: const EdgeInsets.all(25.0),
                   child: Text(
-                    "Select body part:",
+                    "Choose body part:",
                     style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: Colors.white70),
                   ),
                 ),
@@ -103,41 +102,44 @@ class _WorkoutState extends State<Workout> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         GridTile(
-                          child: Stack(
-                            children: <Widget>[
-                              Container(
-                              height: 200,
-                              width: 195,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
-                                boxShadow: const [
-                                  BoxShadow(
-                                    color: Colors.red,
+                          child: Container(
+                          height: 190,
+                          width: 185,
+                          decoration: BoxDecoration(
+                            gradient: const LinearGradient(
+                                begin: Alignment.topRight,
+                                end: Alignment.bottomLeft,
+                                colors: [
+                                  Color(0xFFE1E1E1),
+                                  Color(0xFFEDEDED)
+                                ]
+                            ),
+                            borderRadius: BorderRadius.circular(50),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Color(0xff9d9898),
                                     blurRadius: 4,
                                     offset: Offset(4,8)
-                                  )
-                                ]
-                              ),
-                              child: GridTile(
-                                header: Padding(
-                                  padding: const EdgeInsets.only(top: 40),
-                                  child: Center(
-                                    child: SizedBox(
-                                      height: 150,
-                                      width: 150,
-                                      child: Image.asset(partitions[index].image, width: 1, height: 1, fit: BoxFit.fill,),
-                                    ),
-                                  ),
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(partitions[index].title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
+                                )
+                              ]
+                          ),
+                          child: GridTile(
+                            header: Padding(
+                              padding: const EdgeInsets.only(top: 40),
+                              child: Center(
+                                child: SizedBox(
+                                  height: 150,
+                                  width: 150,
+                                  child: Image.asset(partitions[index].image, scale: 4.8,),
                                 ),
                               ),
                             ),
-                      ]
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 20),
+                              child: Text(partitions[index].title, style: const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20), textAlign: TextAlign.center),
+                            ),
                           ),
+                            ),
                         ),
                       ],
                     ),
