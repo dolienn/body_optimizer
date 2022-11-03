@@ -26,13 +26,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 
-class zmienne{
+/*class zmienne{
   var iloscCwiczen = 0; //liczba jest dodawana kiedy uzytkownik dodaje cwiczenia
   // jest uzywana do tworzenia cwiczen w liscie
-}
+}*/
 
 //moze tworzyc klase o danych cwicenia ??? class cw nr 1 za pomoca jakiejs pentli a nastepnie var tytul var opis var link do zdj
-
 //ta klasa tutaj nie wiem czy bedzie wogule uzywana ale jest bo tak :D
 class LinkedLabelCheckbox extends StatelessWidget {
   const LinkedLabelCheckbox({
@@ -81,9 +80,14 @@ class LinkedLabelCheckbox extends StatelessWidget {
   }
 }
 
-class WorkoutCreator extends StatelessWidget {
+class WorkoutCreator extends StatefulWidget {
   WorkoutCreator({Key? key}) : super(key: key);
 
+  @override
+  State<WorkoutCreator> createState() => _WorkoutCreatorState();
+}
+class _WorkoutCreatorState extends State<WorkoutCreator>{
+  static double Exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
   void _showAlertDialog(BuildContext context) {
@@ -141,6 +145,7 @@ class WorkoutCreator extends StatelessWidget {
 
         body: Column(
           children: [
+            Text('$Exercises'),/*
             Form(
                key: _formKey,
                child: Column(
@@ -197,7 +202,7 @@ class WorkoutCreator extends StatelessWidget {
             ],
             //jakiś button do dodawania do listy jeśli nie chcę w appbarze
             */
-          ),
+          ),*/
           ],
           //tutaj przyciski dodaj cwiczenie, odrzuc/zapisz zmiany
           //nastepnie strony do dodawania cwiczen
@@ -233,7 +238,7 @@ class workoutcreator_choosecategory extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => workoutcreator_exercisesabs())
+                        MaterialPageRoute(builder: (context) => WorkoutCreatorExercisesAbs())
                     );},
                   child: const Text('ABS exercises'),
                 ),
@@ -265,18 +270,31 @@ class workoutcreator_choosecategory extends StatelessWidget {
   }
 }
 
-class workoutcreator_exercisesabs extends StatefulWidget {
-  workoutcreator_exercisesabs({super.key});
+class WorkoutCreatorExercisesAbs extends StatefulWidget {
+  WorkoutCreatorExercisesAbs({super.key});
 
   @override
-  State<workoutcreator_exercisesabs> createState() => _workoutcreator_exercisesabsState();
+  State<WorkoutCreatorExercisesAbs> createState() => _WorkoutCreatorExercisesAbsState();
 }
-class _workoutcreator_exercisesabsState extends State<workoutcreator_exercisesabs>{
+class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>{
+  //sprawdzanie czy checkboxy są zaznaczone
+  //może zrobić jakiś plik lub klasę ExerciseData? może w app data
   bool AbsTriggerOne = false;
   bool AbsTriggerTwo = false;
   bool AbsTriggerThree = false;
   bool AbsTriggerFour = false;
   bool AbsTriggerFive = false;
+  //Nazwy ćwiczeń jako zmienne aby koledzy mogli wykożystywać je w innych częściach programu (pewnie trzeba będzię gdzieś indziej dać te zmienna)
+  String AbsTitleOne = "Crunches";
+  String AbsTitleTwo = "Plank";
+  String AbsTitleThree = "Crunches";
+  String AbsTitleFour = "Crunches";
+  String AbsTitleFive = "Crunches";
+  //Opisy ćwiczeń -||-
+  String AbsDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+  String AbsDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+  //jakieś value które było by używane dla np czasu ćwiczenia
+  //Ilość ćwiczeń -||-, to tuaj będzie tylko w workout creator chyba
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -289,8 +307,8 @@ class _workoutcreator_exercisesabsState extends State<workoutcreator_exercisesab
             children: <Widget>[
               CheckboxListTile(
                   isThreeLine: true,
-                  title: const Text('Crunches'),
-                  subtitle: const Text('Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles'),
+                  title: Text('$AbsTitleOne'),
+                  subtitle: Text('$AbsDescriptionOne'),
                   value: AbsTriggerOne,
                   onChanged: (bool? value) {
                   setState(() {
@@ -299,8 +317,8 @@ class _workoutcreator_exercisesabsState extends State<workoutcreator_exercisesab
                 },
               ),
               CheckboxListTile(
-                title: const Text('Plank'),
-                subtitle: const Text('Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.'),
+                title: Text('$AbsTitleTwo'),
+                subtitle: Text('$AbsDescriptionTwo'),
                 value: AbsTriggerTwo,
                 onChanged: (bool? value) {
                   setState(() {
@@ -336,28 +354,39 @@ class _workoutcreator_exercisesabsState extends State<workoutcreator_exercisesab
                 },
               ),
               /*Container(
+                Contener z tekstem, może się przyda
                 height: 50,
                 color: Colors.amber[100],
                 child: const Center(child: Text('Entry C')),
               ),*/
+              //przycisk ten jakoś przesunąć
               ElevatedButton(
-                  style: ButtonStyle(backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),),
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                  ),
                   onPressed: () {
-                    final snackBar = SnackBar(
-                      content: const Text('Added exercises to the workout!'),
-                      action: SnackBarAction(
-                      label: '',
-                      onPressed: () {
-                        // Some code to undo the change.
-                      },
-                      ),
-                    );
-
-                    // Find the ScaffoldMessenger in the widget tree
-                    // and use it to show a SnackBar.
+                    if(AbsTriggerOne == true){
+                      _WorkoutCreatorState.Exercises += 1;
+                    }
+                    if(AbsTriggerTwo == true){
+                      _WorkoutCreatorState.Exercises += 1;
+                    }
+                    if(AbsTriggerThree == true){
+                      _WorkoutCreatorState.Exercises += 1;
+                    }
+                    if(AbsTriggerFour == true){
+                      _WorkoutCreatorState.Exercises += 1;
+                    }
+                    if(AbsTriggerFive == true){
+                      _WorkoutCreatorState.Exercises += 1;
+                    }
+                    const snackBar = SnackBar(
+                      content: Text('Added exercises to the workout!'),
+                      );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
 
-              }, child: const Icon(Icons.add))
+              }, child: const Icon(Icons.add)),
+              Text('usunac pozniej: $_WorkoutCreatorState.Exercises')
             ],
           )
       ),
@@ -378,13 +407,6 @@ CheckboxListTile(
       secondary: const Icon(Icons.hourglass_empty),
     );
 
- */
-
-
-
-//a
-
-/*
 // Widget class
 class MyWidget extends StatefulWidget {
   const MyWidget({super.key});
