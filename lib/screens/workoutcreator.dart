@@ -2,16 +2,17 @@
 To do:
 Ability to add exercises
 Removing exercises
-Find a better trash icon
 Move the row in exercise manager so that the buttons can be moved to the bottom of the page
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 Create a time value for exercises for workout
-Create an ID for every exercise
+Create an ID for every exercise //maybe done?
 Move/Modify the Elevated button on the exercise select page
+expandedHeaderPadding
 
 Useful links etc.
 https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
+https://api.flutter.dev/flutter/material/ExpansionPanelList/ExpansionPanelList.radio.html
 void _updateMyItems(int oldIndex, int newIndex) {
   if (newIndex > oldIndex) {
     newIndex -= 1;
@@ -22,17 +23,66 @@ void _updateMyItems(int oldIndex, int newIndex) {
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
+class Item {
+
+  Item({
+    required this.id,
+    required this.value,
+    required this.expandedValue,
+    required this.headerValue,
+  });
+
+  int id;
+  bool value;
+  String expandedValue;
+  String headerValue;
+
+
+//I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
+  static List<Item> generateItems(int numberOfItems) {
+    bool trigger = false;
+    String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
+    String absTitleTwo = "Plank";
+    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+    String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+    return List<Item>.generate(numberOfItems, (int index) {
+      if(index == 0){
+        return Item(
+          id: index,
+          value: trigger,
+          headerValue: absTitleOne,
+          expandedValue: absDescriptionOne,
+        );
+      }
+      if(index == 1){
+        return Item(
+          id: index,
+          value: trigger,
+          headerValue: absTitleTwo,
+          expandedValue: absDescriptionTwo,
+        );
+      }
+      return Item(
+        id: index,
+        value: trigger,
+        headerValue: 'Panel $index',
+        expandedValue: 'This is item number $index',
+      );
+    });
+  }
+}
 
 class WorkoutCreator extends StatefulWidget {
-  WorkoutCreator({Key? key}) : super(key: key); //Do not add a const because it'll probably break something later
+  const WorkoutCreator({Key? key}) : super(key: key);
 
   @override
   State<WorkoutCreator> createState() => _WorkoutCreatorState();
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
+  //final List<Item> _data = Item.generateItems(5);
   static double exercises = 0;
+  String workoutName = "";
   final _formKey = GlobalKey<FormState>();
 
   void _showAlertDialog(BuildContext context) {
@@ -69,7 +119,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: '_title',
+      title: 'Body Optimizer',
       home: Scaffold(
         appBar: AppBar(
             title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
@@ -80,15 +130,16 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         onPressed: () {
           Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => WorkoutCreatorChooseCategory()),
+          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
           );
         },
       ),
-        ]),
+        ]
+        ),
         
         body: Center(
           child: Padding(
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0), //Safer without const
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
               child: ListView(
           children: <Widget>[
             //Text('$Exercises'),
@@ -99,20 +150,19 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                    TextFormField(
                      textAlign: TextAlign.center,
                      decoration: const InputDecoration(
-                     //icon: Icon(Icons.person),
                      hintText: 'Custom workout name'
                    ),
                      onSaved: (String? value) {
                        // This optional block of code can be used to run
-                       // code when the user saves the form.@
+                       // code when the user saves the form.
                      },
-                     //Write here that the workout name cannot be empty (and maybe that it cannot be longer than X character)
-                     validator: (String? value) {
-                       return (value != null && value.contains('@')) ? 'Workout name must not be empty!' : null;
+                     validator: (value) {
+                       if (value == null || value.isEmpty) {
+                         return 'Please enter some text';
+                       }
+                       return null;
                      },
                    ),
-
-
                   ],
                 ),
           ),
@@ -124,7 +174,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                 Stack(
                   children: const <Widget>[
                     ListTile(
-                      leading: Icon(Icons.recycling),
+                      leading: Icon(Icons.close),
                       title: Text('Exercise'),
                       trailing: Icon(Icons.notes),
                     ),
@@ -133,7 +183,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                 Stack(
                   children: const <Widget>[
                     ListTile(
-                      leading: Icon(Icons.recycling),
+                      leading: Icon(Icons.close),
                       title: Text('Exercise'),
                       trailing: Icon(Icons.notes),
                     ),
@@ -164,10 +214,10 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                     },
                     child: const Text('Create'),
                   ),
-                  )
+                  ),
                 ]
-              )
-
+              ),
+            Text('Workout name: $workoutName'),
 
             ]
           )
@@ -179,7 +229,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
 }
 
 class WorkoutCreatorChooseCategory extends StatelessWidget {
-   WorkoutCreatorChooseCategory({super.key});
+   const WorkoutCreatorChooseCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -202,7 +252,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => WorkoutCreatorExercisesAbs())
+                        MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
                     );},
                   child: const Text('ABS exercises'),
                 ),
@@ -224,62 +274,17 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
   }
 }
 
+
+
 class WorkoutCreatorExercisesAbs extends StatefulWidget {
-  WorkoutCreatorExercisesAbs({super.key}); //Safer without const
+  const WorkoutCreatorExercisesAbs({super.key}); //Safer without const
 
   @override
   State<WorkoutCreatorExercisesAbs> createState() => _WorkoutCreatorExercisesAbsState();
 }
 
-class Item {
-
-  Item({
-    required this.id,
-    required this.value,
-    required this.expandedValue,
-    required this.headerValue,
-  });
-
-  int id;
-  bool value;
-  String expandedValue;
-  String headerValue;
-}
-
-List<Item> generateItems(int numberOfItems) {
-  bool trigger = false;
-  String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-  String absTitleTwo = "Plank";
-  String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-  String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-  return List<Item>.generate(numberOfItems, (int index) {
-    if(index == 0){
-      return Item(
-        id: index,
-        value: trigger,
-        headerValue: absTitleOne,
-        expandedValue: absDescriptionOne,
-      );
-    }
-    if(index == 1){
-      return Item(
-        id: index,
-        value: trigger,
-        headerValue: absTitleTwo,
-        expandedValue: absDescriptionTwo,
-      );
-    }
-    return Item(
-      id: index,
-      value: trigger,
-      headerValue: 'Panel $index',
-      expandedValue: 'This is item number $index',
-    );
-  });
-}
-
 class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs> {
-  final List<Item> _data = generateItems(5);
+  final List<Item> _data = Item.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -293,62 +298,10 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
-              /*CheckboxListTile(
-                isThreeLine: true,
-                title: Text(absTitleOne),
-                subtitle: Text(absDescriptionOne),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: absTriggerOne,
-                onChanged: (bool? value) {
-                  setState(() {
-                    absTriggerOne = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: Text(absTitleTwo),
-                subtitle: Text(absDescriptionTwo),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: absTriggerTwo,
-                onChanged: (bool? value) {
-                  setState(() {
-                    absTriggerTwo = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Animate Slowly'),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: absTriggerThree,
-                onChanged: (bool? value) {
-                  setState(() {
-                    absTriggerThree = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Animate Slowly'),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: absTriggerFour,
-                onChanged: (bool? value) {
-                  setState(() {
-                    absTriggerFour = value!;
-                  });
-                },
-              ),
-              CheckboxListTile(
-                title: const Text('Animate Slowly'),
-                controlAffinity: ListTileControlAffinity.leading,
-                value: absTriggerFive,
-                onChanged: (bool? value) {
-                  setState(() {
-                    absTriggerFive = value!;
-                  });
-                },
-              ),*/
               ExpansionPanelList.radio(
                 initialOpenPanelValue: 2,
                 children: _data.map<ExpansionPanelRadio>((Item item) {
+                  //EdgeInsets expandedHeaderPadding = ;
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -368,7 +321,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                       ));
                 }).toList(),
               ),
-              ElevatedButton(
+              TextButton(
                   style: ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
                         Colors.deepPurple.shade900),
@@ -393,12 +346,12 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                  }, child: const Icon(Icons.add)),
-              Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
+                  }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
+              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
     );
   }
 }
-//
+
