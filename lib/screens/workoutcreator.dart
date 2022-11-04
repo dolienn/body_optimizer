@@ -177,128 +177,14 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
     );
   }
 }
-class Parts {
-  final String title;
-  final String image;
-  final String excercisez;
 
-  Parts({
-    required this.title, required this.image, required this.excercisez
-  });
-}
 class WorkoutCreatorChooseCategory extends StatelessWidget {
    WorkoutCreatorChooseCategory({super.key});
 
-  final List<Parts> partitions = [
-    Parts(title: "ABS", image: "assets/images/abs.png", excercisez: ''),
-    Parts(title: "BICEPS", image: "assets/images/biceps.png", excercisez: ''),
-  ];
-
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        height: double.infinity,
-        width: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: RadialGradient(
-                radius: 1,
-                colors: [
-                  Color(0xFFB7B7B7),
-                  Color(0xFFFFFFFF)
-                ]
-            )
-        ),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(25.0),
-                  child: Text(
-                    "Choose exercise category",
-                    style: GoogleFonts.lato(fontSize: 30, fontWeight: FontWeight.bold, color: const Color(
-                        0xFF232323)),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              width: 380,
-              height: MediaQuery.of(context).size.height-284,
-              child: GridView.builder(
-                shrinkWrap: true,
-                reverse: true,
-                scrollDirection: Axis.vertical,
-                itemCount: partitions.length,
-                itemBuilder: (BuildContext context, index) {
-                  return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        GridTile(
-                          child: Expanded(
-                            child: GestureDetector(
-                              child: Container(
-                                height: 180,
-                                width: 165,
-                                decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(50),
-                                    boxShadow: const [
-                                      BoxShadow(
-                                          color: Color(0xff9d9898),
-                                          blurRadius: 4,
-                                          offset: Offset(2,7)
-                                      )
-                                    ]
-                                ),
-                                child: GridTile(
-                                  header: Padding(
-                                    padding: const EdgeInsets.only(top: 10),
-                                    child: Center(
-                                      child: SizedBox(
-                                        height: 150,
-                                        width: 150,
-                                        child: Icon(Icons.sports_gymnastics),
-
-                                      ),
-                                    ),
-                                  ),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(top: 140),
-                                    child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
-                                  ),
-                                ),
-                              ),
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(builder: (context) => WorkoutCreatorExercisesAbs(),
-                                      settings: RouteSettings()),
-                                );
-                              },
-                            ),
-                          ) ,
-                        ),
-                      ],
-                    ),
-                  );
-                }, gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-
-    /*return Scaffold(
       appBar: AppBar(
         title: const Text('Select workout category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
       ),
@@ -336,7 +222,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
         ),
       );
   }
-}*/
+}
 
 class WorkoutCreatorExercisesAbs extends StatefulWidget {
   WorkoutCreatorExercisesAbs({super.key}); //Safer without const
@@ -344,7 +230,59 @@ class WorkoutCreatorExercisesAbs extends StatefulWidget {
   @override
   State<WorkoutCreatorExercisesAbs> createState() => _WorkoutCreatorExercisesAbsState();
 }
-class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>{
+
+class Item {
+
+  Item({
+    required this.id,
+    required this.value,
+    required this.expandedValue,
+    required this.headerValue,
+  });
+
+  int id;
+  bool value;
+  String expandedValue;
+  String headerValue;
+}
+
+List<Item> generateItems(int numberOfItems) {
+  bool absTriggerOne = false;
+  bool absTriggerTwo = false;
+
+  bool test = false;
+  String absTitleOne = "Crunches";
+  String absTitleTwo = "Plank";
+  String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+  String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+  return List<Item>.generate(numberOfItems, (int index) {
+    if(index == 0){
+      return Item(
+        id: index,
+        value: absTriggerOne,
+        headerValue: absTitleOne,
+        expandedValue: absDescriptionOne,
+      );
+    }
+    if(index == 1){
+      return Item(
+        id: index,
+        value: absTriggerTwo,
+        headerValue: absTitleTwo,
+        expandedValue: absDescriptionTwo,
+      );
+    }
+    return Item(
+      id: index,
+      value: test,
+      headerValue: 'Panel $index',
+      expandedValue: 'This is item number $index',
+    );
+  });
+}
+
+class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs> {
+  final List<Item> _data = generateItems(5);
   //Checking if checkboxes are checked
   bool absTriggerOne = false;
   bool absTriggerTwo = false;
@@ -357,26 +295,30 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
   String absTitleThree = "Crunches";
   String absTitleFour = "Crunches";
   String absTitleFive = "Crunches";
+
   //Descriptions -||-
   String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
   String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select abs workouts'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+        title: const Text('Select abs workouts'),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple.shade900,
       ),
       body: Center(
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
               CheckboxListTile(
-                  isThreeLine: true,
-                  title: Text(absTitleOne),
-                  subtitle: Text(absDescriptionOne),
-                  controlAffinity: ListTileControlAffinity.leading,
-                  value: absTriggerOne,
-                  onChanged: (bool? value) {
+                isThreeLine: true,
+                title: Text(absTitleOne),
+                subtitle: Text(absDescriptionOne),
+                controlAffinity: ListTileControlAffinity.leading,
+                value: absTriggerOne,
+                onChanged: (bool? value) {
                   setState(() {
                     absTriggerOne = value!;
                   });
@@ -423,32 +365,59 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                   });
                 },
               ),
+              ExpansionPanelList.radio(
+                initialOpenPanelValue: 2,
+                children: _data.map<ExpansionPanelRadio>((Item item) {
+                  return ExpansionPanelRadio(
+                      value: item.id,
+                      headerBuilder: (BuildContext context, bool isExpanded) {
+                          return CheckboxListTile(
+                            title: Text(item.headerValue),
+                            controlAffinity: ListTileControlAffinity.leading,
+                            value: false,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                if(item.id == 0) {
+                                  absTriggerOne = value!;
+                                }
+                                if(item.id == 1) {
+                                  absTriggerTwo = value!;
+                                }
+                              });
+                            },
+                          );
+                        },
+                      body: ListTile(
+                          subtitle: Text(absDescriptionOne),
+                      ));
+                }).toList(),
+              ),
               ElevatedButton(
                   style: ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                    backgroundColor: MaterialStatePropertyAll<Color>(
+                        Colors.deepPurple.shade900),
                   ),
                   onPressed: () {
-                    if(absTriggerOne == true){
+                    if (absTriggerOne == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if(absTriggerTwo == true){
+                    if (absTriggerTwo == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if(absTriggerThree == true){
+                    if (absTriggerThree == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if(absTriggerFour == true){
+                    if (absTriggerFour == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if(absTriggerFive == true){
+                    if (absTriggerFive == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
-                      );
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
-              }, child: const Icon(Icons.add)),
+                  }, child: const Icon(Icons.add)),
               Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
@@ -456,3 +425,4 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
     );
   }
 }
+
