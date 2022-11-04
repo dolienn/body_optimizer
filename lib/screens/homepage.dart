@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:flutter_rounded_progress_bar/flutter_rounded_progress_bar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -98,8 +99,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),
                       child: Row(
-                          // PROGRESS BAR ADD //
-                          ),
+
+                        ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10),

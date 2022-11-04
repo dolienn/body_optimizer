@@ -39,6 +39,7 @@ dependencies:
   google_fonts:
   table_calendar: ^3.0.8
   persistent_bottom_nav_bar: ^5.0.2
+  flutter_rounded_progress_bar: ^0.2.0
 
 dev_dependencies:
   flutter_test:
