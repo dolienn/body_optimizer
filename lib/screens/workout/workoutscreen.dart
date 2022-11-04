@@ -74,12 +74,12 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     )
                         ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 4,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,
-                      children: <Widget>[
+                      children: const <Widget>[
                         Icon(
                           Icons.shutter_speed,
                           color: Colors.white30,
@@ -96,7 +96,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               for (int i = 0; i < chest.length; i++)
@@ -105,9 +105,9 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                     for (int j = 0; j < chest[i].length; j++)
                       ListTile(
                         leading: Container(
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(20)),
-                            color: const Color(0xFF5B4D9D),
+                            color: Color(0xFF5B4D9D),
                           ),
                           padding: const EdgeInsets.all(6),
                           child: Image.asset(
@@ -119,7 +119,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         ),
                         title: Text(
                           chest[i][j].name,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white,
                             fontSize: 22,
                             fontWeight: FontWeight.w600,
@@ -127,14 +127,14 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                         ),
                         subtitle: Text(
                           chest[i][j].instruction,
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: Colors.white70,
                             fontSize: 14,
                             fontWeight: FontWeight.w400,
                           ),
                         ),
                       ),
-                    SizedBox(
+                    const SizedBox(
                       height: 30,
                     ),
                   ],

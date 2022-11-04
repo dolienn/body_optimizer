@@ -42,7 +42,7 @@ class _WorkoutState extends State<Workout> {
           gradient: RadialGradient(
             radius: 1,
             colors: [
-              Color(0xFFB7B7B7),
+              Color(0xABB7B7B7),
               Color(0xFFFFFFFF)
             ]
           )
@@ -53,9 +53,9 @@ class _WorkoutState extends State<Workout> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
+                  padding: const EdgeInsets.only(top: 70.0),
                   child: Text(
-                    "choose to ",
+                    "choose your ",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
                       color: Colors.black,
@@ -67,7 +67,7 @@ class _WorkoutState extends State<Workout> {
                   height: 20,
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(top: 100.0),
+                  padding: const EdgeInsets.only(top: 70.0),
                   child: Text(
                     "Workout",
                     style: GoogleFonts.bebasNeue(
@@ -83,7 +83,7 @@ class _WorkoutState extends State<Workout> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Padding(
-                  padding: const EdgeInsets.all(25.0),
+                  padding: const EdgeInsets.all(1.0),
                   child: Text(
                     "",
                     style: GoogleFonts.lato(fontSize: 33, fontWeight: FontWeight.bold, color: const Color(
@@ -93,8 +93,8 @@ class _WorkoutState extends State<Workout> {
               ],
             ),
             SizedBox(
-                width: 380,
-                height: MediaQuery.of(context).size.height-284,
+                width: 400,
+                height: MediaQuery.of(context).size.height-206,
               child: GridView.builder(
                 shrinkWrap: true,
                 reverse: true,
@@ -102,7 +102,7 @@ class _WorkoutState extends State<Workout> {
                 itemCount: partitions.length,
                 itemBuilder: (BuildContext context, index) {
                   return Padding(
-                    padding: const EdgeInsets.only(bottom: 10),
+                    padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
@@ -110,11 +110,11 @@ class _WorkoutState extends State<Workout> {
                           child: Expanded(
                             child: GestureDetector(
                               child: Container(
-                              height: 180,
+                              height: 190,
                               width: 165,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(20),
                                   boxShadow: const [
                                     BoxShadow(
                                         color: Color(0xff9d9898),
