@@ -1,9 +1,9 @@
+
 import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'dart:async';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -13,218 +13,171 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // TEXT STYLE //
 
+
+  /// Returns a list of [DateTime] objects from [first] to [last], inclusive.
+  List<DateTime> daysInRange(DateTime first, DateTime last) {
+    final dayCount = last.difference(first).inDays + 1;
+    return List.generate(
+      dayCount,
+      (index) => DateTime.utc(first.year, first.month, first.day + index),
+    );
+  }
+
+  late DateTime now;
+  late DateTime firstDay;
+  late DateTime lastDay;
+
+  CalendarFormat _calendarFormat = CalendarFormat.week;
+  final DateTime _focusedDay = DateTime.now();
+  DateTime? _selectedDay;
+  DateTime? _rangeStart;
+  DateTime? _rangeEnd;
   // DATE VARIABLES FOR CALENDAR //
-  DateTime _selectedDay = DateTime.now();
-  var _calendarFormat = CalendarFormat.week;
+  DateTime selectedDay = DateTime.now();
+  CalendarFormat calendarFormat = CalendarFormat.week;
 
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   int numOfExercises = 0;
   String workoutName = "Custom workout 1";
 
   // PROGRESS BAR //
-  // Variables
   double progress = 0.0;
-  // Initialization
-  @override
-  void initState() {
-    late Timer timer;
-    timer = Timer.periodic(const Duration(milliseconds: 300), (_) {
-      setState(() {
-        progress += 0.01;
-        if (progress >= 0.99) {
-          timer.cancel();
-          // percent=0;
-        }
-      });
-    });
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            radius: 1,
-            colors: [
-              Color(0xFFCECECE),
-              Color(0xFFFFFFFF),
-            ],
-          ),
-        ),
-        child: SingleChildScrollView(
-          child: Container(
-            width: double.infinity,
-            margin: const EdgeInsets.all(10.0),
-            child: Padding(
-              padding: const EdgeInsets.only(top: 40.0, left: 25.0),
-              child: Column(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 30),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 20.0),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 5.0),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "Body optimizer",
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 42,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 30, bottom: 10),
-                          child: Row(
-                            children: [
-                              Text(
-                                "This week",
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 36,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: TableCalendar(
-                            firstDay: DateTime.utc(2010, 10, 16),
-                            lastDay: DateTime.utc(2030, 3, 14),
-                            focusedDay: DateTime.now(),
-                            selectedDayPredicate: (day) {
-                              return isSameDay(_selectedDay, day);
-                            },
-                            onDaySelected: (selectedDay, focusedDay) {
-                              setState(() {
-                                _selectedDay = selectedDay;
-                              });
-                            },
-                            calendarFormat: _calendarFormat,
-                            onFormatChanged: (format) {
-                              setState(() {
-                                _calendarFormat = format;
-                              });
-                            },
-                            onPageChanged: (focusedDay) {},
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Today",
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 36,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: 320,
-                                child: GFProgressBar(
-                                  percentage: progress,
-                                  lineHeight: 35,
-                                  alignment: MainAxisAlignment.spaceBetween,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 15),
-                                  leading: const Icon(
-                                    Icons.sentiment_dissatisfied_outlined,
-                                    color: Colors.red,
-                                    size: 34,
-                                  ),
-                                  trailing: const Icon(
-                                    Icons.sentiment_satisfied_alt_outlined,
-                                    color: Colors.green,
-                                    size: 34,
-                                  ),
-                                  backgroundColor: Colors.black26,
-                                  progressBarColor:
-                                      PublicVariables().activeColor,
-                                  child: Center(
-                                    child: Text(
-                                      "${((progress + 0.01) * 100).round()}%",
-                                      textAlign: TextAlign.end,
-                                      style: GoogleFonts.lato(
-                                        color: Colors.white,
-                                        fontSize: 20,
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5, bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                "$numOfExercises exercises left",
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 22,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          child: Row(
-                            children: [
-                              Text(
-                                "Tomorrow",
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 36,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 15, bottom: 40),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                workoutName,
-                                style: GoogleFonts.lato(
-                                  color: Colors.black,
-                                  fontSize: 20,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
+                  Text(
+                    "Body optimizer",
+                    style: GoogleFonts.lato(
+                      color: Colors.black,
+                      fontSize: 42,
                     ),
                   ),
                 ],
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.only(top: 30, bottom: 15),
+                child: Row(
+                  children: [
+                    Text(
+                      "This week",
+                      style: GoogleFonts.lato(
+                        color: Colors.black,
+                        fontSize: 26,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              TableCalendar(
+                firstDay: DateTime.utc(2010, 10, 16),
+                lastDay: DateTime.utc(2030, 3, 14),
+                focusedDay: _focusedDay,
+                selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+                rangeStartDay: _rangeStart,
+                rangeEndDay: _rangeEnd,
+                calendarFormat: _calendarFormat,
+                startingDayOfWeek: StartingDayOfWeek.monday,
+                calendarStyle: const CalendarStyle(
+                  // Use `CalendarStyle` to customize the UI
+                  outsideDaysVisible: false,
+                ),
+                onFormatChanged: (format) {
+                  setState(() {
+                    _calendarFormat = format;
+                  });
+                },
+                onDaySelected: (selectedDay, focusedDay) {
+                  setState(() {
+                    _selectedDay = selectedDay;
+                  });
+                },
+                onPageChanged: (focusedDay) {},
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    // -------- LOADING BAR ------- //
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.92,
+                      child: GFProgressBar(
+                        percentage: progress,
+                        lineHeight: 35,
+                        alignment: MainAxisAlignment.spaceBetween,
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        backgroundColor: Colors.black26,
+                        progressBarColor: PublicVariables().activeColor,
+                        child: Center(
+                          child: Text(
+                            "${((progress + 0.01) * 100).round()}%",
+                            textAlign: TextAlign.end,
+                            style: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "$numOfExercises exercises left",
+                      style: GoogleFonts.lato(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 10),
+                child: Row(
+                  children: [
+                    Text(
+                      "Tomorrow",
+                      style: GoogleFonts.lato(
+                        color: Colors.black,
+                        fontSize: 26,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      workoutName,
+                      style: GoogleFonts.lato(
+                        color: Colors.black,
+                        fontSize: 16,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
         ),
       ),
