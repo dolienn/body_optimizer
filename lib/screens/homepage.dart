@@ -15,15 +15,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
 
 
-  /// Returns a list of [DateTime] objects from [first] to [last], inclusive.
-  List<DateTime> daysInRange(DateTime first, DateTime last) {
-    final dayCount = last.difference(first).inDays + 1;
-    return List.generate(
-      dayCount,
-      (index) => DateTime.utc(first.year, first.month, first.day + index),
-    );
-  }
-
   late DateTime now;
   late DateTime firstDay;
   late DateTime lastDay;
@@ -31,8 +22,7 @@ class _MyHomePageState extends State<MyHomePage> {
   CalendarFormat _calendarFormat = CalendarFormat.week;
   final DateTime _focusedDay = DateTime.now();
   DateTime? _selectedDay;
-  DateTime? _rangeStart;
-  DateTime? _rangeEnd;
+
   // DATE VARIABLES FOR CALENDAR //
   DateTime selectedDay = DateTime.now();
   CalendarFormat calendarFormat = CalendarFormat.week;
@@ -83,8 +73,6 @@ class _MyHomePageState extends State<MyHomePage> {
                 lastDay: DateTime.utc(2030, 3, 14),
                 focusedDay: _focusedDay,
                 selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-                rangeStartDay: _rangeStart,
-                rangeEndDay: _rangeEnd,
                 calendarFormat: _calendarFormat,
                 startingDayOfWeek: StartingDayOfWeek.monday,
                 calendarStyle: const CalendarStyle(
