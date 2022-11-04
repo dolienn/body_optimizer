@@ -247,11 +247,8 @@ class Item {
 }
 
 List<Item> generateItems(int numberOfItems) {
-  bool absTriggerOne = false;
-  bool absTriggerTwo = false;
-
-  bool test = false;
-  String absTitleOne = "Crunches";
+  bool trigger = false;
+  String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
   String absTitleTwo = "Plank";
   String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
   String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
@@ -259,7 +256,7 @@ List<Item> generateItems(int numberOfItems) {
     if(index == 0){
       return Item(
         id: index,
-        value: absTriggerOne,
+        value: trigger,
         headerValue: absTitleOne,
         expandedValue: absDescriptionOne,
       );
@@ -267,14 +264,14 @@ List<Item> generateItems(int numberOfItems) {
     if(index == 1){
       return Item(
         id: index,
-        value: absTriggerTwo,
+        value: trigger,
         headerValue: absTitleTwo,
         expandedValue: absDescriptionTwo,
       );
     }
     return Item(
       id: index,
-      value: test,
+      value: trigger,
       headerValue: 'Panel $index',
       expandedValue: 'This is item number $index',
     );
@@ -283,22 +280,6 @@ List<Item> generateItems(int numberOfItems) {
 
 class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs> {
   final List<Item> _data = generateItems(5);
-  //Checking if checkboxes are checked
-  bool absTriggerOne = false;
-  bool absTriggerTwo = false;
-  bool absTriggerThree = false;
-  bool absTriggerFour = false;
-  bool absTriggerFive = false;
-
-  String absTitleOne = "Crunches";
-  String absTitleTwo = "Plank";
-  String absTitleThree = "Crunches";
-  String absTitleFour = "Crunches";
-  String absTitleFive = "Crunches";
-
-  //Descriptions -||-
-  String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-  String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
 
   @override
   Widget build(BuildContext context) {
@@ -312,7 +293,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
           child: ListView(
             padding: const EdgeInsets.all(8),
             children: <Widget>[
-              CheckboxListTile(
+              /*CheckboxListTile(
                 isThreeLine: true,
                 title: Text(absTitleOne),
                 subtitle: Text(absDescriptionOne),
@@ -364,7 +345,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                     absTriggerFive = value!;
                   });
                 },
-              ),
+              ),*/
               ExpansionPanelList.radio(
                 initialOpenPanelValue: 2,
                 children: _data.map<ExpansionPanelRadio>((Item item) {
@@ -374,21 +355,16 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                           return CheckboxListTile(
                             title: Text(item.headerValue),
                             controlAffinity: ListTileControlAffinity.leading,
-                            value: false,
+                            value: item.value,
                             onChanged: (bool? value) {
                               setState(() {
-                                if(item.id == 0) {
-                                  absTriggerOne = value!;
-                                }
-                                if(item.id == 1) {
-                                  absTriggerTwo = value!;
-                                }
+                                  item.value = value!;
                               });
                             },
                           );
                         },
                       body: ListTile(
-                          subtitle: Text(absDescriptionOne),
+                          subtitle: Text(item.expandedValue),
                       ));
                 }).toList(),
               ),
@@ -398,19 +374,19 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                         Colors.deepPurple.shade900),
                   ),
                   onPressed: () {
-                    if (absTriggerOne == true) {
+                    if (_data[0].value == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if (absTriggerTwo == true) {
+                    if (_data[1].value == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if (absTriggerThree == true) {
+                    if (_data[2].value == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if (absTriggerFour == true) {
+                    if (_data[3].value == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
-                    if (absTriggerFive == true) {
+                    if (_data[4].value == true) {
                       _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
