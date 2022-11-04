@@ -1,3 +1,4 @@
+import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:body_optimizer/screens/workout/workoutscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,7 +20,7 @@ class Parts {
   });
 }
 
-class _WorkoutState extends State<Workout> {
+class PartsCreator {
 
   final List<Parts> partitions = [
     Parts(title: "ABS", image: "assets/images/abs.png", excercises: ''),
@@ -31,6 +32,9 @@ class _WorkoutState extends State<Workout> {
     Parts(title: "SHOULDERS", image: "assets/images/shoulders.png", excercises: ''),
     Parts(title: "REAR", image: "assets/images/rear.png", excercises: ''),
   ];
+}
+
+class _WorkoutState extends State<Workout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,13 +43,13 @@ class _WorkoutState extends State<Workout> {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          gradient: RadialGradient(
-            radius: 1,
-            colors: [
-              Color(0xABB7B7B7),
-              Color(0xFFFFFFFF)
-            ]
-          )
+          // gradient: RadialGradient(
+          //   radius: 1,
+          //   colors: [
+          //     Color(0xABB7B7B7),
+          //     Color(0xFFFFFFFF)
+          //   ]
+          // )
         ),
         child: Column(
           children: [
@@ -58,7 +62,7 @@ class _WorkoutState extends State<Workout> {
                     "choose your ",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
-                      color: Colors.black,
+                      color: PublicVariables().activeColor,
                       letterSpacing: 3,
                     ),
                   ),
@@ -99,7 +103,7 @@ class _WorkoutState extends State<Workout> {
                 shrinkWrap: true,
                 reverse: true,
                 scrollDirection: Axis.vertical,
-                itemCount: partitions.length,
+                itemCount: PartsCreator().partitions.length,
                 itemBuilder: (BuildContext context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
@@ -115,11 +119,11 @@ class _WorkoutState extends State<Workout> {
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(20),
-                                  boxShadow: const [
+                                  boxShadow:  [
                                     BoxShadow(
-                                        color: Color(0xff9d9898),
+                                        color: const Color(0xff9d9898).withOpacity(0.1),
                                         blurRadius: 4,
-                                        offset: Offset(2,7)
+                                        offset: const Offset(2,7)
                                     )
                                   ]
                               ),
@@ -130,20 +134,20 @@ class _WorkoutState extends State<Workout> {
                                     child: SizedBox(
                                       height: 150,
                                       width: 150,
-                                      child: Image.asset(partitions[index].image, scale: 6),
+                                      child: Image.asset(PartsCreator().partitions[index].image, scale: 6),
                                     ),
                                   ),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 140),
-                                  child: Text(partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                                  child: Text(PartsCreator().partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                                 ),
                               ),
                                 ),
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const WorkoutScreen(),
+                                  MaterialPageRoute(builder: (index) => const WorkoutScreen(),
                                   settings: const RouteSettings()),
                                 );
                               },
