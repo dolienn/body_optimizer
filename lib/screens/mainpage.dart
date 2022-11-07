@@ -14,7 +14,7 @@ class MainPage extends StatefulWidget {
 }
 
 class PublicVariables {
-  var activeColor = const Color(0xFF5650DE);
+  var mainColor = const Color(0xFF5650DE);
 }
 
 class _MainPageState extends State<MainPage> {
@@ -35,25 +35,25 @@ class _MainPageState extends State<MainPage> {
       PersistentBottomNavBarItem(
         icon: const Icon(CupertinoIcons.home),
         title: ("Home"),
-        activeColorPrimary: PublicVariables().activeColor,
+        activeColorPrimary: PublicVariables().mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.fitness_center_outlined),
         title: ("Workout"),
-        activeColorPrimary: PublicVariables().activeColor,
+        activeColorPrimary: PublicVariables().mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.note_add_outlined),
         title: ("Workout Creator"),
-        activeColorPrimary: PublicVariables().activeColor,
+        activeColorPrimary: PublicVariables().mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
       PersistentBottomNavBarItem(
         icon: const Icon(Icons.settings_outlined),
         title: ("Settings"),
-        activeColorPrimary: PublicVariables().activeColor,
+        activeColorPrimary: PublicVariables().mainColor,
         inactiveColorPrimary: CupertinoColors.systemGrey,
       ),
     ];
