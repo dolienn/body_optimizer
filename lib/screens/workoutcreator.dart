@@ -6,13 +6,12 @@ Move the row in exercise manager so that the buttons can be moved to the bottom 
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 Create a time value for exercises for workout
-Create an ID for every exercise //maybe done?
 Move/Modify the Elevated button on the exercise select page
-expandedHeaderPadding
+I think that I somehow need to get the Row out of List view but I don't know how to do it.
 
 Useful links etc.
 https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
-https://api.flutter.dev/flutter/material/ExpansionPanelList/ExpansionPanelList.radio.html
+https://mercyjemosop.medium.com/flutter-list-view-1045969b1799
 void _updateMyItems(int oldIndex, int newIndex) {
   if (newIndex > oldIndex) {
     newIndex -= 1;
@@ -20,9 +19,39 @@ void _updateMyItems(int oldIndex, int newIndex) {
   final String item = items.removeAt(oldIndex);
   items.insert(newIndex, item);
 }
+
+ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+                title: Text(
+                  tasks[index],
+                  style: TextStyle(),
+                ),
+                trailing: Icon(Icons.access_time));
+          }),
+    );
+
+Not sure if finished:
+expandedHeaderPadding
+https://api.flutter.dev/flutter/material/ExpansionPanelList/ExpansionPanelList.radio.html
+
+Create an ID for every exercise
+Create a time value for exercises for workout
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+class CustomWorkout{
+
+  CustomWorkout({
+    required this.name,
+    required this.workout,
+  });
+
+  String name;
+  var workout = [];
+}
 
 class Item {
 
@@ -67,7 +96,7 @@ class Item {
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
-        expandedValue: 'This is item number $index',
+        expandedValue: 'This is item number $index ThThis is item number $index This is item number $index This is item number $index This is item number $index This is item number $index This is item number $index This is item number $index This is item number $index This is item number $index is is item number $index ',
       );
     });
   }
@@ -81,8 +110,8 @@ class WorkoutCreator extends StatefulWidget {
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
   //final List<Item> _data = Item.generateItems(5);
-  static double exercises = 0;
-  String workoutName = "";
+  static List<String> workoutList = [];
+  static int exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
   void _showAlertDialog(BuildContext context) {
@@ -93,8 +122,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         content: const Text('Leave without saving changes?'),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
-            /// This parameter indicates this action is the default,
-            /// and turns the action's text to bold text.
             isDefaultAction: true,
             onPressed: () {
               Navigator.pop(context);
@@ -102,9 +129,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
             child: const Text('No'),
           ),
           CupertinoDialogAction(
-            /// This parameter indicates the action would perform
-            /// a destructive action such as deletion, and turns
-            /// the action's text color to red.
             isDestructiveAction: true,
             onPressed: () {
               Navigator.pop(context);
@@ -119,117 +143,156 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Body Optimizer',
-      home: Scaffold(
-        appBar: AppBar(
-            title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
-            actions: <Widget>[
-        IconButton(
-        icon: const Icon(Icons.add),
-        tooltip: 'Add exercise',
-        onPressed: () {
-          Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
-          );
-        },
-      ),
-        ]
-        ),
-        
-        body: Center(
-          child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-              child: ListView(
-          children: <Widget>[
-            //Text('$Exercises'),
-            Form(
-               key: _formKey,
-               child: Column(
-                 children: [
-                   TextFormField(
-                     textAlign: TextAlign.center,
-                     decoration: const InputDecoration(
-                     hintText: 'Custom workout name'
-                   ),
-                     onSaved: (String? value) {
-                       // This optional block of code can be used to run
-                       // code when the user saves the form.
-                     },
-                     validator: (value) {
-                       if (value == null || value.isEmpty) {
-                         return 'Please enter some text';
-                       }
-                       return null;
-                     },
-                   ),
-                  ],
-                ),
-          ),
-            ListView(
-              scrollDirection: Axis.vertical,
-              shrinkWrap: true,
-              children: <Widget>[
-                //A whole stack is an exercise
-                Stack(
-                  children: const <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.close),
-                      title: Text('Exercise'),
-                      trailing: Icon(Icons.notes),
-                    ),
-                  ],
-                ),
-                Stack(
-                  children: const <Widget>[
-                    ListTile(
-                      leading: Icon(Icons.close),
-                      title: Text('Exercise'),
-                      trailing: Icon(Icons.notes),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-              Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Expanded(
-                  child: OutlinedButton(
-                      onPressed: () => _showAlertDialog(context),
-                      child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
-                      )
-                  ),
-                  ),
-                  Expanded(
-                  child: ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
-                    ),
+        title: 'Body Optimizer',
+        home: Scaffold(
+            appBar: AppBar(
+                title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+                actions: <Widget>[
+                  IconButton(
+                    icon: const Icon(Icons.add),
+                    tooltip: 'Add exercise',
                     onPressed: () {
-                      const snackBar = SnackBar(
-                        content: Text('Created workout!'),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
                       );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                     },
-                    child: const Text('Create'),
-                  ),
                   ),
                 ]
-              ),
-            Text('Workout name: $workoutName'),
+            ),
 
-            ]
-          )
-          )
+            body: Center(
+                child: Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    child: ListView(
+                        children: <Widget>[
+                          //Text('$Exercises'),
+                          Form(
+                            key: _formKey,
+                            child: Column(
+                              children: [
+                                TextFormField(
+                                  textAlign: TextAlign.center,
+                                  decoration: const InputDecoration(
+                                      hintText: 'Custom workout name'
+                                  ),
+                                  onSaved: (String? value) {
+                                    // This optional block of code can be used to run
+                                    // code when the user saves the form.
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Please enter some text';
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          /*
+    ListView.builder(
+          itemCount: tasks.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ListTile(
+                title: Text(
+                  tasks[index],
+                  style: TextStyle(),
+                ),
+                trailing: Icon(Icons.access_time));
+          }),
+    );
+                           */
+                          ListView.builder(
+                            itemCount: workoutList.length,
+                            scrollDirection: Axis.vertical,
+                            shrinkWrap: true,
+                            itemBuilder: (BuildContext context, int index) {
+                              return ListTile(
+                                leading: TextButton(
+                                  style: ButtonStyle(
+                                    foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                  ),
+                                  onPressed: () {
+                                    workoutList.removeAt(index);
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(builder: (context) => WorkoutCreator()), // this mainpage is your page to refresh
+                                          (Route<dynamic> route) => false,
+                                    );
+                                  },
+                                  child: Icon(Icons.close),
+                                ),
+                                //leading: Icon(Icons.close),
+                                title: Text(workoutList[index]),
+                                trailing: Icon(Icons.notes),
+                              );
+                            }
+                          ),/*
+                              //A whole stack is an exercise
+                              Stack(
+                                children: const <Widget>[
+                                  ListTile(
+                                    leading: Icon(Icons.close),
+                                    title: Text('Exercise'),
+                                    trailing: Icon(Icons.notes),
+                                  ),
+                                ],
+                              ),
+                              Stack(
+                                children: const <Widget>[
+                                  ListTile(
+                                    leading: Icon(Icons.close),
+                                    title: Text('Exercise'),
+                                    trailing: Icon(Icons.notes),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),*/
+                          //I think that I somehow need to get the Row out of List view but I don't know how to do it.
+                          Align(
+                            alignment: Alignment.bottomCenter,
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: <Widget>[
+                                Expanded(
+                                  child: OutlinedButton(
+                                      onPressed: () => _showAlertDialog(context),
+                                      child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
+                                      )
+                                  ),
+                                ),
+                                Expanded(
+                                  child: ElevatedButton(
+                                    style: ButtonStyle(
+                                      backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                                    ),
+                                    onPressed: () {
+                                      const snackBar = SnackBar(
+                                        content: Text('Created workout!'),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                    },
+                                    child: const Text('Create'),
+                                  ),
+                                ),
+                              ]
+                          ),
+                          )
+                          //Text('Workout name: ${CustomWorkout(Name: Name, Workout: Workout)}'),
+
+                        ]
+                    )
+                )
+            )
         )
-      )
     );
   }
 }
 
 class WorkoutCreatorChooseCategory extends StatelessWidget {
-   const WorkoutCreatorChooseCategory({super.key});
+  const WorkoutCreatorChooseCategory({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -269,8 +332,8 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
               ),
             ],
           )
-        ),
-      );
+      ),
+    );
   }
 }
 
@@ -299,25 +362,25 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
             padding: const EdgeInsets.all(8),
             children: <Widget>[
               ExpansionPanelList.radio(
-                initialOpenPanelValue: 2,
+                expandedHeaderPadding: EdgeInsets.all(0),
                 children: _data.map<ExpansionPanelRadio>((Item item) {
                   //EdgeInsets expandedHeaderPadding = ;
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
-                          return CheckboxListTile(
-                            title: Text(item.headerValue),
-                            controlAffinity: ListTileControlAffinity.leading,
-                            value: item.value,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                  item.value = value!;
-                              });
-                            },
-                          );
-                        },
+                        return CheckboxListTile(
+                          title: Text(item.headerValue),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          value: item.value,
+                          onChanged: (bool? value) {
+                            setState(() {
+                              item.value = value!;
+                            });
+                          },
+                        );
+                      },
                       body: ListTile(
-                          subtitle: Text(item.expandedValue),
+                        subtitle: Text(item.expandedValue),
                       ));
                 }).toList(),
               ),
@@ -328,9 +391,11 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
+                      _WorkoutCreatorState.workoutList.add("Crunches");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
+                      _WorkoutCreatorState.workoutList.add("Plank");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
@@ -354,4 +419,3 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
     );
   }
 }
-
