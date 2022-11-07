@@ -194,15 +194,30 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                   workoutList.removeAt(index);
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
-                                                    MaterialPageRoute(builder: (context) => WorkoutCreator()), // this mainpage is your page to refresh
+                                                    MaterialPageRoute(builder: (context) => const WorkoutCreator()),
                                                         (Route<dynamic> route) => false,
                                                   );
                                                 },
-                                                child: Icon(Icons.close),
+                                                child: const Icon(Icons.close),
                                               ),
-                                              //leading: Icon(Icons.close),
                                               title: Text(workoutList[index]),
-                                              trailing: Icon(Icons.notes),
+                                              trailing: TextButton(
+                                                style: ButtonStyle(
+                                                  padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                                ),
+                                                onPressed: () {
+                                                  var placeholder = workoutList[index-1];
+                                                  workoutList[index] = workoutList[index-1];
+                                                  workoutList[index] = placeholder;
+                                                  Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => const WorkoutCreator()),
+                                                        (Route<dynamic> route) => false,
+                                                  );
+                                                },
+                                                child: const Icon(Icons.receipt),
+                                              ),
                                             );
                                           }
                                       ),
@@ -241,36 +256,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                               ],
                             ),
                           ),
-                          /*ListView.builder(
-                            itemCount: workoutList.length,
-                            scrollDirection: Axis.vertical,
-                            shrinkWrap: true,
-                            itemBuilder: (BuildContext context, int index) {
-                              return ListTile(
-                                leading: TextButton(
-                                  style: ButtonStyle(
-                                    foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                                  ),
-                                  onPressed: () {
-                                    workoutList.removeAt(index);
-                                    Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(builder: (context) => WorkoutCreator()), // this mainpage is your page to refresh
-                                          (Route<dynamic> route) => false,
-                                    );
-                                  },
-                                  child: Icon(Icons.close),
-                                ),
-                                //leading: Icon(Icons.close),
-                                title: Text(workoutList[index]),
-                                trailing: Icon(Icons.notes),
-                              );
-                            }
-                          ),*/
-                          //I think that I somehow need to get the Row out of List view but I don't know how to do it.
-
-                          //Text('Workout name: ${CustomWorkout(Name: Name, Workout: Workout)}'),
-
                         ]
                     )
                 )
@@ -351,7 +336,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
             padding: const EdgeInsets.all(8),
             children: <Widget>[
               ExpansionPanelList.radio(
-                expandedHeaderPadding: EdgeInsets.all(0),
+                expandedHeaderPadding: const EdgeInsets.all(0),
                 children: _data.map<ExpansionPanelRadio>((Item item) {
                   return ExpansionPanelRadio(
                       value: item.id,
