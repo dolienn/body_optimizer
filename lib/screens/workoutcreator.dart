@@ -1,12 +1,9 @@
 /*
 To do:
-Ability to add exercises
-Removing exercises
+
 Move the row in exercise manager so that the buttons can be moved to the bottom of the page
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
-Create a time value for exercises for workout
-Move/Modify the Elevated button on the exercise select page
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
 
 Useful links etc.
@@ -20,17 +17,6 @@ void _updateMyItems(int oldIndex, int newIndex) {
   items.insert(newIndex, item);
 }
 
-ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-                title: Text(
-                  tasks[index],
-                  style: TextStyle(),
-                ),
-                trailing: Icon(Icons.access_time));
-          }),
-    );
 
 Not sure if finished:
 expandedHeaderPadding
@@ -109,8 +95,9 @@ class WorkoutCreator extends StatefulWidget {
   State<WorkoutCreator> createState() => _WorkoutCreatorState();
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
-  //final List<Item> _data = Item.generateItems(5);
+  static String workoutName = "";
   static List<String> workoutList = [];
+
   static int exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
@@ -187,23 +174,74 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                     return null;
                                   },
                                 ),
+                                SingleChildScrollView(
+                                  physics: const ScrollPhysics(),
+                                  child: Column(
+                                    children: [
+                                      ListView.builder(
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          itemCount: workoutList.length,
+                                          scrollDirection: Axis.vertical,
+                                          shrinkWrap: true,
+                                          itemBuilder: (BuildContext context, int index) {
+                                            return ListTile(
+                                              leading: TextButton(
+                                                style: ButtonStyle(
+                                                  padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                                ),
+                                                onPressed: () {
+                                                  workoutList.removeAt(index);
+                                                  Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    MaterialPageRoute(builder: (context) => WorkoutCreator()), // this mainpage is your page to refresh
+                                                        (Route<dynamic> route) => false,
+                                                  );
+                                                },
+                                                child: Icon(Icons.close),
+                                              ),
+                                              //leading: Icon(Icons.close),
+                                              title: Text(workoutList[index]),
+                                              trailing: Icon(Icons.notes),
+                                            );
+                                          }
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                      children: <Widget>[
+                                        Expanded(
+                                          child: OutlinedButton(
+                                              onPressed: () => _showAlertDialog(context),
+                                              child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
+                                              )
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: ElevatedButton(
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                                            ),
+                                            onPressed: () {
+                                              const snackBar = SnackBar(
+                                                content: Text('Created workout!'),
+                                              );
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            },
+                                            child: const Text('Create'),
+                                          ),
+                                        ),
+                                      ]
+                                  ),
+                                )
                               ],
                             ),
                           ),
-                          /*
-    ListView.builder(
-          itemCount: tasks.length,
-          itemBuilder: (BuildContext context, int index) {
-            return ListTile(
-                title: Text(
-                  tasks[index],
-                  style: TextStyle(),
-                ),
-                trailing: Icon(Icons.access_time));
-          }),
-    );
-                           */
-                          ListView.builder(
+                          /*ListView.builder(
                             itemCount: workoutList.length,
                             scrollDirection: Axis.vertical,
                             shrinkWrap: true,
@@ -228,58 +266,9 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                 trailing: Icon(Icons.notes),
                               );
                             }
-                          ),/*
-                              //A whole stack is an exercise
-                              Stack(
-                                children: const <Widget>[
-                                  ListTile(
-                                    leading: Icon(Icons.close),
-                                    title: Text('Exercise'),
-                                    trailing: Icon(Icons.notes),
-                                  ),
-                                ],
-                              ),
-                              Stack(
-                                children: const <Widget>[
-                                  ListTile(
-                                    leading: Icon(Icons.close),
-                                    title: Text('Exercise'),
-                                    trailing: Icon(Icons.notes),
-                                  ),
-                                ],
-                              ),
-                            ],
                           ),*/
                           //I think that I somehow need to get the Row out of List view but I don't know how to do it.
-                          Align(
-                            alignment: Alignment.bottomCenter,
-                          child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: <Widget>[
-                                Expanded(
-                                  child: OutlinedButton(
-                                      onPressed: () => _showAlertDialog(context),
-                                      child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
-                                      )
-                                  ),
-                                ),
-                                Expanded(
-                                  child: ElevatedButton(
-                                    style: ButtonStyle(
-                                      backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
-                                    ),
-                                    onPressed: () {
-                                      const snackBar = SnackBar(
-                                        content: Text('Created workout!'),
-                                      );
-                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                    },
-                                    child: const Text('Create'),
-                                  ),
-                                ),
-                              ]
-                          ),
-                          )
+
                           //Text('Workout name: ${CustomWorkout(Name: Name, Workout: Workout)}'),
 
                         ]
@@ -364,7 +353,6 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
               ExpansionPanelList.radio(
                 expandedHeaderPadding: EdgeInsets.all(0),
                 children: _data.map<ExpansionPanelRadio>((Item item) {
-                  //EdgeInsets expandedHeaderPadding = ;
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
