@@ -30,7 +30,8 @@ dev_dependencies:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/images/examp.png"
+  remove_alpha_ios: true
+  image_path: "assets/images/body_optimizer_android.png"
 
 flutter:
 
