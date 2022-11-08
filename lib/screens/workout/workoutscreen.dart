@@ -1,16 +1,21 @@
-import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:body_optimizer/screens/workout.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutScreen extends StatefulWidget {
-  const WorkoutScreen({Key? key}) : super(key: key);
+  int input;
+  WorkoutScreen({super.key, required this.input, required index});
 
   @override
-  State<WorkoutScreen> createState() => _WorkoutScreenState();
+  State<WorkoutScreen> createState() => _WorkoutScreenState(input);
 }
 
 
 class _WorkoutScreenState extends State<WorkoutScreen> {
+
+  int input;
+  _WorkoutScreenState(this.input);
+
+  get index => input;
   @override
   Widget build(BuildContext context) {
     return Scaffold(

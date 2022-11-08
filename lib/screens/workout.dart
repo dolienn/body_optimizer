@@ -160,7 +160,7 @@ class _WorkoutState extends State<Workout> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => const WorkoutScreen(),
+                                  MaterialPageRoute(builder: (context) => WorkoutScreen(index : index, input: index,),
                                   ),
                                 );
                               },
