@@ -27,6 +27,7 @@ Create a time value for exercises for workout
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class CustomWorkout{
 
@@ -39,9 +40,9 @@ class CustomWorkout{
   var workout = [];
 }
 
-class Item {
+class AbsExercises {
 
-  Item({
+  AbsExercises({
     required this.id,
     required this.value,
     required this.expandedValue,
@@ -55,15 +56,22 @@ class Item {
 
 
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
-  static List<Item> generateItems(int numberOfItems) {
+  static List<AbsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
     String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
     String absTitleTwo = "Plank";
+    String absTitleThree = "V-Ups";
+    String absTitleFour = "Hollow Holds";
+    String absTitleFive = "Medicine Ball Slam";
+
     String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
     String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    return List<Item>.generate(numberOfItems, (int index) {
+    String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
+    String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
+    String absDescriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
+    return List<AbsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
-        return Item(
+        return AbsExercises(
           id: index,
           value: trigger,
           headerValue: absTitleOne,
@@ -71,14 +79,38 @@ class Item {
         );
       }
       if(index == 1){
-        return Item(
+        return AbsExercises(
           id: index,
           value: trigger,
           headerValue: absTitleTwo,
           expandedValue: absDescriptionTwo,
         );
       }
-      return Item(
+      if(index == 2){
+        return AbsExercises(
+          id: index,
+          value: trigger,
+          headerValue: absTitleThree,
+          expandedValue: absDescriptionThree,
+        );
+      }
+      if(index == 3){
+        return AbsExercises(
+          id: index,
+          value: trigger,
+          headerValue: absTitleFour,
+          expandedValue: absDescriptionFour,
+        );
+      }
+      if(index == 4){
+        return AbsExercises(
+          id: index,
+          value: trigger,
+          headerValue: absTitleFive,
+          expandedValue: absDescriptionFive,
+        );
+      }
+      return AbsExercises(
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
@@ -209,16 +241,20 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                   foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                                 ),
                                                 onPressed: () {
-                                                  var placeholder = workoutList[index-1];
-                                                  workoutList[index-1] = workoutList[index];
-                                                  workoutList[index] = placeholder;
+                                                  if(index != 0) {
+                                                    var placeholder = workoutList[index - 1];
+                                                    workoutList[index - 1] =
+                                                    workoutList[index];
+                                                    workoutList[index] =
+                                                        placeholder;
+                                                  }
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
                                                     MaterialPageRoute(builder: (context) => const WorkoutCreator()),
                                                         (Route<dynamic> route) => false,
                                                   );
                                                 },
-                                                child: const Icon(Icons.receipt),
+                                                child: const Icon(Icons.upload),
                                               ),
                                             );
                                           }
@@ -282,41 +318,316 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select workout category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+        title: const Text('Select exercise category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
       ),
       body: Center(
-          child: ListView(
-            padding: const EdgeInsets.all(8),
+        child: GridView.count(
+            primary: false,
+            padding: const EdgeInsets.all(20),
+            crossAxisSpacing: 10,
+            mainAxisSpacing: 10,
+            crossAxisCount: 2,
             children: <Widget>[
-              const Text('Here is the modified workout page'),
-              SizedBox(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
-                    textStyle: const TextStyle(fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  GridTile(
+                    child: Expanded(
+                      child: GestureDetector(
+                        child: Container(
+                          height: 190,
+                          width: 165,
+                          decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(20),
+                              boxShadow:  [
+                                BoxShadow(
+                                    color: const Color(0xff9d9898).withOpacity(0.1),
+                                    blurRadius: 4,
+                                    offset: const Offset(2,7)
+                                )
+                              ]
+                          ),
+                          child: GridTile(
+                            header: const Padding(
+                              padding: EdgeInsets.only(top: 10),
+                              child: Center(
+                                child: SizedBox(
+                                    height: 150,
+                                    width: 150,
+                                    child: Icon(Icons.abc)),
+                              ),
+                            ),
+
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 140),
+                              child: Text('Abs', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                            ),
+                          ),
+                        ),
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                          );},
+                      ),
+                    ),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
-                    );},
-                  child: const Text('ABS exercises'),
-                ),
+                ],
+                )
               ),
-              SizedBox(
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.all(16.0),
-                    textStyle: const TextStyle(fontSize: 20),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                GridTile(
+                child: Expanded(
+                child: GestureDetector(
+                  child: Container(
+                  height: 190,
+                  width: 165,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow:  [
+                        BoxShadow(
+                            color: const Color(0xff9d9898).withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(2,7)
+                        )
+                      ]
                   ),
-                  onPressed: () {},
-                  child: const Text('Gradient'),
+                  child: GridTile(
+                    header: const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: Icon(Icons.abc)),
+                      ),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 140),
+                      child: Text('Biceps', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                    ),
+                  ),
                 ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                  );},
               ),
-            ],
-          )
+    ),
+                )]
+        ),
+      ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                GridTile(
+                child: Expanded(
+                child: GestureDetector(
+                  child: Container(
+                  height: 190,
+                  width: 165,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow:  [
+                        BoxShadow(
+                            color: const Color(0xff9d9898).withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(2,7)
+                        )
+                      ]
+                  ),
+                  child: GridTile(
+                    header: const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: Icon(Icons.abc)),
+                      ),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 140),
+                      child: Text('Triceps', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                  );},
+              ),
+    ),
+                )],
+    ),
+    ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                GridTile(
+                child: Expanded(
+                child: GestureDetector(
+                  child: Container(
+                  height: 190,
+                  width: 165,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow:  [
+                        BoxShadow(
+                            color: const Color(0xff9d9898).withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(2,7)
+                        )
+                      ]
+                  ),
+                  child: GridTile(
+                    header: const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: Icon(Icons.abc)),
+                      ),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 140),
+                      child: Text('Chest', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                  );},
+              ),
+    ),
+                )],
+    ),
+    ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                GridTile(
+                child: Expanded(
+                child: GestureDetector(
+                  child: Container(
+                  height: 190,
+                  width: 165,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow:  [
+                        BoxShadow(
+                            color: const Color(0xff9d9898).withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(2,7)
+                        )
+                      ]
+                  ),
+                  child: GridTile(
+                    header: const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: Icon(Icons.abc)),
+                      ),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 140),
+                      child: Text('Back', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                  );},
+              ),
+    ),
+                )],
+    ),
+      ),
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                GridTile(
+                child: Expanded(
+                child: GestureDetector(
+                  child: Container(
+                  height: 190,
+                  width: 165,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow:  [
+                        BoxShadow(
+                            color: const Color(0xff9d9898).withOpacity(0.1),
+                            blurRadius: 4,
+                            offset: const Offset(2,7)
+                        )
+                      ]
+                  ),
+                  child: GridTile(
+                    header: const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Center(
+                        child: SizedBox(
+                            height: 150,
+                            width: 150,
+                            child: Icon(Icons.abc)),
+                      ),
+                    ),
+
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 140),
+                      child: Text('Legs', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                    ),
+                  ),
+                ),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const WorkoutCreatorExercisesAbs())
+                  );},
+              ),
+    ),
+                )],
+    ),
+      ),
+      ],
+    ),
       ),
     );
+
   }
 }
 
@@ -330,7 +641,7 @@ class WorkoutCreatorExercisesAbs extends StatefulWidget {
 }
 
 class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs> {
-  final List<Item> _data = Item.generateItems(5);
+  final List<AbsExercises> _data = AbsExercises.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -346,7 +657,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
             children: <Widget>[
               ExpansionPanelList.radio(
                 expandedHeaderPadding: const EdgeInsets.all(0),
-                children: _data.map<ExpansionPanelRadio>((Item item) {
+                children: _data.map<ExpansionPanelRadio>((AbsExercises item) {
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -381,12 +692,15 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
+                      _WorkoutCreatorState.workoutList.add("V-Ups");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
+                      _WorkoutCreatorState.workoutList.add("Hollow Holds");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
+                      _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
