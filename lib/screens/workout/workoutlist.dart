@@ -1,3 +1,27 @@
+class Parts {
+  final String title;
+  final String image;
+  final String excercises;
+
+  Parts({
+    required this.title, required this.image, required this.excercises
+  });
+}
+
+class PartsCreator {
+
+  final List<Parts> partitions = [
+    Parts(title: "Abs", image: "assets/images/abs.png", excercises: ''),
+    Parts(title: "Biceps", image: "assets/images/biceps.png", excercises: ''),
+    Parts(title: "Triceps", image: "assets/images/triceps.png", excercises: ''),
+    Parts(title: "Chest", image: "assets/images/chest.png", excercises: ''),
+    Parts(title: "Back", image: "assets/images/back.png", excercises: ''),
+    Parts(title: "Legs", image: "assets/images/legs.png", excercises: ''),
+    Parts(title: "Shoulders", image: "assets/images/shoulders.png", excercises: ''),
+    Parts(title: "Rear", image: "assets/images/rear.png", excercises: ''),
+  ];
+}
+
 class WorkoutList {
   final String image, name, instruction;
 

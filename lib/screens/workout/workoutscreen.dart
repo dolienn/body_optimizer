@@ -1,4 +1,5 @@
 import 'package:body_optimizer/screens/workout.dart';
+import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:flutter/material.dart';
 
 class WorkoutScreen extends StatefulWidget {
@@ -38,17 +39,42 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                 width: MediaQuery.of(context).size.width,
                 height: 300,
                 child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.arrow_back_ios, size: 20,
+                        const Icon(Icons.arrow_back_ios, size: 20,
                         color: Colors.white),
                         Expanded(child: Container()),
-                        Icon(Icons.info_outline, size: 20,
+                        const Icon(Icons.info_outline, size: 20,
                         color: Colors.white)
                       ],
                     ),
-                    Text(PartsCreator().partitions[index].title)
+                    const SizedBox(height: 30),
+                    Text(PartsCreator().partitions[index].title,
+                    style: const TextStyle(
+                      fontSize: 25,
+                      color: Colors.white
+                    ),
+                    ),
+                    Row(
+                      children: [
+                        Container(
+                          width: 90,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            gradient: LinearGradient(
+                                colors: [
+                                  PublicVariables().activeColor,
+                                  Colors.white
+                            ],
+                            begin: Alignment.bottomLeft,
+                            end: Alignment.topRight)
+                          ),
+                        )
+                      ],
+                    )
                   ],
                 ),
               ),

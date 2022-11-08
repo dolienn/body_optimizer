@@ -1,3 +1,4 @@
+import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:body_optimizer/screens/workout/workoutscreen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -12,38 +13,6 @@ class Workout extends StatefulWidget {
 
 class PublicVariables {
   var activeColor = const Color(0xFF5650DE);
-  late int index;
-}
-
-class Parts {
-  final String title;
-  final String image;
-  final String excercises;
-
-  Parts({
-    required this.title, required this.image, required this.excercises
-  });
-}
-
-class PartsCreator {
-
-  final List<Parts> partitions = [
-    Parts(title: "ABS", image: "assets/images/abs.png", excercises: ''),
-    Parts(title: "BICEPS", image: "assets/images/biceps.png", excercises: ''),
-    Parts(title: "TRICEPS", image: "assets/images/triceps.png", excercises: ''),
-    Parts(title: "CHEST", image: "assets/images/chest.png", excercises: ''),
-    Parts(title: "BACK", image: "assets/images/back.png", excercises: ''),
-    Parts(title: "LEGS", image: "assets/images/legs.png", excercises: ''),
-    Parts(title: "SHOULDERS", image: "assets/images/shoulders.png", excercises: ''),
-    Parts(title: "REAR", image: "assets/images/rear.png", excercises: ''),
-  ];
-}
-
-class Index extends PartsCreator {
-  @override
-  // TODO: implement partitions
-  List<Parts> get partitions => super.partitions;
-  int index = 0;
 }
 
 class _WorkoutState extends State<Workout> {
