@@ -170,6 +170,8 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Please enter some text';
+                                    } else if (value.length>30){
+                                      return 'Please keep the title under 30 characters';
                                     }
                                     return null;
                                   },
@@ -208,7 +210,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                 ),
                                                 onPressed: () {
                                                   var placeholder = workoutList[index-1];
-                                                  workoutList[index] = workoutList[index-1];
+                                                  workoutList[index-1] = workoutList[index];
                                                   workoutList[index] = placeholder;
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
@@ -242,10 +244,17 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                               backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
                                             ),
                                             onPressed: () {
-                                              const snackBar = SnackBar(
-                                                content: Text('Created workout!'),
-                                              );
-                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                              if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
+                                                const snackBar = SnackBar(
+                                                  content: Text('Created workout!'),
+                                                );
+                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                              } else {
+                                                const snackBar = SnackBar(
+                                                  content: Text('Could not create workout!'),
+                                                );
+                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                              }
                                             },
                                             child: const Text('Create'),
                                           ),
