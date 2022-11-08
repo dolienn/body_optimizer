@@ -14,10 +14,11 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
-  int numOfExercises = 0;
-  double progress = 0.0;
+  int numOfExercises = 5;
+  int numOfExercisesLeft = 0;
   String workoutToday = "Abs workout";
   String workoutTomorrow = "Custom workout 1";
+  bool isDone = false;
 
   // PROGRESS BAR //
   double currentProgress = 0.0;
@@ -31,32 +32,44 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, List> mySelectedEvents = {};
   final titleController = TextEditingController();
   final descpController = TextEditingController();
+  String textOnDone = "";
 
   // CALENDAR & PROGRESS BAR INITIALIZATION
   @override
   void initState() {
     super.initState();
     _selectedDate = _focusedDay;
-    currentProgress = progress;
-    if (currentProgress == 0.0) {
-      displayedProgress = currentProgress;
-    } else {
+    currentProgress =
+    1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
+    if (currentProgress == 0.99) {
       displayedProgress = currentProgress + 0.01;
+    } else {
+      displayedProgress = currentProgress;
     }
+    changeText();
+    setState(() {});
     loadPreviousEvents();
+  }
+
+  void changeText() {
+    if (isDone) {
+      textOnDone = "Done!";
+    } else {
+      textOnDone = "Not done!";
+    }
   }
 
   // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
   // ---------------------------------------------------- //
   // RESEARCH ON HOW TO SAVE STUFF TO A FILE OR SOMETHING //
-  loadPreviousEvents(){
+  loadPreviousEvents() {
     mySelectedEvents = {
       "2022-11-11": [
-        {"eventDescp": "1", "eventTitle": "Abs Workout"},
-        {"eventDescp": "11", "eventTitle": "Back Workout"},
+        {"eventDescp": "Lorem Lorem", "eventTitle": "Abs Workout"},
+        {"eventDescp": "Ipsum Ipsum", "eventTitle": "Back Workout"},
       ],
       "2022-11-12": [
-        {"eventDescp": "2", "eventTitle": "Custom work 1"},
+        {"eventDescp": "Lorem ipsum", "eventTitle": "Custom workout 1"},
       ],
     };
   }
@@ -105,43 +118,42 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Text("Cancel"),
           ),
           TextButton(
-            child: const Text("Add Event"),
-            onPressed: () {
-              if (titleController.text.isEmpty ||
-                  descpController.text.isEmpty) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(
-                    content: Text("Required title and description"),
-                    duration: Duration(seconds: 2),
-                  ),
-                );
-                return;
-              } else {
-                setState(() {
-                  if (mySelectedEvents[
-                  DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
-                      null) {
-                    mySelectedEvents[
-                    DateFormat('yyyy-MM-dd').format(_selectedDate!)]
-                        ?.add({
-                      "eventTitle": titleController.text,
-                      "eventDescp": descpController.text,
-                    });
-                  } else {
-                    mySelectedEvents[
-                    DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
-                      {
+              child: const Text("Add Event"),
+              onPressed: () {
+                if (titleController.text.isEmpty ||
+                    descpController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Required title and description"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  return;
+                } else {
+                  setState(() {
+                    if (mySelectedEvents[
+                            DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
+                        null) {
+                      mySelectedEvents[
+                              DateFormat('yyyy-MM-dd').format(_selectedDate!)]
+                          ?.add({
                         "eventTitle": titleController.text,
                         "eventDescp": descpController.text,
-                      }
-                    ];
-                  }
-                  Navigator.pop(context);
-                  return;
-                });
-              }
-            }
-          ),
+                      });
+                    } else {
+                      mySelectedEvents[
+                          DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
+                        {
+                          "eventTitle": titleController.text,
+                          "eventDescp": descpController.text,
+                        }
+                      ];
+                    }
+                    Navigator.pop(context);
+                    return;
+                  });
+                }
+              }),
         ],
       ),
     );
@@ -270,18 +282,66 @@ class _MyHomePageState extends State<MyHomePage> {
                         eventLoader: _listOfDayEvents,
                       ),
                       ..._listOfDayEvents(_selectedDate!).map(
-                        (myEvents) => ListTile(
-                          leading: const Icon(
-                            Icons.done_outlined,
-                            color: Colors.black,
+                        (myEvents) => Container(
+                          margin: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.only(bottom: 10),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            color: const Color(0xFFBABABA),
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          title: Padding(
-                            padding: const EdgeInsets.only(bottom: 10.0),
-                            child:
-                                Text("Event title: ${myEvents['eventTitle']}"),
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(right: 10.0),
+                                  child: Text(
+                                    "${myEvents['eventTitle']}",
+                                    style: GoogleFonts.lato(
+                                      color: Colors.black,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      textOnDone,
+                                      style: GoogleFonts.lato(
+                                        color: Colors.black,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    Transform.scale(
+                                      scale: 1.25,
+                                      child: Checkbox(
+                                        checkColor: Colors.white,
+                                        shape: const CircleBorder(),
+                                        value: isDone,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            isDone = value!;
+                                          });
+                                          changeText();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            subtitle: Text(
+                              "${myEvents['eventDescp']}",
+                              style: GoogleFonts.lato(
+                                color: Colors.black54,
+                                fontSize: 16,
+                              ),
+                            ),
                           ),
-                          subtitle:
-                              Text("Description: ${myEvents['eventDescp']}"),
                         ),
                       ),
                     ],
@@ -364,7 +424,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
-                              "$numOfExercises exercises left",
+                              "$numOfExercisesLeft exercises left",
                               style: GoogleFonts.lato(
                                 color: Colors.black,
                                 fontSize: 16,
