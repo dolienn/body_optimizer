@@ -1,6 +1,5 @@
 import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:body_optimizer/screens/workout/workoutscreen.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -12,7 +11,9 @@ class Workout extends StatefulWidget {
 }
 
 class PublicVariables {
+  var darkenColor = const Color(0xFF1c177f);
   var activeColor = const Color(0xFF5650DE);
+  var lightenColor = const Color(0xFFaaa7ee);
 }
 
 class _WorkoutState extends State<Workout> {
@@ -44,7 +45,7 @@ class _WorkoutState extends State<Workout> {
                     "choose your ",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
-                      color: PublicVariables().activeColor,
+                      color: Colors.black,
                       letterSpacing: 3,
                     ),
                   ),
@@ -58,7 +59,7 @@ class _WorkoutState extends State<Workout> {
                     "Workout",
                     style: GoogleFonts.bebasNeue(
                       fontSize: 32,
-                      color: Colors.red,
+                      color: Colors.black,
                       letterSpacing: 3,
                     ),
                   ),

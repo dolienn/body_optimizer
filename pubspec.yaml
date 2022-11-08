@@ -40,6 +40,7 @@ dependencies:
   google_fonts:
   intl:
   persistent_bottom_nav_bar: ^5.0.2
+  get:
 
 dev_dependencies:
   flutter_test:
@@ -64,6 +65,7 @@ flutter:
   uses-material-design: true
   assets:
     - assets/images/
+    - json/video/
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg
