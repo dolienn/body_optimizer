@@ -17,11 +17,6 @@ void _updateMyItems(int oldIndex, int newIndex) {
   items.insert(newIndex, item);
 }
 
-
-Not sure if finished:
-expandedHeaderPadding
-https://api.flutter.dev/flutter/material/ExpansionPanelList/ExpansionPanelList.radio.html
-
 Create an ID for every exercise
 Create a time value for exercises for workout
  */
