@@ -13,10 +13,6 @@ class MainPage extends StatefulWidget {
   State<MainPage> createState() => _MainPageState();
 }
 
-class PublicVariables {
-  var activeColor = const Color(0xFF5650DE);
-  int index = 0;
-}
 
 class _MainPageState extends State<MainPage> {
   final PersistentTabController _controller =

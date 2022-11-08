@@ -1,5 +1,5 @@
-import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:body_optimizer/screens/workout/workoutscreen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -8,6 +8,11 @@ class Workout extends StatefulWidget {
 
   @override
   State<Workout> createState() => _WorkoutState();
+}
+
+class PublicVariables {
+  var activeColor = const Color(0xFF5650DE);
+  late int index;
 }
 
 class Parts {
@@ -19,7 +24,6 @@ class Parts {
     required this.title, required this.image, required this.excercises
   });
 }
-
 
 class PartsCreator {
 
@@ -35,7 +39,15 @@ class PartsCreator {
   ];
 }
 
+class Index extends PartsCreator {
+  @override
+  // TODO: implement partitions
+  List<Parts> get partitions => super.partitions;
+  int index = 0;
+}
+
 class _WorkoutState extends State<Workout> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -135,7 +147,7 @@ class _WorkoutState extends State<Workout> {
                                     child: SizedBox(
                                       height: 150,
                                       width: 150,
-                                      child: Image.asset(PartsCreator().partitions[index].image, scale: 6),
+                                      child: Image.asset(PartsCreator().partitions[index].image, scale: 10),
                                     ),
                                   ),
                                 ),
@@ -148,8 +160,8 @@ class _WorkoutState extends State<Workout> {
                               onTap: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (index) => const WorkoutScreen(),
-                                  settings: const RouteSettings()),
+                                  MaterialPageRoute(builder: (context) => const WorkoutScreen(),
+                                  ),
                                 );
                               },
                             ),
@@ -158,7 +170,7 @@ class _WorkoutState extends State<Workout> {
                       ],
                     ),
                   );
-                }, gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220),
+                  }, gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(maxCrossAxisExtent: 220),
               ),
             ),
           ],
