@@ -40,7 +40,7 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _selectedDate = _focusedDay;
     currentProgress =
-    1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
+        1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
     if (currentProgress == 0.99) {
       displayedProgress = currentProgress + 0.01;
     } else {
