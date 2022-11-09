@@ -1,9 +1,11 @@
 import 'package:body_optimizer/screens/mainpage.dart';
+import 'package:table_calendar/table_calendar.dart';
+import 'package:direct_select/direct_select.dart';
+import 'package:body_optimizer/build_direct.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:table_calendar/table_calendar.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -14,43 +16,76 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
-  int numOfExercises = 5;
-  int numOfExercisesLeft = 0;
-  String workoutToday = "Abs workout";
-  String workoutTomorrow = "Custom workout 1";
+  String workoutToday = "Abs workout", workoutTomorrow = "Custom workout 1";
+  int numOfExercises = 5, numOfExercisesLeft = 0;
   bool isDone = false;
 
-  // PROGRESS BAR //
-  double currentProgress = 0.0;
-  double displayedProgress = 0.0;
+  // EVENT DIALOG VARIABLES
+  int? selectedHour = 0, selectedMinute = 0;
+  final hours = [
+    "00",
+    "01",
+    "02",
+    "03",
+    "04",
+    "05",
+    "06",
+    "07",
+    "08",
+    "09",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23"
+  ];
+  final minutes = [
+    "00",
+    "05",
+    "10",
+    "15",
+    "20",
+    "25",
+    "30",
+    "35",
+    "40",
+    "45",
+    "50",
+    "55"
+  ];
+  List<Widget> _buildHours() {
+    return hours
+        .map((val) => MySelectionItem(
+              title: val,
+            ))
+        .toList();
+  }
+
+  List<Widget> _buildIMinutes() {
+    return minutes
+        .map((val) => MySelectionItem(
+              title: val,
+            ))
+        .toList();
+  }
 
   // TABLE CALENDAR //
-  DateTime today = DateTime.now();
+  final titleController = TextEditingController(),
+      descpController = TextEditingController();
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now();
-  DateTime? _selectedDate;
   Map<String, List> mySelectedEvents = {};
-  final titleController = TextEditingController();
-  final descpController = TextEditingController();
+  DateTime today = DateTime.now(), _focusedDay = DateTime.now();
+  DateTime? _selectedDate;
   String textOnDone = "";
-  int itemCount = 0;
-
-  // CALENDAR & PROGRESS BAR INITIALIZATION
-  @override
-  void initState() {
-    super.initState();
-    _selectedDate = _focusedDay;
-    currentProgress =
-        1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
-    if (currentProgress == 0.99) {
-      displayedProgress = currentProgress + 0.01;
-    } else {
-      displayedProgress = currentProgress;
-    }
-    changeText();
-    setState(() {});
-    loadPreviousEvents();
-  }
 
   void changeText() {
     if (isDone) {
@@ -60,104 +95,30 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
-  // ---------------------------------------------------- //
-  // RESEARCH ON HOW TO SAVE STUFF TO A FILE OR SOMETHING //
-  loadPreviousEvents() {
-    mySelectedEvents = {
-      "2022-11-11": [
-        {"eventDescp": "Lorem Lorem", "eventTitle": "Abs Workout"},
-        {"eventDescp": "Ipsum Ipsum", "eventTitle": "Back Workout"},
-      ],
-      "2022-11-12": [
-        {"eventDescp": "Lorem ipsum", "eventTitle": "Custom workout 1"},
-      ],
-    };
-  }
-
-  // LIST OF DAY EVENTS
   List _listOfDayEvents(DateTime dateTime) {
     if (mySelectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return mySelectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
-    } else {
-      return [];
     }
+    return [];
   }
 
-  // POPUP WHEN YOU CLICK "ADD EVENT" BUTTON
-  _showAddEventDialog() async {
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text(
-          "Add New Event",
-          textAlign: TextAlign.center,
-        ),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: "Title",
-              ),
-            ),
-            TextField(
-              controller: descpController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: "Description",
-              ),
-            ),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-              child: const Text("Add Event"),
-              onPressed: () {
-                if (titleController.text.isEmpty ||
-                    descpController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Required title and description"),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                  return;
-                } else {
-                  setState(() {
-                    if (mySelectedEvents[
-                            DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
-                        null) {
-                      mySelectedEvents[
-                              DateFormat('yyyy-MM-dd').format(_selectedDate!)]
-                          ?.add({
-                        "eventTitle": titleController.text,
-                        "eventDescp": descpController.text,
-                      });
-                    } else {
-                      mySelectedEvents[
-                          DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
-                        {
-                          "eventTitle": titleController.text,
-                          "eventDescp": descpController.text,
-                        }
-                      ];
-                    }
-                    Navigator.pop(context);
-                    return;
-                  });
-                }
-              }),
-        ],
-      ),
-    );
+  // PROGRESS BAR //
+  double currentProgress = 0.0, displayedProgress = 0.0;
+
+  // CALENDAR & PROGRESS BAR INITIALIZATION
+  @override
+  void initState() {
+    super.initState();
+    currentProgress =
+        1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
+    if (currentProgress == 0.99) {
+      displayedProgress = currentProgress + 0.01;
+    } else {
+      displayedProgress = currentProgress;
+    }
+    _selectedDate = _focusedDay;
+    changeText();
+    loadPreviousEvents();
   }
 
   @override
@@ -173,21 +134,18 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 25.0, bottom: 15),
+                    padding: const EdgeInsets.only(top: 30.0, bottom: 15),
                     child: Text(
                       "Body optimizer",
-                      style: GoogleFonts.lato(
-                        color: Colors.black,
-                        fontSize: 42,
-                      ),
+                      style: PublicVariables().titleText,
                     ),
                   ),
                 ],
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 5),
+                margin: PublicVariables().marginSymmetricVertical,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDEDEDE),
+                  color: PublicVariables().cardColor,
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: const [
                     BoxShadow(
@@ -197,25 +155,23 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: PublicVariables().paddingAll,
                   child: Column(
                     children: [
                       Row(
                         children: [
                           Text(
                             "This week",
-                            style: GoogleFonts.lato(
-                              color: Colors.black,
-                              fontSize: 26,
-                            ),
+                            style: PublicVariables().headerText,
                           ),
                         ],
                       ),
                       Container(
-                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        margin: PublicVariables().marginSymmetricVertical,
                         padding: const EdgeInsets.only(bottom: 10),
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
                           border: Border.all(
                             color: Colors.black,
                           ),
@@ -223,19 +179,20 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: TableCalendar(
                           focusedDay: _focusedDay,
                           firstDay: DateTime(2022),
-                          lastDay: DateTime(2036),
+                          lastDay: DateTime(2050),
                           calendarFormat: _calendarFormat,
                           startingDayOfWeek: StartingDayOfWeek.monday,
                           rowHeight: 50,
                           daysOfWeekHeight: 25,
                           headerStyle: HeaderStyle(
                             headerMargin: const EdgeInsets.only(bottom: 5),
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(4),
-                                topRight: Radius.circular(4),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(9),
+                                topRight: Radius.circular(9),
                               ),
-                              color: Color(0xFF30249A),
+                              color:
+                                  PublicVariables().mainColor.withOpacity(0.85),
                             ),
                             titleTextStyle: GoogleFonts.lato(
                               color: Colors.white,
@@ -248,7 +205,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                             formatButtonDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.white, width: 2),
+                              border:
+                                  Border.all(color: Colors.white, width: 1.5),
                               color: PublicVariables().mainColor,
                             ),
                             leftChevronIcon: const Icon(
@@ -309,7 +267,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               color: Colors.black,
                               width: 1,
                             ),
-                            color: const Color(0xFFBABABA),
+                            color: Colors.white,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: ListTile(
@@ -318,20 +276,19 @@ class _MyHomePageState extends State<MyHomePage> {
                               children: [
                                 Text(
                                   "${myEvents['eventTitle']}",
-                                  style: GoogleFonts.lato(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
+                                  style: PublicVariables().normalText,
                                 ),
                                 Row(
                                   children: [
                                     IconButton(
                                       icon: const Icon(Icons.edit_outlined),
+                                      color: Colors.black,
                                       onPressed: () {},
                                     ),
                                     IconButton(
                                       icon: const Icon(
                                           Icons.delete_forever_outlined),
+                                      color: Colors.black,
                                       onPressed: () {},
                                     ),
                                   ],
@@ -341,21 +298,25 @@ class _MyHomePageState extends State<MyHomePage> {
                             subtitle: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "${myEvents['eventDescp']}",
-                                  style: GoogleFonts.lato(
-                                    color: Colors.black54,
-                                    fontSize: 16,
-                                  ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${myEvents['eventDescp']}",
+                                      style: PublicVariables().normalGreyText,
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(right: 15)),
+                                    Text(
+                                      "${myEvents['eventTime']}",
+                                      style: PublicVariables().normalText,
+                                    ),
+                                  ],
                                 ),
                                 Row(
                                   children: [
                                     Text(
                                       textOnDone,
-                                      style: GoogleFonts.lato(
-                                        color: Colors.black,
-                                        fontSize: 16,
-                                      ),
+                                      style: PublicVariables().normalText,
                                     ),
                                     Transform.scale(
                                       scale: 1.25,
@@ -383,9 +344,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: PublicVariables().marginSymmetricVertical,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDEDEDE),
+                  color: PublicVariables().cardColor,
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: const [
                     BoxShadow(
@@ -395,17 +356,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: PublicVariables().paddingAll,
                   child: Column(
                     children: [
                       Row(
                         children: [
                           Text(
                             "Today",
-                            style: GoogleFonts.lato(
-                              color: Colors.black,
-                              fontSize: 26,
-                            ),
+                            style: PublicVariables().headerText,
                           ),
                         ],
                       ),
@@ -416,10 +374,7 @@ class _MyHomePageState extends State<MyHomePage> {
                             padding: const EdgeInsets.symmetric(vertical: 10.0),
                             child: Text(
                               workoutToday,
-                              style: GoogleFonts.lato(
-                                color: Colors.black,
-                                fontSize: 20,
-                              ),
+                              style: PublicVariables().subheaderText,
                             ),
                           ),
                         ],
@@ -427,7 +382,6 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          // -------- LOADING BAR ------- //
                           SizedBox(
                             width: MediaQuery.of(context).size.width * 0.85,
                             child: GFProgressBar(
@@ -436,16 +390,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               alignment: MainAxisAlignment.spaceBetween,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 10),
-                              backgroundColor: Colors.black26,
-                              progressBarColor: PublicVariables().mainColor,
+                              backgroundColor: Colors.white30,
+                              progressBarColor:
+                                  PublicVariables().mainColor.withOpacity(0.9),
                               child: Center(
                                 child: Text(
                                   "${((displayedProgress) * 100).round()}%",
                                   textAlign: TextAlign.end,
-                                  style: GoogleFonts.lato(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                  ),
+                                  style: PublicVariables().normalWhiteText,
                                 ),
                               ),
                             ),
@@ -456,13 +408,10 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
+                            padding: const EdgeInsets.symmetric(vertical: 5.0),
                             child: Text(
                               "$numOfExercisesLeft exercises left",
-                              style: GoogleFonts.lato(
-                                color: Colors.black,
-                                fontSize: 16,
-                              ),
+                              style: PublicVariables().normalText,
                             ),
                           ),
                         ],
@@ -474,7 +423,7 @@ class _MyHomePageState extends State<MyHomePage> {
               Container(
                 margin: const EdgeInsets.symmetric(vertical: 10),
                 decoration: BoxDecoration(
-                  color: const Color(0xFFDEDEDE),
+                  color: PublicVariables().cardColor,
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: const [
                     BoxShadow(
@@ -484,17 +433,14 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.all(10.0),
+                  padding: PublicVariables().paddingAll,
                   child: Column(
                     children: [
                       Row(
                         children: [
                           Text(
                             "Tomorrow",
-                            style: GoogleFonts.lato(
-                              color: Colors.black,
-                              fontSize: 26,
-                            ),
+                            style: PublicVariables().headerText,
                           ),
                         ],
                       ),
@@ -502,7 +448,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Container(
-                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            margin: PublicVariables().marginSymmetricVertical,
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -512,17 +458,14 @@ class _MyHomePageState extends State<MyHomePage> {
                               ),
                             ),
                             child: Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: PublicVariables().paddingAll,
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     workoutTomorrow,
-                                    style: GoogleFonts.lato(
-                                      color: Colors.black,
-                                      fontSize: 16,
-                                    ),
+                                    style: PublicVariables().normalText,
                                   ),
                                 ],
                               ),
@@ -550,8 +493,167 @@ class _MyHomePageState extends State<MyHomePage> {
         child: FloatingActionButton.extended(
           backgroundColor: PublicVariables().mainColor,
           onPressed: () => _showAddEventDialog(),
-          label: const Text("Add event"),
+          label: Text(
+            "Add workout",
+            style: PublicVariables().normalWhiteText,
+          ),
         ),
+      ),
+    );
+  }
+
+  // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
+  // ---------------------------------------------------- //
+  // RESEARCH ON HOW TO SAVE STUFF TO A FILE OR SOMETHING //
+  loadPreviousEvents() {
+    mySelectedEvents = {
+      "2022-11-11": [
+        {
+          "eventDescp": "Lorem Lorem",
+          "eventTitle": "Abs Workout",
+          "eventTime": "21:35"
+        },
+        {
+          "eventDescp": "Ipsum Ipsum",
+          "eventTitle": "Back Workout",
+          "eventTime": "22:50"
+        },
+      ],
+      "2022-11-12": [
+        {
+          "eventDescp": "Lorem ipsum",
+          "eventTitle": "Custom workout 1",
+          "eventTime": "12:15"
+        },
+      ],
+    };
+  }
+
+  // POPUP WHEN YOU CLICK "ADD EVENT" BUTTON
+  _showAddEventDialog() async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        backgroundColor: Colors.white.withOpacity(0.95),
+        title: const Text(
+          "Add New Workout",
+          textAlign: TextAlign.center,
+        ),
+        content: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(
+              controller: titleController,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(
+                labelText: "Title",
+              ),
+            ),
+            TextField(
+              controller: descpController,
+              textCapitalization: TextCapitalization.words,
+              decoration: const InputDecoration(
+                labelText: "Description",
+              ),
+            ),
+            Padding(
+              padding: PublicVariables().paddingAll,
+              child: Text(
+                "Select your workout time",
+                style: PublicVariables().normalGreyText,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                DirectSelect(
+                  itemExtent: 50.0,
+                  items: _buildHours(),
+                  selectedIndex: selectedHour!,
+                  mode: DirectSelectMode.tap,
+                  selectionColor: PublicVariables().mainColor.withOpacity(0.25),
+                  child: MySelectionItem(
+                    isForList: false,
+                    title: hours[selectedHour!],
+                  ),
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      selectedHour = index;
+                    });
+                  },
+                ),
+                Text(
+                  ":",
+                  style: PublicVariables().headerText,
+                ),
+                DirectSelect(
+                  itemExtent: 50.0,
+                  items: _buildIMinutes(),
+                  selectedIndex: selectedMinute!,
+                  mode: DirectSelectMode.tap,
+                  selectionColor: PublicVariables().mainColor.withOpacity(0.25),
+                  child: MySelectionItem(
+                    isForList: false,
+                    title: minutes[selectedMinute!],
+                  ),
+                  onSelectedItemChanged: (index) {
+                    setState(() {
+                      selectedMinute = index;
+                    });
+                  },
+                ),
+              ],
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text("Cancel"),
+          ),
+          TextButton(
+              child: const Text("Add Event"),
+              onPressed: () {
+                if (titleController.text.isEmpty ||
+                    descpController.text.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Required title and description"),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  return;
+                } else {
+                  setState(() {
+                    if (mySelectedEvents[
+                            DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
+                        null) {
+                      mySelectedEvents[
+                              DateFormat('yyyy-MM-dd').format(_selectedDate!)]
+                          ?.add({
+                        "eventTitle": titleController.text,
+                        "eventDescp": descpController.text,
+                        "eventTime":
+                            "${hours[selectedHour!]}:${minutes[selectedMinute!]}",
+                      });
+                    } else {
+                      mySelectedEvents[
+                          DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
+                        {
+                          "eventTitle": titleController.text,
+                          "eventDescp": descpController.text,
+                          "eventTime":
+                              "${hours[selectedHour!]}:${minutes[selectedMinute!]}",
+                        }
+                      ];
+                    }
+                    Navigator.pop(context);
+                    return;
+                  });
+                }
+              }),
+        ],
       ),
     );
   }
