@@ -33,6 +33,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final titleController = TextEditingController();
   final descpController = TextEditingController();
   String textOnDone = "";
+  int itemCount = 0;
 
   // CALENDAR & PROGRESS BAR INITIALIZATION
   @override
@@ -172,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.only(top: 30.0, bottom: 15),
+                    padding: const EdgeInsets.only(top: 25.0, bottom: 15),
                     child: Text(
                       "Body optimizer",
                       style: GoogleFonts.lato(
@@ -184,7 +185,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: const EdgeInsets.symmetric(vertical: 5),
                 decoration: BoxDecoration(
                   color: const Color(0xFFDEDEDE),
                   borderRadius: BorderRadius.circular(25),
@@ -210,81 +211,99 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ],
                       ),
-                      TableCalendar(
-                        focusedDay: _focusedDay,
-                        firstDay: DateTime(2022),
-                        lastDay: DateTime(2036),
-                        calendarFormat: _calendarFormat,
-                        startingDayOfWeek: StartingDayOfWeek.monday,
-                        rowHeight: 50,
-                        daysOfWeekHeight: 25,
-                        headerStyle: HeaderStyle(
-                          titleTextStyle: GoogleFonts.lato(
+                      Container(
+                        margin: const EdgeInsets.symmetric(vertical: 10),
+                        padding: const EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5),
+                          border: Border.all(
                             color: Colors.black,
-                            fontSize: 18,
-                          ),
-                          formatButtonTextStyle: GoogleFonts.lato(
-                            color: Colors.black,
-                            fontSize: 16,
-                            fontStyle: FontStyle.italic,
-                          ),
-                          formatButtonDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            border: Border.all(
-                                color: PublicVariables().mainColor, width: 3),
-                          ),
-                          leftChevronIcon: Icon(
-                            Icons.arrow_back_ios_outlined,
-                            color: PublicVariables().mainColor,
-                            size: 22,
-                          ),
-                          rightChevronIcon: Icon(
-                            Icons.arrow_forward_ios_outlined,
-                            color: PublicVariables().mainColor,
-                            size: 22,
                           ),
                         ),
-                        daysOfWeekStyle: const DaysOfWeekStyle(
-                          weekdayStyle: TextStyle(color: Colors.black54),
-                          weekendStyle: TextStyle(color: Colors.black),
-                        ),
-                        calendarStyle: CalendarStyle(
-                          weekendTextStyle:
-                              const TextStyle(color: Colors.black),
-                          todayDecoration: const BoxDecoration(
-                            color: Colors.grey,
-                            shape: BoxShape.circle,
+                        child: TableCalendar(
+                          focusedDay: _focusedDay,
+                          firstDay: DateTime(2022),
+                          lastDay: DateTime(2036),
+                          calendarFormat: _calendarFormat,
+                          startingDayOfWeek: StartingDayOfWeek.monday,
+                          rowHeight: 50,
+                          daysOfWeekHeight: 25,
+                          headerStyle: HeaderStyle(
+                            headerMargin: const EdgeInsets.only(bottom: 5),
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(4),
+                                topRight: Radius.circular(4),
+                              ),
+                              color: Color(0xFF30249A),
+                            ),
+                            titleTextStyle: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            formatButtonTextStyle: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            formatButtonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(color: Colors.white, width: 2),
+                              color: PublicVariables().mainColor,
+                            ),
+                            leftChevronIcon: const Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            rightChevronIcon: const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.white,
+                              size: 20,
+                            ),
                           ),
-                          selectedDecoration: BoxDecoration(
-                            color: PublicVariables().mainColor,
-                            shape: BoxShape.circle,
+                          daysOfWeekStyle: const DaysOfWeekStyle(
+                            weekdayStyle: TextStyle(color: Colors.black54),
+                            weekendStyle: TextStyle(color: Colors.black),
                           ),
-                        ),
-                        selectedDayPredicate: (day) {
-                          return isSameDay(_selectedDate, day);
-                        },
-                        onDaySelected: (selectedDay, focusedDay) {
-                          setState(() {
-                            _selectedDate = selectedDay;
-                            _focusedDay = focusedDay;
-                          });
-                        },
-                        onFormatChanged: (format) {
-                          if (_calendarFormat != format) {
+                          calendarStyle: CalendarStyle(
+                            weekendTextStyle:
+                                const TextStyle(color: Colors.black),
+                            todayDecoration: const BoxDecoration(
+                              color: Colors.grey,
+                              shape: BoxShape.circle,
+                            ),
+                            selectedDecoration: BoxDecoration(
+                              color: PublicVariables().mainColor,
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          selectedDayPredicate: (day) {
+                            return isSameDay(_selectedDate, day);
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
                             setState(() {
-                              _calendarFormat = format;
+                              _selectedDate = selectedDay;
+                              _focusedDay = focusedDay;
                             });
-                          }
-                        },
-                        onPageChanged: (focusedDay) {
-                          _focusedDay = focusedDay;
-                        },
-                        eventLoader: _listOfDayEvents,
+                          },
+                          onFormatChanged: (format) {
+                            if (_calendarFormat != format) {
+                              setState(() {
+                                _calendarFormat = format;
+                              });
+                            }
+                          },
+                          onPageChanged: (focusedDay) {
+                            _focusedDay = focusedDay;
+                          },
+                          eventLoader: _listOfDayEvents,
+                        ),
                       ),
                       ..._listOfDayEvents(_selectedDate!).map(
                         (myEvents) => Container(
-                          margin: const EdgeInsets.all(10),
-                          padding: const EdgeInsets.only(bottom: 10),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 5),
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: Colors.black,
@@ -297,14 +316,36 @@ class _MyHomePageState extends State<MyHomePage> {
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(right: 10.0),
-                                  child: Text(
-                                    "${myEvents['eventTitle']}",
-                                    style: GoogleFonts.lato(
-                                      color: Colors.black,
-                                      fontSize: 18,
+                                Text(
+                                  "${myEvents['eventTitle']}",
+                                  style: GoogleFonts.lato(
+                                    color: Colors.black,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit_outlined),
+                                      onPressed: () {},
                                     ),
+                                    IconButton(
+                                      icon: const Icon(
+                                          Icons.delete_forever_outlined),
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${myEvents['eventDescp']}",
+                                  style: GoogleFonts.lato(
+                                    color: Colors.black54,
+                                    fontSize: 16,
                                   ),
                                 ),
                                 Row(
@@ -333,13 +374,6 @@ class _MyHomePageState extends State<MyHomePage> {
                                   ],
                                 ),
                               ],
-                            ),
-                            subtitle: Text(
-                              "${myEvents['eventDescp']}",
-                              style: GoogleFonts.lato(
-                                color: Colors.black54,
-                                fontSize: 16,
-                              ),
                             ),
                           ),
                         ),
@@ -467,13 +501,30 @@ class _MyHomePageState extends State<MyHomePage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              workoutTomorrow,
-                              style: GoogleFonts.lato(
+                          Container(
+                            margin: const EdgeInsets.symmetric(vertical: 10),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              border: Border.all(
+                                width: 1,
                                 color: Colors.black,
-                                fontSize: 16,
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    workoutTomorrow,
+                                    style: GoogleFonts.lato(
+                                      color: Colors.black,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
