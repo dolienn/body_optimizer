@@ -236,12 +236,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           leftChevronIcon: Icon(
                             Icons.arrow_back_ios_outlined,
                             color: PublicVariables().mainColor,
-                            size: 24,
+                            size: 22,
                           ),
                           rightChevronIcon: Icon(
                             Icons.arrow_forward_ios_outlined,
                             color: PublicVariables().mainColor,
-                            size: 24,
+                            size: 22,
                           ),
                         ),
                         daysOfWeekStyle: const DaysOfWeekStyle(
