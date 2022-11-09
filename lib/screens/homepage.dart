@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
         .toList();
   }
 
-  List<Widget> _buildIMinutes() {
+  List<Widget> _buildMinutes() {
     return minutes
         .map((val) => MySelectionItem(
               title: val,
@@ -124,362 +124,367 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Container(
-          width: double.infinity,
-          margin: const EdgeInsets.symmetric(horizontal: 15),
-          child: Column(
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+        child: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.only(top: 30, bottom: 40, left: 20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    PublicVariables().mainColor.withOpacity(0.9),
+                    Colors.white,
+                  ],
+                  stops: const [0.3, 0.95],
+                ),
+                color: PublicVariables().cardColor,
+              ),
+              child: Row(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 30.0, bottom: 15),
-                    child: Text(
-                      "Body optimizer",
-                      style: PublicVariables().titleText,
-                    ),
-                  ),
+                  Text("Body optimizer", style: PublicVariables().bannerText),
                 ],
               ),
-              Container(
-                margin: PublicVariables().marginSymmetricVertical,
-                decoration: BoxDecoration(
-                  color: PublicVariables().cardColor,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 5.0,
-                        offset: Offset(1, 2.5)),
-                  ],
-                ),
-                child: Padding(
-                  padding: PublicVariables().paddingAll,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "This week",
-                            style: PublicVariables().headerText,
-                          ),
-                        ],
-                      ),
-                      Container(
-                        margin: PublicVariables().marginSymmetricVertical,
-                        padding: const EdgeInsets.only(bottom: 10),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(
+            ),
+            Container(
+              width: double.infinity,
+              margin: const EdgeInsets.symmetric(horizontal: 7.5),
+              child: Column(
+                children: [
+                  Container(
+                    margin: PublicVariables().marginSymmetricVertical,
+                    decoration: BoxDecoration(
+                      color: PublicVariables().cardColor,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: const [
+                        BoxShadow(
                             color: Colors.black,
-                          ),
-                        ),
-                        child: TableCalendar(
-                          focusedDay: _focusedDay,
-                          firstDay: DateTime(2022),
-                          lastDay: DateTime(2050),
-                          calendarFormat: _calendarFormat,
-                          startingDayOfWeek: StartingDayOfWeek.monday,
-                          rowHeight: 50,
-                          daysOfWeekHeight: 25,
-                          headerStyle: HeaderStyle(
-                            headerMargin: const EdgeInsets.only(bottom: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(9),
-                                topRight: Radius.circular(9),
-                              ),
-                              color:
-                                  PublicVariables().mainColor.withOpacity(0.85),
-                            ),
-                            titleTextStyle: GoogleFonts.lato(
-                              color: Colors.white,
-                              fontSize: 18,
-                            ),
-                            formatButtonTextStyle: GoogleFonts.lato(
-                              color: Colors.white,
-                              fontSize: 16,
-                              fontStyle: FontStyle.italic,
-                            ),
-                            formatButtonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                              border:
-                                  Border.all(color: Colors.white, width: 1.5),
-                              color: PublicVariables().mainColor,
-                            ),
-                            leftChevronIcon: const Icon(
-                              Icons.arrow_back_ios_new_outlined,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                            rightChevronIcon: const Icon(
-                              Icons.arrow_forward_ios_outlined,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                          ),
-                          daysOfWeekStyle: const DaysOfWeekStyle(
-                            weekdayStyle: TextStyle(color: Colors.black54),
-                            weekendStyle: TextStyle(color: Colors.black),
-                          ),
-                          calendarStyle: CalendarStyle(
-                            weekendTextStyle:
-                                const TextStyle(color: Colors.black),
-                            todayDecoration: const BoxDecoration(
-                              color: Colors.grey,
-                              shape: BoxShape.circle,
-                            ),
-                            selectedDecoration: BoxDecoration(
-                              color: PublicVariables().mainColor,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
-                          selectedDayPredicate: (day) {
-                            return isSameDay(_selectedDate, day);
-                          },
-                          onDaySelected: (selectedDay, focusedDay) {
-                            setState(() {
-                              _selectedDate = selectedDay;
-                              _focusedDay = focusedDay;
-                            });
-                          },
-                          onFormatChanged: (format) {
-                            if (_calendarFormat != format) {
-                              setState(() {
-                                _calendarFormat = format;
-                              });
-                            }
-                          },
-                          onPageChanged: (focusedDay) {
-                            _focusedDay = focusedDay;
-                          },
-                          eventLoader: _listOfDayEvents,
-                        ),
-                      ),
-                      ..._listOfDayEvents(_selectedDate!).map(
-                        (myEvents) => Container(
-                          margin: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 5),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black,
-                              width: 1,
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: ListTile(
-                            title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "${myEvents['eventTitle']}",
-                                  style: PublicVariables().normalText,
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit_outlined),
-                                      color: Colors.black,
-                                      onPressed: () {},
-                                    ),
-                                    IconButton(
-                                      icon: const Icon(
-                                          Icons.delete_forever_outlined),
-                                      color: Colors.black,
-                                      onPressed: () {},
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
-                                    Text(
-                                      "${myEvents['eventDescp']}",
-                                      style: PublicVariables().normalGreyText,
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(right: 15)),
-                                    Text(
-                                      "${myEvents['eventTime']}",
-                                      style: PublicVariables().normalText,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      textOnDone,
-                                      style: PublicVariables().normalText,
-                                    ),
-                                    Transform.scale(
-                                      scale: 1.25,
-                                      child: Checkbox(
-                                        checkColor: Colors.white,
-                                        shape: const CircleBorder(),
-                                        value: isDone,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isDone = value!;
-                                          });
-                                          changeText();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                margin: PublicVariables().marginSymmetricVertical,
-                decoration: BoxDecoration(
-                  color: PublicVariables().cardColor,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 5.0,
-                        offset: Offset(1, 2.5)),
-                  ],
-                ),
-                child: Padding(
-                  padding: PublicVariables().paddingAll,
-                  child: Column(
-                    children: [
-                      Row(
+                            blurRadius: 5.0,
+                            offset: Offset(1, 2.5)),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: PublicVariables().paddingAll,
+                      child: Column(
                         children: [
-                          Text(
-                            "Today",
-                            style: PublicVariables().headerText,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 10.0),
-                            child: Text(
-                              workoutToday,
-                              style: PublicVariables().subheaderText,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.85,
-                            child: GFProgressBar(
-                              percentage: currentProgress,
-                              lineHeight: 35,
-                              alignment: MainAxisAlignment.spaceBetween,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              backgroundColor: Colors.white30,
-                              progressBarColor:
-                                  PublicVariables().mainColor.withOpacity(0.9),
-                              child: Center(
-                                child: Text(
-                                  "${((displayedProgress) * 100).round()}%",
-                                  textAlign: TextAlign.end,
-                                  style: PublicVariables().normalWhiteText,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0),
-                            child: Text(
-                              "$numOfExercisesLeft exercises left",
-                              style: PublicVariables().normalText,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                decoration: BoxDecoration(
-                  color: PublicVariables().cardColor,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 5.0,
-                        offset: Offset(1, 2.5)),
-                  ],
-                ),
-                child: Padding(
-                  padding: PublicVariables().paddingAll,
-                  child: Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            "Tomorrow",
-                            style: PublicVariables().headerText,
-                          ),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
+                          Row(children: [
+                            Text("This week",
+                                style: PublicVariables().headerText),
+                          ]),
                           Container(
                             margin: PublicVariables().marginSymmetricVertical,
+                            padding: const EdgeInsets.only(bottom: 10),
                             decoration: BoxDecoration(
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                width: 1,
-                                color: Colors.black,
-                              ),
+                              border: Border.all(color: Colors.black),
                             ),
-                            child: Padding(
-                              padding: PublicVariables().paddingAll,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    workoutTomorrow,
-                                    style: PublicVariables().normalText,
+                            child: TableCalendar(
+                              focusedDay: _focusedDay,
+                              firstDay: DateTime(2022),
+                              lastDay: DateTime(2050),
+                              calendarFormat: _calendarFormat,
+                              startingDayOfWeek: StartingDayOfWeek.monday,
+                              rowHeight: 50,
+                              daysOfWeekHeight: 25,
+                              headerStyle: HeaderStyle(
+                                headerMargin: const EdgeInsets.only(bottom: 5),
+                                decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.only(
+                                    topLeft: Radius.circular(9),
+                                    topRight: Radius.circular(9),
                                   ),
-                                ],
+                                  color: PublicVariables()
+                                      .mainColor
+                                      .withOpacity(0.85),
+                                ),
+                                titleTextStyle: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                ),
+                                formatButtonTextStyle: GoogleFonts.lato(
+                                  color: Colors.white,
+                                  fontSize: 16,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                                formatButtonDecoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.5),
+                                  color: PublicVariables().mainColor,
+                                ),
+                                leftChevronIcon: const Icon(
+                                  Icons.arrow_back_ios_new_outlined,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                                rightChevronIcon: const Icon(
+                                  Icons.arrow_forward_ios_outlined,
+                                  color: Colors.white,
+                                  size: 20,
+                                ),
+                              ),
+                              daysOfWeekStyle: const DaysOfWeekStyle(
+                                weekdayStyle: TextStyle(color: Colors.black54),
+                                weekendStyle: TextStyle(color: Colors.black),
+                              ),
+                              calendarStyle: CalendarStyle(
+                                weekendTextStyle:
+                                    const TextStyle(color: Colors.black),
+                                todayDecoration: const BoxDecoration(
+                                  color: Colors.grey,
+                                  shape: BoxShape.circle,
+                                ),
+                                selectedDecoration: BoxDecoration(
+                                  color: PublicVariables().mainColor,
+                                  shape: BoxShape.circle,
+                                ),
+                              ),
+                              selectedDayPredicate: (day) {
+                                return isSameDay(_selectedDate, day);
+                              },
+                              onDaySelected: (selectedDay, focusedDay) {
+                                setState(() {
+                                  _selectedDate = selectedDay;
+                                  _focusedDay = focusedDay;
+                                });
+                              },
+                              onFormatChanged: (format) {
+                                if (_calendarFormat != format) {
+                                  setState(() {
+                                    _calendarFormat = format;
+                                  });
+                                }
+                              },
+                              onPageChanged: (focusedDay) {
+                                _focusedDay = focusedDay;
+                              },
+                              eventLoader: _listOfDayEvents,
+                            ),
+                          ),
+                          ..._listOfDayEvents(_selectedDate!).map(
+                            (myEvents) => Container(
+                              margin: const EdgeInsets.symmetric(
+                                  vertical: 10, horizontal: 7.5),
+                              decoration: BoxDecoration(
+                                border: Border.all(
+                                  color: Colors.black,
+                                  width: 1,
+                                ),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              child: ListTile(
+                                title: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(
+                                      "${myEvents['eventTitle']}",
+                                      style: PublicVariables().normalText,
+                                    ),
+                                    Row(
+                                      children: [
+                                        IconButton(
+                                          icon: const Icon(Icons.edit_outlined),
+                                          color: Colors.black,
+                                          onPressed: () {},
+                                        ),
+                                        IconButton(
+                                          icon: const Icon(
+                                              Icons.delete_forever_outlined),
+                                          color: Colors.black,
+                                          onPressed: () {},
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${myEvents['eventDescp']}",
+                                          style:
+                                              PublicVariables().normalGreyText,
+                                        ),
+                                        const Padding(
+                                            padding:
+                                                EdgeInsets.only(right: 15)),
+                                        Text(
+                                          "${myEvents['eventTime']}",
+                                          style: PublicVariables().normalText,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          textOnDone,
+                                          style: PublicVariables().normalText,
+                                        ),
+                                        Transform.scale(
+                                          scale: 1.25,
+                                          child: Checkbox(
+                                            checkColor: Colors.white,
+                                            shape: const CircleBorder(),
+                                            value: isDone,
+                                            onChanged: (bool? value) {
+                                              setState(() {
+                                                isDone = value!;
+                                              });
+                                              changeText();
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
                         ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                  Container(
+                    margin: PublicVariables().marginSymmetricVertical,
+                    decoration: BoxDecoration(
+                      color: PublicVariables().cardColor,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 5.0,
+                            offset: Offset(1, 2.5)),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: PublicVariables().paddingAll,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Text("Today", style: PublicVariables().headerText),
+                          ]),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Text(
+                                  workoutToday,
+                                  style: PublicVariables().subheaderText,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              SizedBox(
+                                width: MediaQuery.of(context).size.width * 0.85,
+                                child: GFProgressBar(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 7.5),
+                                  progressBarColor: PublicVariables()
+                                      .mainColor
+                                      .withOpacity(0.9),
+                                  alignment: MainAxisAlignment.spaceBetween,
+                                  percentage: currentProgress,
+                                  lineHeight: 35,
+                                  backgroundColor: Colors.white30,
+                                  child: Center(
+                                    child: Text(
+                                      "${((displayedProgress) * 100).round()}%",
+                                      style: PublicVariables().normalWhiteText,
+                                      textAlign: TextAlign.end,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 5.0),
+                                child: Text(
+                                  "$numOfExercisesLeft exercises left",
+                                  style: PublicVariables().normalText,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    decoration: BoxDecoration(
+                      color: PublicVariables().cardColor,
+                      borderRadius: BorderRadius.circular(25),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.black,
+                            blurRadius: 5.0,
+                            offset: Offset(1, 2.5)),
+                      ],
+                    ),
+                    child: Padding(
+                      padding: PublicVariables().paddingAll,
+                      child: Column(
+                        children: [
+                          Row(children: [
+                            Text("Tomorrow",
+                                style: PublicVariables().headerText),
+                          ]),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Container(
+                                margin:
+                                    PublicVariables().marginSymmetricVertical,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border: Border.all(color: Colors.black),
+                                ),
+                                child: Padding(
+                                  padding: PublicVariables().paddingAll,
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        workoutTomorrow,
+                                        style: PublicVariables().normalText,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
+                ],
               ),
-              const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       floatingActionButton: Container(
@@ -487,16 +492,16 @@ class _MyHomePageState extends State<MyHomePage> {
           borderRadius: BorderRadius.circular(25),
           boxShadow: const [
             BoxShadow(
-                color: Colors.black, blurRadius: 5.0, offset: Offset(2.5, 2.5)),
+              color: Colors.black,
+              blurRadius: 5.0,
+              offset: Offset(2.5, 2.5),
+            ),
           ],
         ),
         child: FloatingActionButton.extended(
           backgroundColor: PublicVariables().mainColor,
           onPressed: () => _showAddEventDialog(),
-          label: Text(
-            "Add workout",
-            style: PublicVariables().normalWhiteText,
-          ),
+          label: Text("Add workout", style: PublicVariables().normalWhiteText),
         ),
       ),
     );
@@ -529,16 +534,50 @@ class _MyHomePageState extends State<MyHomePage> {
     };
   }
 
+  _buildDirectSelect() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        DirectSelect(
+          itemExtent: 50.0,
+          items: _buildHours(),
+          selectedIndex: selectedHour!,
+          mode: DirectSelectMode.tap,
+          selectionColor: PublicVariables().mainColor.withOpacity(0.25),
+          child: MySelectionItem(isForList: false, title: hours[selectedHour!]),
+          onSelectedItemChanged: (index) {
+            setState(() {
+              selectedHour = index;
+            });
+            _buildHours();
+          },
+        ),
+        DirectSelect(
+          itemExtent: 50.0,
+          items: _buildMinutes(),
+          selectedIndex: selectedMinute!,
+          mode: DirectSelectMode.tap,
+          selectionColor: PublicVariables().mainColor.withOpacity(0.25),
+          child: MySelectionItem(
+              isForList: false, title: minutes[selectedMinute!]),
+          onSelectedItemChanged: (index) {
+            setState(() {
+              selectedMinute = index;
+            });
+            _buildMinutes();
+          },
+        ),
+      ],
+    );
+  }
+
   // POPUP WHEN YOU CLICK "ADD EVENT" BUTTON
   _showAddEventDialog() async {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
         backgroundColor: Colors.white.withOpacity(0.95),
-        title: const Text(
-          "Add New Workout",
-          textAlign: TextAlign.center,
-        ),
+        title: const Text("Add New Workout", textAlign: TextAlign.center),
         content: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisSize: MainAxisSize.min,
@@ -546,65 +585,21 @@ class _MyHomePageState extends State<MyHomePage> {
             TextField(
               controller: titleController,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: "Title",
-              ),
+              decoration: const InputDecoration(labelText: "Title"),
             ),
             TextField(
               controller: descpController,
               textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(
-                labelText: "Description",
-              ),
+              decoration: const InputDecoration(labelText: "Description"),
             ),
             Padding(
               padding: PublicVariables().paddingAll,
               child: Text(
-                "Select your workout time",
+                "Tap to select your workout time:",
                 style: PublicVariables().normalGreyText,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                DirectSelect(
-                  itemExtent: 50.0,
-                  items: _buildHours(),
-                  selectedIndex: selectedHour!,
-                  mode: DirectSelectMode.tap,
-                  selectionColor: PublicVariables().mainColor.withOpacity(0.25),
-                  child: MySelectionItem(
-                    isForList: false,
-                    title: hours[selectedHour!],
-                  ),
-                  onSelectedItemChanged: (index) {
-                    setState(() {
-                      selectedHour = index;
-                    });
-                  },
-                ),
-                Text(
-                  ":",
-                  style: PublicVariables().headerText,
-                ),
-                DirectSelect(
-                  itemExtent: 50.0,
-                  items: _buildIMinutes(),
-                  selectedIndex: selectedMinute!,
-                  mode: DirectSelectMode.tap,
-                  selectionColor: PublicVariables().mainColor.withOpacity(0.25),
-                  child: MySelectionItem(
-                    isForList: false,
-                    title: minutes[selectedMinute!],
-                  ),
-                  onSelectedItemChanged: (index) {
-                    setState(() {
-                      selectedMinute = index;
-                    });
-                  },
-                ),
-              ],
-            ),
+            _buildDirectSelect(),
           ],
         ),
         actions: [
