@@ -11,37 +11,33 @@ class MySelectionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 45.0,
+      height: 50.0,
       child: isForList
           ? Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: _buildItem(context),
-      )
+              padding: PublicVariables().paddingAll,
+              child: _buildItem(context),
+            )
           : Card(
-        margin: const EdgeInsets.symmetric(horizontal: 10.0),
-        child: Stack(
-          children: <Widget>[
-            _buildItem(context),
-          ],
-        ),
-      ),
+              margin: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Stack(
+                children: <Widget>[
+                  _buildItem(context),
+                ],
+              ),
+            ),
     );
   }
 
   Widget _buildItem(BuildContext context) {
     return Container(
-      width: 70,
+      width: 75,
       alignment: Alignment.center,
       child: FittedBox(
         child: Row(
           children: [
             Text(
               title!,
-              style: PublicVariables().normalText,
-            ),
-            const Padding(padding: EdgeInsets.all(5)),
-            const Icon(
-              Icons.arrow_drop_down_outlined,
+              style: PublicVariables().subheaderText,
             ),
           ],
         ),

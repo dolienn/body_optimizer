@@ -7,7 +7,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -21,30 +20,14 @@ class PublicVariables {
   var cardColor = const Color(0xFFDEDEDE);
   var marginSymmetricVertical = const EdgeInsets.symmetric(vertical: 10);
   var paddingAll = const EdgeInsets.all(10);
-  var normalText = GoogleFonts.lato(
-    color: Colors.black,
-    fontSize: 16,
-  );
-  var normalWhiteText = GoogleFonts.lato(
-    color: Colors.white,
-    fontSize: 16,
-  );
-  var normalGreyText = GoogleFonts.lato(
-    color: Colors.black54,
-    fontSize: 16,
-  );
-  var headerText = GoogleFonts.lato(
-    color: Colors.black,
-    fontSize: 26,
-  );
-  var subheaderText = GoogleFonts.lato(
-    color: Colors.black,
-    fontSize: 20,
-  );
-  var titleText = GoogleFonts.lato(
-    color: Colors.black,
-    fontSize: 42,
-  );
+  var normalText = GoogleFonts.lato(color: Colors.black, fontSize: 16);
+  var normalWhiteText = GoogleFonts.lato(color: Colors.white, fontSize: 16);
+  var normalGreyText = GoogleFonts.lato(color: Colors.black54, fontSize: 16);
+  var subheaderText = GoogleFonts.lato(color: Colors.black, fontSize: 20);
+  var headerText = GoogleFonts.lato(color: Colors.black, fontSize: 26);
+  var bannerText = GoogleFonts.lato(
+      color: Colors.white, fontSize: 36, fontWeight: FontWeight.w600);
+  var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 42);
 }
 
 class _MainPageState extends State<MainPage> {
@@ -115,8 +98,7 @@ class _MainPageState extends State<MainPage> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle:
-            NavBarStyle.style4,
+        navBarStyle: NavBarStyle.style4,
       ),
     );
   }
