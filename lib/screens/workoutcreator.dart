@@ -372,22 +372,22 @@ class BackExercises {
 
 
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
-  static List<AbsExercises> generateItems(int numberOfItems) {
+  static List<BackExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String titleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String titleTwo = "Plank";
-    String titleThree = "V-Ups";
-    String titleFour = "Hollow Holds";
-    String titleFive = "Medicine Ball Slam";
+    String titleOne = "Pull-Up";
+    String titleTwo = "";
+    String titleThree = "";
+    String titleFour = "";
+    String titleFive = "";
 
-    String descriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String descriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String descriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String descriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String descriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
-    return List<AbsExercises>.generate(numberOfItems, (int index) {
+    String descriptionOne = "If you're a pull-up pro, you can do some light sets as a warm-up. If they're tougher for you, you can treat them more as a strength movement toward the start of your workout. Assisted variations make for great burnouts at the end of a back workout.";
+    String descriptionTwo = "";
+    String descriptionThree = "";
+    String descriptionFour = "";
+    String descriptionFive = "";
+    return List<BackExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
-        return AbsExercises(
+        return BackExercises(
           id: index,
           value: trigger,
           headerValue: titleOne,
@@ -395,7 +395,7 @@ class BackExercises {
         );
       }
       if(index == 1){
-        return AbsExercises(
+        return BackExercises(
           id: index,
           value: trigger,
           headerValue: titleTwo,
@@ -403,7 +403,7 @@ class BackExercises {
         );
       }
       if(index == 2){
-        return AbsExercises(
+        return BackExercises(
           id: index,
           value: trigger,
           headerValue: titleThree,
@@ -411,7 +411,7 @@ class BackExercises {
         );
       }
       if(index == 3){
-        return AbsExercises(
+        return BackExercises(
           id: index,
           value: trigger,
           headerValue: titleFour,
@@ -419,14 +419,14 @@ class BackExercises {
         );
       }
       if(index == 4){
-        return AbsExercises(
+        return BackExercises(
           id: index,
           value: trigger,
           headerValue: titleFive,
           expandedValue: descriptionFive,
         );
       }
-      return AbsExercises(
+      return BackExercises(
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
@@ -452,61 +452,61 @@ class LegsExercises {
 
 
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
-  static List<AbsExercises> generateItems(int numberOfItems) {
+  static List<LegsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String absTitleTwo = "Plank";
-    String absTitleThree = "V-Ups";
-    String absTitleFour = "Hollow Holds";
-    String absTitleFive = "Medicine Ball Slam";
+    String titleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
+    String titleTwo = "Plank";
+    String titleThree = "V-Ups";
+    String titleFour = "Hollow Holds";
+    String titleFive = "Medicine Ball Slam";
 
-    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String absDescriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
-    return List<AbsExercises>.generate(numberOfItems, (int index) {
+    String descriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+    String descriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+    String descriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
+    String descriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
+    String descriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
+    return List<LegsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
-        return AbsExercises(
+        return LegsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleOne,
-          expandedValue: absDescriptionOne,
+          headerValue: titleOne,
+          expandedValue: descriptionOne,
         );
       }
       if(index == 1){
-        return AbsExercises(
+        return LegsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleTwo,
-          expandedValue: absDescriptionTwo,
+          headerValue: titleTwo,
+          expandedValue: descriptionTwo,
         );
       }
       if(index == 2){
-        return AbsExercises(
+        return LegsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleThree,
-          expandedValue: absDescriptionThree,
+          headerValue: titleThree,
+          expandedValue: descriptionThree,
         );
       }
       if(index == 3){
-        return AbsExercises(
+        return LegsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFour,
-          expandedValue: absDescriptionFour,
+          headerValue: titleFour,
+          expandedValue: descriptionFour,
         );
       }
       if(index == 4){
-        return AbsExercises(
+        return LegsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFive,
-          expandedValue: absDescriptionFive,
+          headerValue: titleFive,
+          expandedValue: descriptionFive,
         );
       }
-      return AbsExercises(
+      return LegsExercises(
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
@@ -1397,7 +1397,7 @@ class WorkoutCreatorExercisesBack extends StatefulWidget {
 }
 
 class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBack> {
-  final List<AbsExercises> _data = AbsExercises.generateItems(5);
+  final List<BackExercises> _data = BackExercises.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -1413,7 +1413,7 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
             children: <Widget>[
               ExpansionPanelList.radio(
                 expandedHeaderPadding: const EdgeInsets.all(0),
-                children: _data.map<ExpansionPanelRadio>((AbsExercises item) {
+                children: _data.map<ExpansionPanelRadio>((BackExercises item) {
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -1480,7 +1480,7 @@ class WorkoutCreatorExercisesLegs extends StatefulWidget {
 }
 
 class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLegs> {
-  final List<AbsExercises> _data = AbsExercises.generateItems(5);
+  final List<LegsExercises> _data = LegsExercises.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -1496,7 +1496,7 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
             children: <Widget>[
               ExpansionPanelList.radio(
                 expandedHeaderPadding: const EdgeInsets.all(0),
-                children: _data.map<ExpansionPanelRadio>((AbsExercises item) {
+                children: _data.map<ExpansionPanelRadio>((LegsExercises item) {
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
