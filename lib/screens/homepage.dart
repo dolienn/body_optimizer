@@ -15,6 +15,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout",
+      workoutToday2 = "Back workout",
       workoutTomorrow = "Custom workout 1",
       workoutTomorrow2 = "Custom workout 2";
   int numOfExercises = 5, numOfExercisesLeft = 0;
@@ -68,369 +69,360 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(bottom: 10),
-              width: double.infinity,
-              padding: const EdgeInsets.only(bottom: 20, left: 20),
-              decoration: BoxDecoration(
-                color: PublicVariables().mainColor,
-              ),
-              child: SafeArea(
-                child:
-                    Text("Body optimizer", style: PublicVariables().bannerText),
-              ),
+        child: Column(children: [
+          Container(
+            margin: const EdgeInsets.only(bottom: 10),
+            width: double.infinity,
+            padding: const EdgeInsets.only(bottom: 20, left: 20),
+            decoration: BoxDecoration(
+              color: PublicVariables().mainColor,
             ),
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.symmetric(horizontal: 7.5),
-              child: Column(
-                children: [
-                  Container(
-                    margin: PublicVariables().marginSymmetricVertical,
-                    decoration: BoxDecoration(
-                      color: PublicVariables().cardColor,
-                      borderRadius: BorderRadius.circular(25),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black,
-                            blurRadius: 2.5,
-                            offset: Offset(1, 2.5)),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: PublicVariables().paddingAll,
-                      child: Column(
-                        children: [
-                          Row(children: [
-                            Text("This week",
-                                style: PublicVariables().headerText),
-                          ]),
-                          Container(
-                            margin: PublicVariables().marginSymmetricVertical,
-                            padding: const EdgeInsets.only(bottom: 10),
+            child: SafeArea(
+              child:
+                  Text("Body optimizer", style: PublicVariables().bannerText),
+            ),
+          ),
+          Container(
+            width: double.infinity,
+            margin: const EdgeInsets.symmetric(horizontal: 7.5),
+            child: Column(children: [
+              Container(
+                margin: PublicVariables().marginSymmetricVertical,
+                decoration: BoxDecoration(
+                  color: PublicVariables().cardColor,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 2.5,
+                        offset: Offset(1, 2.5)),
+                  ],
+                ),
+                child: Padding(
+                  padding: PublicVariables().paddingAll,
+                  child: Column(
+                    children: [
+                      Row(children: [
+                        Text("This week", style: PublicVariables().headerText),
+                      ]),
+                      Container(
+                        margin: PublicVariables().marginSymmetricVertical,
+                        padding: const EdgeInsets.only(bottom: 10),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.black),
+                        ),
+                        child: TableCalendar(
+                          focusedDay: _focusedDay,
+                          firstDay: DateTime(2022),
+                          lastDay: DateTime(2050),
+                          calendarFormat: _calendarFormat,
+                          startingDayOfWeek: StartingDayOfWeek.monday,
+                          rowHeight: 50,
+                          daysOfWeekHeight: 25,
+                          headerStyle: HeaderStyle(
+                            headerMargin: const EdgeInsets.only(bottom: 5),
                             decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(9),
+                                topRight: Radius.circular(9),
+                              ),
+                              color:
+                                  PublicVariables().mainColor.withOpacity(0.85),
+                            ),
+                            titleTextStyle: GoogleFonts.lato(
                               color: Colors.white,
+                              fontSize: 18,
+                            ),
+                            formatButtonTextStyle: GoogleFonts.lato(
+                              color: Colors.white,
+                              fontSize: 16,
+                              fontStyle: FontStyle.italic,
+                            ),
+                            formatButtonDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              border: Border.all(color: Colors.black),
+                              border:
+                                  Border.all(color: Colors.white, width: 1.5),
+                              color: PublicVariables().mainColor,
                             ),
-                            child: TableCalendar(
-                              focusedDay: _focusedDay,
-                              firstDay: DateTime(2022),
-                              lastDay: DateTime(2050),
-                              calendarFormat: _calendarFormat,
-                              startingDayOfWeek: StartingDayOfWeek.monday,
-                              rowHeight: 50,
-                              daysOfWeekHeight: 25,
-                              headerStyle: HeaderStyle(
-                                headerMargin: const EdgeInsets.only(bottom: 5),
-                                decoration: BoxDecoration(
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(9),
-                                    topRight: Radius.circular(9),
-                                  ),
-                                  color: PublicVariables()
-                                      .mainColor
-                                      .withOpacity(0.85),
-                                ),
-                                titleTextStyle: GoogleFonts.lato(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
-                                formatButtonTextStyle: GoogleFonts.lato(
-                                  color: Colors.white,
-                                  fontSize: 16,
-                                  fontStyle: FontStyle.italic,
-                                ),
-                                formatButtonDecoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      color: Colors.white, width: 1.5),
-                                  color: PublicVariables().mainColor,
-                                ),
-                                leftChevronIcon: const Icon(
-                                  Icons.arrow_back_ios_new_outlined,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                                rightChevronIcon: const Icon(
-                                  Icons.arrow_forward_ios_outlined,
-                                  color: Colors.white,
-                                  size: 20,
-                                ),
-                              ),
-                              daysOfWeekStyle: const DaysOfWeekStyle(
-                                weekdayStyle: TextStyle(color: Colors.black54),
-                                weekendStyle: TextStyle(color: Colors.black),
-                              ),
-                              calendarStyle: CalendarStyle(
-                                weekendTextStyle:
-                                    const TextStyle(color: Colors.black),
-                                todayDecoration: const BoxDecoration(
-                                  color: Colors.grey,
-                                  shape: BoxShape.circle,
-                                ),
-                                selectedDecoration: BoxDecoration(
-                                  color: PublicVariables().mainColor,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
-                              selectedDayPredicate: (day) {
-                                return isSameDay(_selectedDate, day);
-                              },
-                              onDaySelected: (selectedDay, focusedDay) {
-                                setState(() {
-                                  _selectedDate = selectedDay;
-                                  _focusedDay = focusedDay;
-                                });
-                              },
-                              onFormatChanged: (format) {
-                                if (_calendarFormat != format) {
-                                  setState(() {
-                                    _calendarFormat = format;
-                                  });
-                                }
-                              },
-                              onPageChanged: (focusedDay) {
-                                _focusedDay = focusedDay;
-                              },
-                              eventLoader: _listOfDayEvents,
+                            leftChevronIcon: const Icon(
+                              Icons.arrow_back_ios_new_outlined,
+                              color: Colors.white,
+                              size: 20,
+                            ),
+                            rightChevronIcon: const Icon(
+                              Icons.arrow_forward_ios_outlined,
+                              color: Colors.white,
+                              size: 20,
                             ),
                           ),
-                          ..._listOfDayEvents(_selectedDate!).map(
-                            (myEvents) => Container(
-                              margin: const EdgeInsets.symmetric(
-                                  vertical: 10, horizontal: 7.5),
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  color: Colors.black,
-                                  width: 1,
-                                ),
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: ListTile(
-                                title: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      "${myEvents['eventTitle']}",
-                                      style: PublicVariables().normalText,
-                                    ),
-                                    Row(
-                                      children: [
-                                        IconButton(
-                                          icon: const Icon(Icons.edit_outlined),
-                                          color: Colors.black,
-                                          onPressed: () {},
-                                        ),
-                                        IconButton(
-                                          icon: const Icon(
-                                              Icons.delete_forever_outlined),
-                                          color: Colors.black,
-                                          onPressed: () {},
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                subtitle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "${myEvents['eventDescp']}",
-                                          style:
-                                              PublicVariables().normalGreyText,
-                                        ),
-                                        const Padding(
-                                            padding:
-                                                EdgeInsets.only(right: 15)),
-                                        Text(
-                                          "${myEvents['eventTime']}",
-                                          style: PublicVariables().normalText,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          textOnDone,
-                                          style: PublicVariables().normalText,
-                                        ),
-                                        Transform.scale(
-                                          scale: 1.25,
-                                          child: Checkbox(
-                                            checkColor: Colors.white,
-                                            shape: const CircleBorder(),
-                                            value: isDone,
-                                            onChanged: (bool? value) {
-                                              setState(() {
-                                                isDone = value!;
-                                              });
-                                              changeText();
-                                            },
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
+                          daysOfWeekStyle: const DaysOfWeekStyle(
+                            weekdayStyle: TextStyle(color: Colors.black54),
+                            weekendStyle: TextStyle(color: Colors.black),
+                          ),
+                          calendarStyle: CalendarStyle(
+                            weekendTextStyle:
+                                const TextStyle(color: Colors.black),
+                            todayDecoration: const BoxDecoration(
+                              color: Colors.grey,
+                              shape: BoxShape.circle,
+                            ),
+                            selectedDecoration: BoxDecoration(
+                              color: PublicVariables().mainColor,
+                              shape: BoxShape.circle,
                             ),
                           ),
-                        ],
+                          selectedDayPredicate: (day) {
+                            return isSameDay(_selectedDate, day);
+                          },
+                          onDaySelected: (selectedDay, focusedDay) {
+                            setState(() {
+                              _selectedDate = selectedDay;
+                              _focusedDay = focusedDay;
+                            });
+                          },
+                          onFormatChanged: (format) {
+                            if (_calendarFormat != format) {
+                              setState(() {
+                                _calendarFormat = format;
+                              });
+                            }
+                          },
+                          onPageChanged: (focusedDay) {
+                            _focusedDay = focusedDay;
+                          },
+                          eventLoader: _listOfDayEvents,
+                        ),
                       ),
-                    ),
-                  ),
-                  Container(
-                    margin: PublicVariables().marginSymmetricVertical,
-                    decoration: BoxDecoration(
-                      color: PublicVariables().cardColor,
-                      borderRadius: BorderRadius.circular(25),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black,
-                            blurRadius: 2.5,
-                            offset: Offset(1, 2.5)),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: PublicVariables().paddingAll,
-                      child: Column(
-                        children: [
-                          Row(children: [
-                            Text("Today", style: PublicVariables().headerText),
-                          ]),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10.0),
-                                child: Text(
-                                  workoutToday,
-                                  style: PublicVariables().subheaderText,
-                                ),
-                              ),
-                            ],
+                      ..._listOfDayEvents(_selectedDate!).map(
+                        (myEvents) => Container(
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 7.5),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black,
+                              width: 1,
+                            ),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              SizedBox(
-                                width: MediaQuery.of(context).size.width * 0.85,
-                                child: GFProgressBar(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 7.5),
-                                  progressBarColor: PublicVariables()
-                                      .mainColor
-                                      .withOpacity(0.9),
-                                  alignment: MainAxisAlignment.spaceBetween,
-                                  percentage: currentProgress,
-                                  lineHeight: 35,
-                                  backgroundColor: Colors.white30,
-                                  child: Center(
-                                    child: Text(
-                                      "${((displayedProgress) * 100).round()}%",
-                                      style: PublicVariables().normalWhiteText,
-                                      textAlign: TextAlign.end,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 5.0),
-                                child: Text(
-                                  "$numOfExercisesLeft exercises left",
+                          child: ListTile(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${myEvents['eventTitle']}",
                                   style: PublicVariables().normalText,
                                 ),
-                              ),
-                            ],
+                                Row(
+                                  children: [
+                                    IconButton(
+                                      icon: const Icon(Icons.edit_outlined),
+                                      color: Colors.black,
+                                      onPressed: () {},
+                                    ),
+                                    IconButton(
+                                      icon: const Icon(
+                                          Icons.delete_forever_outlined),
+                                      color: Colors.black,
+                                      onPressed: () {},
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            subtitle: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      "${myEvents['eventDescp']}",
+                                      style: PublicVariables().normalGreyText,
+                                    ),
+                                    const Padding(
+                                        padding: EdgeInsets.only(right: 15)),
+                                    Text(
+                                      "${myEvents['eventTime']}",
+                                      style: PublicVariables().normalText,
+                                    ),
+                                  ],
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      textOnDone,
+                                      style: PublicVariables().normalText,
+                                    ),
+                                    Transform.scale(
+                                      scale: 1.25,
+                                      child: Checkbox(
+                                        checkColor: Colors.white,
+                                        shape: const CircleBorder(),
+                                        value: isDone,
+                                        onChanged: (bool? value) {
+                                          setState(() {
+                                            isDone = value!;
+                                          });
+                                          changeText();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                margin: PublicVariables().marginSymmetricVertical,
+                decoration: BoxDecoration(
+                  color: PublicVariables().cardColor,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 2.5,
+                        offset: Offset(1, 2.5)),
+                  ],
+                ),
+                child: Padding(
+                  padding: PublicVariables().paddingAll,
+                  child: Column(children: [
+                    Row(children: [
+                      Text("Today", style: PublicVariables().headerText),
+                    ]),
+                    Container(
+                      margin: PublicVariables().marginSymmetricVertical,
+                      padding: PublicVariables().paddingAll,
+                      decoration: BoxDecoration(
+                        color: PublicVariables().cardColor,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: const [
+                          BoxShadow(
+                              color: Colors.black,
+                              blurRadius: 2.5,
+                              offset: Offset(1, 2.5)),
                         ],
                       ),
-                    ),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: PublicVariables().cardColor,
-                      borderRadius: BorderRadius.circular(25),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.black,
-                            blurRadius: 2.5,
-                            offset: Offset(1, 2.5)),
-                      ],
-                    ),
-                    child: Padding(
-                      padding: PublicVariables().paddingAll,
                       child: Column(children: [
-                        Row(children: [
-                          Text("Tomorrow", style: PublicVariables().headerText),
-                        ]),
+                        Padding(
+                          padding: PublicVariables().paddingAll,
+                          child: Text(
+                            workoutToday,
+                            style: PublicVariables().subheaderText,
+                          ),
+                        ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Container(
-                              margin: PublicVariables().marginSymmetricVertical,
-                              padding: PublicVariables().paddingAll,
-                              decoration: BoxDecoration(
-                                color: PublicVariables().cardColor,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 1.5,
-                                      offset: Offset(1, 2)),
-                                ],
-                              ),
-                              child: Text(
-                                workoutTomorrow,
-                                style: PublicVariables().normalMainColorText,
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              margin: PublicVariables().marginSymmetricVertical,
-                              padding: PublicVariables().paddingAll,
-                              decoration: BoxDecoration(
-                                color: PublicVariables().cardColor,
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: const [
-                                  BoxShadow(
-                                      color: Colors.black,
-                                      blurRadius: 1.5,
-                                      offset: Offset(1, 2)),
-                                ],
-                              ),
-                              child: Text(
-                                workoutTomorrow2,
-                                style: PublicVariables().normalMainColorText,
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.85,
+                              child: GFProgressBar(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 7.5),
+                                progressBarColor: PublicVariables()
+                                    .mainColor
+                                    .withOpacity(0.9),
+                                alignment: MainAxisAlignment.spaceBetween,
+                                percentage: currentProgress,
+                                lineHeight: 35,
+                                backgroundColor: Colors.white30,
+                                child: Center(
+                                  child: Text(
+                                    "${((displayedProgress) * 100).round()}%",
+                                    style: PublicVariables().normalWhiteText,
+                                    textAlign: TextAlign.end,
+                                  ),
+                                ),
                               ),
                             ),
                           ],
                         ),
+                        Padding(
+                          padding: PublicVariables().paddingAll,
+                          child: Text(
+                            "$numOfExercisesLeft exercises left",
+                            style: PublicVariables().normalText,
+                          ),
+                        ),
                       ]),
                     ),
-                  ),
-                  const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
-                ],
+                  ]),
+                ),
               ),
-            ),
-          ],
-        ),
+              Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                decoration: BoxDecoration(
+                  color: PublicVariables().cardColor,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                    BoxShadow(
+                        color: Colors.black,
+                        blurRadius: 2.5,
+                        offset: Offset(1, 2.5)),
+                  ],
+                ),
+                child: Padding(
+                  padding: PublicVariables().paddingAll,
+                  child: Column(children: [
+                    Row(children: [
+                      Text("Tomorrow", style: PublicVariables().headerText),
+                    ]),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Container(
+                          margin: PublicVariables().marginSymmetricVertical,
+                          padding: PublicVariables().paddingAll,
+                          decoration: BoxDecoration(
+                            color: PublicVariables().cardColor,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 1.5,
+                                  offset: Offset(1, 2)),
+                            ],
+                          ),
+                          child: Text(
+                            workoutTomorrow,
+                            style: PublicVariables().normalMainColorText,
+                          ),
+                        ),
+                        Container(
+                          margin: PublicVariables().marginSymmetricVertical,
+                          padding: PublicVariables().paddingAll,
+                          decoration: BoxDecoration(
+                            color: PublicVariables().cardColor,
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const [
+                              BoxShadow(
+                                  color: Colors.black,
+                                  blurRadius: 1.5,
+                                  offset: Offset(1, 2)),
+                            ],
+                          ),
+                          child: Text(
+                            workoutTomorrow2,
+                            style: PublicVariables().normalMainColorText,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ]),
+                ),
+              ),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
+            ]),
+          ),
+        ]),
       ),
     );
   }
