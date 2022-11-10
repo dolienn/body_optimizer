@@ -6,6 +6,9 @@ Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
 
+change the pink button color to the f869d5
+EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
+
 Useful links etc.
 https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
 https://mercyjemosop.medium.com/flutter-list-view-1045969b1799
@@ -59,7 +62,7 @@ class AbsExercises {
     String absTitleFour = "Hollow Holds";
     String absTitleFive = "Medicine Ball Slam";
 
-    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles.";
     String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
     String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
     String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
@@ -209,61 +212,61 @@ class TricepsExercises {
 
 
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
-  static List<AbsExercises> generateItems(int numberOfItems) {
+  static List<TricepsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String absTitleTwo = "Plank";
-    String absTitleThree = "V-Ups";
-    String absTitleFour = "Hollow Holds";
-    String absTitleFive = "Medicine Ball Slam";
+    String titleOne = "Skull-crusher";
+    String titleTwo = "Triceps Dip";
+    String titleThree = "Triceps Machine Dip";
+    String titleFour = "Board Press";
+    String titleFive = "Dumbbell Overhead Triceps Extension";
 
-    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String absDescriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
-    return List<AbsExercises>.generate(numberOfItems, (int index) {
+    String descriptionOne = "After warming up your elbows, perform 3-4 sets for 8-12 reps as the first or second exercise in your routine. Don't be a hero and risk your skull! Hit your reps and it'll help you build tris to match your bis.";
+    String descriptionTwo = "Dips hit both the chest and triceps, but to favor the tris, keep your body as vertical as possible. Don't lean forward and keep those elbows tight to your sides. Think dips won't work for you? Take a look at any male gymnast; horseshoe triceps come standard issue with all those dips!";
+    String descriptionThree = "Do this early or in the middle of your workout for 3-4 sets of 6-10 reps, and you'll be convinced this is one of the best arm muscle-building machines out there. Alternately, up the reps to double digits as an upper-arm burnout.";
+    String descriptionFour = "The board press is a partial-rep version of the bench press where you place 2x4s on your chest to preferentially train the lockout. Don't have boards? An easier gym hack may be simply to move a bench inside the rack and set the pins a few inches off your chest.";
+    String descriptionFive = "Once your arms go overhead, the long head of the triceps gets prioritized. This head is difficult to target otherwise, which is why it's always a good idea to include some kind of overhead exercise in your triceps workout.";
+    return List<TricepsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
-        return AbsExercises(
+        return TricepsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleOne,
-          expandedValue: absDescriptionOne,
+          headerValue: titleOne,
+          expandedValue: descriptionOne,
         );
       }
       if(index == 1){
-        return AbsExercises(
+        return TricepsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleTwo,
-          expandedValue: absDescriptionTwo,
+          headerValue: titleTwo,
+          expandedValue: descriptionTwo,
         );
       }
       if(index == 2){
-        return AbsExercises(
+        return TricepsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleThree,
-          expandedValue: absDescriptionThree,
+          headerValue: titleThree,
+          expandedValue: descriptionThree,
         );
       }
       if(index == 3){
-        return AbsExercises(
+        return TricepsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFour,
-          expandedValue: absDescriptionFour,
+          headerValue: titleFour,
+          expandedValue: descriptionFour,
         );
       }
       if(index == 4){
-        return AbsExercises(
+        return TricepsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFive,
-          expandedValue: absDescriptionFive,
+          headerValue: titleFive,
+          expandedValue: descriptionFive,
         );
       }
-      return AbsExercises(
+      return TricepsExercises(
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
@@ -289,61 +292,61 @@ class ChestExercises {
 
 
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
-  static List<AbsExercises> generateItems(int numberOfItems) {
+  static List<ChestExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String absTitleTwo = "Plank";
-    String absTitleThree = "V-Ups";
-    String absTitleFour = "Hollow Holds";
-    String absTitleFive = "Medicine Ball Slam";
+    String titleOne = "Barbell Bench Press";
+    String titleTwo = "Incline Bench Press";
+    String titleThree = "Decline Press";
+    String titleFour = "Machine Chest Press";
+    String titleFive = "Push-Up";
 
-    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String absDescriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
-    return List<AbsExercises>.generate(numberOfItems, (int index) {
+    String descriptionOne = "Bench toward the start of your chest workout for heavy sets in lower rep ranges, such as 5-8 reps. There are better moves for high-rep chest burnouts. Vary your grip width and style for more complete chest development.";
+    String descriptionTwo = "As a primary lift, a few heavy sets of 6-8 can be your bread and butter. As a secondary lift, up it to 8-10. Many chest workouts start with flat-bench movements first, but every so often you should start with inclines, particularly if you're trying to bring up your upper chest.";
+    String descriptionThree = "Do free-weight presses early in your chest workout because they require more effort and stabilizer muscles than machines. A machine version could be the final heavy exercise in your workout before switching to lighter pump work.";
+    String descriptionFour = "Machine exercises make the most sense at the end of your workout for sets of at least 8-10 reps, plus drop sets or rest-pause sets if you can handle them. This is when you see if that pre-workout you've been taking can live up to its promises! Pump your pecs until they're seriously fatigued and finish your workout strong.";
+    String descriptionFive = "Sets of push-ups to failure are a great way to burn out or add volume in the late stages of a workout, and they're awesome in a compound set with dips, a mechanical dropset after flyes or presses, or an antagonist chest-and-back superset with rows. Weighted push-ups and push-ups with resistance bands can even be a primary push movement, if needed.";
+    return List<ChestExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
-        return AbsExercises(
+        return ChestExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleOne,
-          expandedValue: absDescriptionOne,
+          headerValue: titleOne,
+          expandedValue: descriptionOne,
         );
       }
       if(index == 1){
-        return AbsExercises(
+        return ChestExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleTwo,
-          expandedValue: absDescriptionTwo,
+          headerValue: titleTwo,
+          expandedValue: descriptionTwo,
         );
       }
       if(index == 2){
-        return AbsExercises(
+        return ChestExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleThree,
-          expandedValue: absDescriptionThree,
+          headerValue: titleThree,
+          expandedValue: descriptionThree,
         );
       }
       if(index == 3){
-        return AbsExercises(
+        return ChestExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFour,
-          expandedValue: absDescriptionFour,
+          headerValue: titleFour,
+          expandedValue: descriptionFour,
         );
       }
       if(index == 4){
-        return AbsExercises(
+        return ChestExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFive,
-          expandedValue: absDescriptionFive,
+          headerValue: titleFive,
+          expandedValue: descriptionFive,
         );
       }
-      return AbsExercises(
+      return ChestExercises(
         id: index,
         value: trigger,
         headerValue: 'Panel $index',
@@ -371,56 +374,56 @@ class BackExercises {
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
   static List<AbsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String absTitleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String absTitleTwo = "Plank";
-    String absTitleThree = "V-Ups";
-    String absTitleFour = "Hollow Holds";
-    String absTitleFive = "Medicine Ball Slam";
+    String titleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
+    String titleTwo = "Plank";
+    String titleThree = "V-Ups";
+    String titleFour = "Hollow Holds";
+    String titleFive = "Medicine Ball Slam";
 
-    String absDescriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String absDescriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String absDescriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String absDescriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String absDescriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
+    String descriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
+    String descriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
+    String descriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
+    String descriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
+    String descriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
     return List<AbsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
         return AbsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleOne,
-          expandedValue: absDescriptionOne,
+          headerValue: titleOne,
+          expandedValue: descriptionOne,
         );
       }
       if(index == 1){
         return AbsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleTwo,
-          expandedValue: absDescriptionTwo,
+          headerValue: titleTwo,
+          expandedValue: descriptionTwo,
         );
       }
       if(index == 2){
         return AbsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleThree,
-          expandedValue: absDescriptionThree,
+          headerValue: titleThree,
+          expandedValue: descriptionThree,
         );
       }
       if(index == 3){
         return AbsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFour,
-          expandedValue: absDescriptionFour,
+          headerValue: titleFour,
+          expandedValue: descriptionFour,
         );
       }
       if(index == 4){
         return AbsExercises(
           id: index,
           value: trigger,
-          headerValue: absTitleFive,
-          expandedValue: absDescriptionFive,
+          headerValue: titleFive,
+          expandedValue: descriptionFive,
         );
       }
       return AbsExercises(
@@ -522,7 +525,7 @@ class WorkoutCreator extends StatefulWidget {
 class _WorkoutCreatorState extends State<WorkoutCreator>{
   static String workoutName = "";
   static List<String> workoutList = [];
-
+  final myController = TextEditingController();
   static int exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
@@ -543,6 +546,8 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
+              workoutName = "";
+              workoutList = [];
               Navigator.pop(context);
             },
             child: const Text('Yes'),
@@ -558,8 +563,8 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         title: 'Body Optimizer',
         home: Scaffold(
             appBar: AppBar(
-                title: const Text('Create custom workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
-                actions: <Widget>[
+                title: const Text('Create your workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+                /*actions: <Widget>[
                   IconButton(
                     icon: const Icon(Icons.add),
                     tooltip: 'Add exercise',
@@ -570,7 +575,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                       );
                     },
                   ),
-                ]
+                ]*/
             ),
 
             body: Center(
@@ -584,6 +589,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                             child: Column(
                               children: [
                                 TextFormField(
+                                  controller: myController,
                                   textAlign: TextAlign.center,
                                   decoration: const InputDecoration(
                                       hintText: 'Custom workout name'
@@ -638,8 +644,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                     var placeholder = workoutList[index - 1];
                                                     workoutList[index - 1] =
                                                     workoutList[index];
-                                                    workoutList[index] =
-                                                        placeholder;
+                                                    workoutList[index] = placeholder;
                                                   }
                                                   Navigator.pushAndRemoveUntil(
                                                     context,
@@ -655,25 +660,52 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                     ],
                                   ),
                                 ),
+                                Row(
+                                  children:<Widget>[
+                                    //F869D5
+                                  Expanded(
+                                    child: ElevatedButton(
+                                        style: ButtonStyle(
+                                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.pinkAccent.shade100),
+                                        ),
+                                        onPressed: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
+                                          );
+                                        },
+                                        child: const Text('Add exercise', style: TextStyle(color: Colors.white),
+                                        )
+                                    ),
+                                  ),
+                                  ]
+                                ),
+                                //uhh yea I tried putting the buttons to the bottom like you said but somehow it made the buttons either normal size (still on top) or made my page blank
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                       children: <Widget>[
                                         Expanded(
+                                          child: Padding(
+                                          padding: const EdgeInsets.only(right: 5.0),
                                           child: OutlinedButton(
                                               onPressed: () => _showAlertDialog(context),
                                               child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
                                               )
                                           ),
+                                          )
                                         ),
                                         Expanded(
+                                          child: Padding(
+                                            padding: const EdgeInsets.only(left: 5.0),
                                           child: ElevatedButton(
                                             style: ButtonStyle(
                                               backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
                                             ),
                                             onPressed: () {
                                               if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
+                                                workoutName = myController.text;
                                                 const snackBar = SnackBar(
                                                   content: Text('Created workout!'),
                                                 );
@@ -687,6 +719,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                             },
                                             child: const Text('Create'),
                                           ),
+                                          )
                                         ),
                                       ]
                                   ),
@@ -755,7 +788,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                             ),
 
                             child: Padding(
-                              padding: const EdgeInsets.only(top: 140),
+                              padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                               child: Text('Abs', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                             ),
                           ),
@@ -805,7 +838,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 140),
+                      padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                       child: Text('Biceps', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                     ),
                   ),
@@ -854,7 +887,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 140),
+                      padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                       child: Text('Triceps', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                     ),
                   ),
@@ -903,7 +936,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 140),
+                      padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                       child: Text('Chest', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                     ),
                   ),
@@ -952,7 +985,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 140),
+                      padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                       child: Text('Back', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                     ),
                   ),
@@ -1001,7 +1034,7 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                     ),
 
                     child: Padding(
-                      padding: const EdgeInsets.only(top: 140),
+                      padding: const EdgeInsets.only(top: 140, left: 5.0, right: 5.0),
                       child: Text('Legs', style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                     ),
                   ),
@@ -1198,7 +1231,7 @@ class WorkoutCreatorExercisesTriceps extends StatefulWidget {
 }
 
 class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercisesTriceps> {
-  final List<AbsExercises> _data = AbsExercises.generateItems(5);
+  final List<TricepsExercises> _data = TricepsExercises.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -1214,7 +1247,7 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
             children: <Widget>[
               ExpansionPanelList.radio(
                 expandedHeaderPadding: const EdgeInsets.all(0),
-                children: _data.map<ExpansionPanelRadio>((AbsExercises item) {
+                children: _data.map<ExpansionPanelRadio>((TricepsExercises item) {
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -1241,23 +1274,23 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Crunches");
+                      _WorkoutCreatorState.workoutList.add("Skull-crusher");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Plank");
+                      _WorkoutCreatorState.workoutList.add("Triceps Dip");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
-                      _WorkoutCreatorState.workoutList.add("V-Ups");
+                      _WorkoutCreatorState.workoutList.add("Triceps Machine Dip");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Hollow Holds");
+                      _WorkoutCreatorState.workoutList.add("Board Press");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
+                      _WorkoutCreatorState.workoutList.add("Dumbbell Overhead Triceps Extension");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
@@ -1281,7 +1314,7 @@ class WorkoutCreatorExercisesChest extends StatefulWidget {
 }
 
 class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesChest> {
-  final List<AbsExercises> _data = AbsExercises.generateItems(5);
+  final List<ChestExercises> _data = ChestExercises.generateItems(5);
 
   @override
   Widget build(BuildContext context) {
@@ -1297,7 +1330,7 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
             children: <Widget>[
               ExpansionPanelList.radio(
                 expandedHeaderPadding: const EdgeInsets.all(0),
-                children: _data.map<ExpansionPanelRadio>((AbsExercises item) {
+                children: _data.map<ExpansionPanelRadio>((ChestExercises item) {
                   return ExpansionPanelRadio(
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
@@ -1324,23 +1357,23 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Crunches");
+                      _WorkoutCreatorState.workoutList.add("Barbell Bench Press");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Plank");
+                      _WorkoutCreatorState.workoutList.add("Incline Bench Press");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
-                      _WorkoutCreatorState.workoutList.add("V-Ups");
+                      _WorkoutCreatorState.workoutList.add("Decline Press");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Hollow Holds");
+                      _WorkoutCreatorState.workoutList.add("Machine Chest Press");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
+                      _WorkoutCreatorState.workoutList.add("Push-up");
                       _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
