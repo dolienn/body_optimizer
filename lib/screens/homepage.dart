@@ -1,7 +1,5 @@
 import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:direct_select/direct_select.dart';
-import 'package:body_optimizer/build_direct.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
@@ -19,64 +17,6 @@ class _MyHomePageState extends State<MyHomePage> {
   String workoutToday = "Abs workout", workoutTomorrow = "Custom workout 1";
   int numOfExercises = 5, numOfExercisesLeft = 0;
   bool isDone = false;
-
-  // EVENT DIALOG VARIABLES
-  int? selectedHour = 0, selectedMinute = 0;
-  final hours = [
-    "00",
-    "01",
-    "02",
-    "03",
-    "04",
-    "05",
-    "06",
-    "07",
-    "08",
-    "09",
-    "10",
-    "11",
-    "12",
-    "13",
-    "14",
-    "15",
-    "16",
-    "17",
-    "18",
-    "19",
-    "20",
-    "21",
-    "22",
-    "23"
-  ];
-  final minutes = [
-    "00",
-    "05",
-    "10",
-    "15",
-    "20",
-    "25",
-    "30",
-    "35",
-    "40",
-    "45",
-    "50",
-    "55"
-  ];
-  List<Widget> _buildHours() {
-    return hours
-        .map((val) => MySelectionItem(
-              title: val,
-            ))
-        .toList();
-  }
-
-  List<Widget> _buildMinutes() {
-    return minutes
-        .map((val) => MySelectionItem(
-              title: val,
-            ))
-        .toList();
-  }
 
   // TABLE CALENDAR //
   final titleController = TextEditingController(),
@@ -129,24 +69,15 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           children: [
             Container(
+              margin: const EdgeInsets.only(bottom: 10),
               width: double.infinity,
-              padding: const EdgeInsets.only(top: 30, bottom: 40, left: 20),
+              padding: const EdgeInsets.only(bottom: 20, left: 20),
               decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    PublicVariables().mainColor.withOpacity(0.9),
-                    Colors.white,
-                  ],
-                  stops: const [0.3, 0.95],
-                ),
-                color: PublicVariables().cardColor,
+                color: PublicVariables().mainColor,
               ),
-              child: Row(
-                children: [
-                  Text("Body optimizer", style: PublicVariables().bannerText),
-                ],
+              child: SafeArea(
+                child:
+                    Text("Body optimizer", style: PublicVariables().bannerText),
               ),
             ),
             Container(
@@ -162,7 +93,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.black,
-                            blurRadius: 5.0,
+                            blurRadius: 2.5,
                             offset: Offset(1, 2.5)),
                       ],
                     ),
@@ -362,7 +293,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.black,
-                            blurRadius: 5.0,
+                            blurRadius: 2.5,
                             offset: Offset(1, 2.5)),
                       ],
                     ),
@@ -437,7 +368,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       boxShadow: const [
                         BoxShadow(
                             color: Colors.black,
-                            blurRadius: 5.0,
+                            blurRadius: 2.5,
                             offset: Offset(1, 2.5)),
                       ],
                     ),
@@ -455,23 +386,20 @@ class _MyHomePageState extends State<MyHomePage> {
                               Container(
                                 margin:
                                     PublicVariables().marginSymmetricVertical,
+                                padding: PublicVariables().paddingAll,
                                 decoration: BoxDecoration(
-                                  color: Colors.white,
+                                  color: PublicVariables().cardColor,
                                   borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(color: Colors.black),
+                                  boxShadow: const [
+                                    BoxShadow(
+                                        color: Colors.black,
+                                        blurRadius: 1.5,
+                                        offset: Offset(1, 2)),
+                                  ],
                                 ),
-                                child: Padding(
-                                  padding: PublicVariables().paddingAll,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        workoutTomorrow,
-                                        style: PublicVariables().normalText,
-                                      ),
-                                    ],
-                                  ),
+                                child: Text(
+                                  workoutTomorrow,
+                                  style: PublicVariables().normalMainColorText,
                                 ),
                               ),
                             ],
@@ -485,23 +413,6 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
             ),
           ],
-        ),
-      ),
-      floatingActionButton: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(25),
-          boxShadow: const [
-            BoxShadow(
-              color: Colors.black,
-              blurRadius: 5.0,
-              offset: Offset(2.5, 2.5),
-            ),
-          ],
-        ),
-        child: FloatingActionButton.extended(
-          backgroundColor: PublicVariables().mainColor,
-          onPressed: () => _showAddEventDialog(),
-          label: Text("Add workout", style: PublicVariables().normalWhiteText),
         ),
       ),
     );
@@ -532,124 +443,5 @@ class _MyHomePageState extends State<MyHomePage> {
         },
       ],
     };
-  }
-
-  _buildDirectSelect() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        DirectSelect(
-          itemExtent: 50.0,
-          items: _buildHours(),
-          selectedIndex: selectedHour!,
-          mode: DirectSelectMode.tap,
-          selectionColor: PublicVariables().mainColor.withOpacity(0.25),
-          child: MySelectionItem(isForList: false, title: hours[selectedHour!]),
-          onSelectedItemChanged: (index) {
-            setState(() {
-              selectedHour = index;
-            });
-            _buildHours();
-          },
-        ),
-        DirectSelect(
-          itemExtent: 50.0,
-          items: _buildMinutes(),
-          selectedIndex: selectedMinute!,
-          mode: DirectSelectMode.tap,
-          selectionColor: PublicVariables().mainColor.withOpacity(0.25),
-          child: MySelectionItem(
-              isForList: false, title: minutes[selectedMinute!]),
-          onSelectedItemChanged: (index) {
-            setState(() {
-              selectedMinute = index;
-            });
-            _buildMinutes();
-          },
-        ),
-      ],
-    );
-  }
-
-  // POPUP WHEN YOU CLICK "ADD EVENT" BUTTON
-  _showAddEventDialog() async {
-    await showDialog(
-      context: context,
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.white.withOpacity(0.95),
-        title: const Text("Add New Workout", textAlign: TextAlign.center),
-        content: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            TextField(
-              controller: titleController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(labelText: "Title"),
-            ),
-            TextField(
-              controller: descpController,
-              textCapitalization: TextCapitalization.words,
-              decoration: const InputDecoration(labelText: "Description"),
-            ),
-            Padding(
-              padding: PublicVariables().paddingAll,
-              child: Text(
-                "Tap to select your workout time:",
-                style: PublicVariables().normalGreyText,
-              ),
-            ),
-            _buildDirectSelect(),
-          ],
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: const Text("Cancel"),
-          ),
-          TextButton(
-              child: const Text("Add Event"),
-              onPressed: () {
-                if (titleController.text.isEmpty ||
-                    descpController.text.isEmpty) {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text("Required title and description"),
-                      duration: Duration(seconds: 2),
-                    ),
-                  );
-                  return;
-                } else {
-                  setState(() {
-                    if (mySelectedEvents[
-                            DateFormat('yyyy-MM-dd').format(_selectedDate!)] !=
-                        null) {
-                      mySelectedEvents[
-                              DateFormat('yyyy-MM-dd').format(_selectedDate!)]
-                          ?.add({
-                        "eventTitle": titleController.text,
-                        "eventDescp": descpController.text,
-                        "eventTime":
-                            "${hours[selectedHour!]}:${minutes[selectedMinute!]}",
-                      });
-                    } else {
-                      mySelectedEvents[
-                          DateFormat('yyyy-MM-dd').format(_selectedDate!)] = [
-                        {
-                          "eventTitle": titleController.text,
-                          "eventDescp": descpController.text,
-                          "eventTime":
-                              "${hours[selectedHour!]}:${minutes[selectedMinute!]}",
-                        }
-                      ];
-                    }
-                    Navigator.pop(context);
-                    return;
-                  });
-                }
-              }),
-        ],
-      ),
-    );
   }
 }
