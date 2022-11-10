@@ -29,7 +29,7 @@ class PublicVariables {
   var headerText = GoogleFonts.lato(color: Colors.black, fontSize: 26);
   var bannerText = GoogleFonts.lato(
       color: Colors.white, fontSize: 36, fontWeight: FontWeight.w600);
-  var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 42);
+  var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 36);
 }
 
 class _MainPageState extends State<MainPage> {
