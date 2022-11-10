@@ -14,7 +14,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
-  String workoutToday = "Abs workout", workoutTomorrow = "Custom workout 1";
+  String workoutToday = "Abs workout",
+      workoutTomorrow = "Custom workout 1",
+      workoutTomorrow2 = "Custom workout 2";
   int numOfExercises = 5, numOfExercisesLeft = 0;
   bool isDone = false;
 
@@ -374,38 +376,53 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     child: Padding(
                       padding: PublicVariables().paddingAll,
-                      child: Column(
-                        children: [
-                          Row(children: [
-                            Text("Tomorrow",
-                                style: PublicVariables().headerText),
-                          ]),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Container(
-                                margin:
-                                    PublicVariables().marginSymmetricVertical,
-                                padding: PublicVariables().paddingAll,
-                                decoration: BoxDecoration(
-                                  color: PublicVariables().cardColor,
-                                  borderRadius: BorderRadius.circular(10),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                        color: Colors.black,
-                                        blurRadius: 1.5,
-                                        offset: Offset(1, 2)),
-                                  ],
-                                ),
-                                child: Text(
-                                  workoutTomorrow,
-                                  style: PublicVariables().normalMainColorText,
-                                ),
+                      child: Column(children: [
+                        Row(children: [
+                          Text("Tomorrow", style: PublicVariables().headerText),
+                        ]),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            Container(
+                              margin: PublicVariables().marginSymmetricVertical,
+                              padding: PublicVariables().paddingAll,
+                              decoration: BoxDecoration(
+                                color: PublicVariables().cardColor,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black,
+                                      blurRadius: 1.5,
+                                      offset: Offset(1, 2)),
+                                ],
                               ),
-                            ],
-                          ),
-                        ],
-                      ),
+                              child: Text(
+                                workoutTomorrow,
+                                style: PublicVariables().normalMainColorText,
+                              ),
+                            ),
+                            Container(
+                              alignment: Alignment.center,
+                              margin: PublicVariables().marginSymmetricVertical,
+                              padding: PublicVariables().paddingAll,
+                              decoration: BoxDecoration(
+                                color: PublicVariables().cardColor,
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: const [
+                                  BoxShadow(
+                                      color: Colors.black,
+                                      blurRadius: 1.5,
+                                      offset: Offset(1, 2)),
+                                ],
+                              ),
+                              child: Text(
+                                workoutTomorrow2,
+                                style: PublicVariables().normalMainColorText,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ]),
                     ),
                   ),
                   const Padding(padding: EdgeInsets.symmetric(vertical: 30.0)),
@@ -419,8 +436,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
-  // ---------------------------------------------------- //
-  // RESEARCH ON HOW TO SAVE STUFF TO A FILE OR SOMETHING //
   loadPreviousEvents() {
     mySelectedEvents = {
       "2022-11-11": [
