@@ -28,15 +28,6 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, List> mySelectedEvents = {};
   DateTime today = DateTime.now(), _focusedDay = DateTime.now();
   DateTime? _selectedDate;
-  String textOnDone = "";
-
-  void changeText() {
-    if (isDone) {
-      textOnDone = "Done!";
-    } else {
-      textOnDone = "Not done!";
-    }
-  }
 
   List _listOfDayEvents(DateTime dateTime) {
     if (mySelectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
@@ -60,7 +51,6 @@ class _MyHomePageState extends State<MyHomePage> {
       displayedProgress = currentProgress;
     }
     _selectedDate = _focusedDay;
-    changeText();
     loadPreviousEvents();
   }
 
@@ -211,67 +201,49 @@ class _MyHomePageState extends State<MyHomePage> {
                             title: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text(
-                                  "${myEvents['eventTitle']}",
-                                  style: PublicVariables().normalText,
-                                ),
-                                Row(
-                                  children: [
-                                    IconButton(
-                                      icon: const Icon(Icons.edit_outlined),
-                                      color: Colors.black,
-                                      onPressed: () {},
+                                Row(children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    child: Text(
+                                      "${myEvents['eventTitle']}",
+                                      style: PublicVariables().normalText,
                                     ),
-                                    IconButton(
-                                      icon: const Icon(
-                                          Icons.delete_forever_outlined),
-                                      color: Colors.black,
-                                      onPressed: () {},
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 5.0),
+                                    child: Text(
+                                      "${myEvents['eventTime']}",
+                                      style: PublicVariables().normalText,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ]),
+                                IconButton(
+                                    icon: const Icon(
+                                        Icons.delete_forever_outlined),
+                                    color: Colors.black,
+                                    onPressed: () {
+                                      setState(() {});
+                                    }),
                               ],
                             ),
-                            subtitle: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Row(
-                                  children: [
+                            subtitle: Padding(
+                              padding: const EdgeInsets.only(bottom: 10),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(children: [
                                     Text(
                                       "${myEvents['eventDescp']}",
                                       style: PublicVariables().normalGreyText,
                                     ),
                                     const Padding(
                                         padding: EdgeInsets.only(right: 15)),
-                                    Text(
-                                      "${myEvents['eventTime']}",
-                                      style: PublicVariables().normalText,
-                                    ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    Text(
-                                      textOnDone,
-                                      style: PublicVariables().normalText,
-                                    ),
-                                    Transform.scale(
-                                      scale: 1.25,
-                                      child: Checkbox(
-                                        checkColor: Colors.white,
-                                        shape: const CircleBorder(),
-                                        value: isDone,
-                                        onChanged: (bool? value) {
-                                          setState(() {
-                                            isDone = value!;
-                                          });
-                                          changeText();
-                                        },
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
+                                  ]),
+                                ],
+                              ),
                             ),
                           ),
                         ),
@@ -418,20 +390,20 @@ class _MyHomePageState extends State<MyHomePage> {
     mySelectedEvents = {
       "2022-11-11": [
         {
-          "eventDescp": "Lorem Lorem",
           "eventTitle": "Abs Workout",
+          "eventDescp": "Lorem Lorem",
           "eventTime": "21:35"
         },
         {
-          "eventDescp": "Ipsum Ipsum",
           "eventTitle": "Back Workout",
+          "eventDescp": "Ipsum Ipsum",
           "eventTime": "22:50"
         },
       ],
       "2022-11-12": [
         {
-          "eventDescp": "Lorem ipsum",
           "eventTitle": "Custom workout 1",
+          "eventDescp": "Lorem ipsum",
           "eventTime": "12:15"
         },
       ],
