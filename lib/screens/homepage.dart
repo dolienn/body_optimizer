@@ -419,7 +419,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ]),
                 ),
               ),
-              const Padding(padding: EdgeInsets.symmetric(vertical: 15.0)),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 20)),
             ]),
           ),
         ]),
