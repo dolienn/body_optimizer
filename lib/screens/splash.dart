@@ -12,25 +12,20 @@ class Splash extends StatefulWidget {
 class _Splash extends State<Splash> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: AnimatedSplashScreen(
-        splash: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Welcome back!",
-              style: PublicVariables().titleText,
-            ),
-          ],
-        ),
-        duration: 1500,
-        centered: true,
-        splashTransition: SplashTransition.fadeTransition,
-        backgroundColor: Colors.white,
-        nextScreen: const MainPage(),
+    return AnimatedSplashScreen(
+      splash: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset("assets/images/body_optimizer_square.png"),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: 7.5)),
+          Text("Body optimizer", style: PublicVariables().titleText),
+        ],
       ),
+      duration: 1750,
+      centered: true,
+      splashTransition: SplashTransition.slideTransition,
+      backgroundColor: Colors.white,
+      nextScreen: const MainPage(),
     );
   }
 }

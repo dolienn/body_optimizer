@@ -73,7 +73,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
-            padding: const EdgeInsets.only(bottom: 20, left: 20),
+            padding: const EdgeInsets.only(bottom: 15, left: 20),
             decoration: BoxDecoration(
               color: PublicVariables().mainColor,
             ),
@@ -298,62 +298,47 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(children: [
                       Text("Today", style: PublicVariables().headerText),
                     ]),
-                    Container(
-                      margin: PublicVariables().marginSymmetricVertical,
-                      padding: PublicVariables().paddingAll,
-                      decoration: BoxDecoration(
-                        color: PublicVariables().cardColor,
-                        borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
-                          BoxShadow(
-                              color: Colors.black,
-                              blurRadius: 2.5,
-                              offset: Offset(1, 2.5)),
-                        ],
-                      ),
-                      child: Column(children: [
-                        Padding(
-                          padding: PublicVariables().paddingAll,
-                          child: Text(
-                            workoutToday,
-                            style: PublicVariables().subheaderText,
-                          ),
+                    Column(children: [
+                      Padding(
+                        padding: PublicVariables().paddingAll,
+                        child: Text(
+                          workoutToday,
+                          style: PublicVariables().subheaderText,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.85,
-                              child: GFProgressBar(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 7.5),
-                                progressBarColor: PublicVariables()
-                                    .mainColor
-                                    .withOpacity(0.9),
-                                alignment: MainAxisAlignment.spaceBetween,
-                                percentage: currentProgress,
-                                lineHeight: 35,
-                                backgroundColor: Colors.white30,
-                                child: Center(
-                                  child: Text(
-                                    "${((displayedProgress) * 100).round()}%",
-                                    style: PublicVariables().normalWhiteText,
-                                    textAlign: TextAlign.end,
-                                  ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            child: GFProgressBar(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 7.5),
+                              progressBarColor:
+                                  PublicVariables().mainColor.withOpacity(0.9),
+                              alignment: MainAxisAlignment.spaceBetween,
+                              percentage: currentProgress,
+                              lineHeight: 35,
+                              backgroundColor: Colors.white30,
+                              child: Center(
+                                child: Text(
+                                  "${((displayedProgress) * 100).round()}%",
+                                  style: PublicVariables().normalWhiteText,
+                                  textAlign: TextAlign.end,
                                 ),
                               ),
                             ),
-                          ],
-                        ),
-                        Padding(
-                          padding: PublicVariables().paddingAll,
-                          child: Text(
-                            "$numOfExercisesLeft exercises left",
-                            style: PublicVariables().normalText,
                           ),
+                        ],
+                      ),
+                      Padding(
+                        padding: PublicVariables().paddingAll,
+                        child: Text(
+                          "$numOfExercisesLeft exercises left",
+                          style: PublicVariables().normalText,
                         ),
-                      ]),
-                    ),
+                      ),
+                    ]),
                   ]),
                 ),
               ),
@@ -375,18 +360,19 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(children: [
                       Text("Tomorrow", style: PublicVariables().headerText),
                     ]),
-                    Row(
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
                           margin: PublicVariables().marginSymmetricVertical,
-                          padding: PublicVariables().paddingAll,
+                          padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
                             color: PublicVariables().cardColor,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: const [
                               BoxShadow(
-                                  color: Colors.black,
+                                  color: Colors.grey,
                                   blurRadius: 1.5,
                                   offset: Offset(1, 2)),
                             ],
@@ -398,15 +384,15 @@ class _MyHomePageState extends State<MyHomePage> {
                         ),
                         Container(
                           margin: PublicVariables().marginSymmetricVertical,
-                          padding: PublicVariables().paddingAll,
+                          padding: const EdgeInsets.all(15),
                           decoration: BoxDecoration(
                             color: PublicVariables().cardColor,
                             borderRadius: BorderRadius.circular(10),
                             boxShadow: const [
                               BoxShadow(
-                                  color: Colors.black,
-                                  blurRadius: 1.5,
-                                  offset: Offset(1, 2)),
+                                  color: Colors.grey,
+                                  blurRadius: 3,
+                                  offset: Offset(1, 1)),
                             ],
                           ),
                           child: Text(
