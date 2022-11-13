@@ -16,10 +16,9 @@ class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout",
       workoutToday2 = "Back workout",
-      workoutTomorrow = "Custom workout 1",
+      workoutTomorrow = "Custom workout",
       workoutTomorrow2 = "Custom workout 2";
   int numOfExercises = 5, numOfExercisesLeft = 0;
-  bool isDone = false;
 
   // TABLE CALENDAR //
   final titleController = TextEditingController(),
@@ -199,37 +198,28 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                           child: ListTile(
                             title: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Row(children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    child: Text(
-                                      "${myEvents['eventTitle']}",
-                                      style: PublicVariables().normalText,
-                                    ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 5.0, vertical: 5.0),
+                                  child: Text(
+                                    "${myEvents['eventTitle']}",
+                                    style: PublicVariables().normalText,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 5.0),
-                                    child: Text(
-                                      "${myEvents['eventTime']}",
-                                      style: PublicVariables().normalText,
-                                    ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10.0, vertical: 5.0),
+                                  child: Text(
+                                    "${myEvents['eventTime']}",
+                                    style: PublicVariables().normalText,
                                   ),
-                                ]),
-                                IconButton(
-                                    icon: const Icon(
-                                        Icons.delete_forever_outlined),
-                                    color: Colors.black,
-                                    onPressed: () {
-                                      setState(() {});
-                                    }),
+                                ),
                               ],
                             ),
                             subtitle: Padding(
-                              padding: const EdgeInsets.only(bottom: 10),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 5.0, vertical: 5.0),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -388,7 +378,7 @@ class _MyHomePageState extends State<MyHomePage> {
   // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
   loadPreviousEvents() {
     mySelectedEvents = {
-      "2022-11-11": [
+      "2022-11-15": [
         {
           "eventTitle": "Abs Workout",
           "eventDescp": "Lorem Lorem",
@@ -400,9 +390,9 @@ class _MyHomePageState extends State<MyHomePage> {
           "eventTime": "22:50"
         },
       ],
-      "2022-11-12": [
+      "2022-11-16": [
         {
-          "eventTitle": "Custom workout 1",
+          "eventTitle": "Custom workout",
           "eventDescp": "Lorem ipsum",
           "eventTime": "12:15"
         },
