@@ -21,7 +21,7 @@ void _updateMyItems(int oldIndex, int newIndex) {
 }
 
 Create an ID for every exercise
-Create a time value for exercises for workout
+Create a time value for exercises for workout.
  */
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
