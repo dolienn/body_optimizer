@@ -1,5 +1,5 @@
 name: body_optimizer
-description: A new Flutter project.
+description: Workout app
 
 publish_to: 'none'
 
@@ -17,6 +17,7 @@ dependencies:
   cupertino_icons: ^1.0.5
   table_calendar: ^3.0.8
   flutter_lints: ^2.0.1
+  direct_select: ^2.0.0
   getwidget: ^3.0.1
   intl: ^0.17.0
   google_fonts:
