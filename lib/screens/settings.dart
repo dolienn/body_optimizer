@@ -6,7 +6,7 @@ Do zrobienia:
 */
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:untitled1/widgets/widgets.dart';
+import 'package:body_optimizer/widgets/widget.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -102,93 +102,86 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 5, 180, 0),
-                      child: Text(
-                        'Sex',
-                        style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.grey.shade700,
-                        ),
-                      ),
-                    ),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        isExpanded: true,
-                        hint: Row(
-                          children: const [
-                            Expanded(
-                              child: Text(
-                                'Sex',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.yellow,
+                      padding: const EdgeInsets.fromLTRB(5, 5, 0, 0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          hint: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                  'Select Sex',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.yellow,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
                                 ),
-                                overflow: TextOverflow.ellipsis,
                               ),
-                            ),
-                          ],
-                        ),
-                        items: itemsforsex
-                            .map((item) =>
-                            DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                            .toList(),
-                        value: selectedValueforsex,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedValueforsex = value as String;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.arrow_drop_down_circle_outlined,
-                        ),
-                        iconSize: 22,
-                        iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
-                        iconDisabledColor: Colors.grey,
-                        buttonHeight: 50,
-                        buttonWidth: 160,
-                        buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-                        buttonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.black26,
+                            ],
                           ),
-                          color: Color.fromARGB(1000, 86, 80, 222),
+                          items: itemsforsex
+                              .map((item) =>
+                              DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                              .toList(),
+                          value: selectedValueforsex,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValueforsex = value as String;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_drop_down_circle_outlined,
+                          ),
+                          iconSize: 22,
+                          iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 40,
+                          buttonWidth:  MediaQuery.of(context).size.width * 0.95,
+                          buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                            color: Colors.deepPurple.shade900,
+                          ),
+                          buttonElevation: 2,
+                          itemHeight: 30,
+                          itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                          dropdownMaxHeight: 200,
+                          dropdownWidth:  MediaQuery.of(context).size.width * 0.95,
+                          dropdownPadding: null,
+                          dropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.deepPurple.shade900,
+                          ),
+                          dropdownElevation: 8,
+                          offset: const Offset(0, 0),
                         ),
-                        buttonElevation: 2,
-                        itemHeight: 40,
-                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                        dropdownMaxHeight: 200,
-                        dropdownWidth: 160,
-                        dropdownPadding: null,
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Color.fromARGB(1000, 86, 80, 222),
-                        ),
-                        dropdownElevation: 8,
-                        offset: const Offset(0, 0),
                       ),
                     ),
                   ],
                 ),
-                buildTextFields('Enter your Age'),
-                buildTextFields('Enter your Weight'),
-                buildTextFields('Enter your Height'),
+                buildTextField('Enter your Age'),
+                buildTextField('Enter your Weight'),
+                buildTextField('Enter your Height'),
                 Container(
                   height: 30,
-                  width: MediaQuery.of(context).size.width * 0.875,
-                  margin: const EdgeInsets.fromLTRB(0, 15, 0, 25),
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  margin: const EdgeInsets.fromLTRB(0, 25, 0, 25),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
@@ -198,7 +191,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                      backgroundColor: Color.fromARGB(1000, 86, 80, 222),
+                      backgroundColor: Colors.deepPurple.shade900,
                       foregroundColor: Colors.yellow,
                       side: const BorderSide(
                         width: 1.0,
@@ -241,100 +234,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 0, 130, 0),
-                      child: Text(
-                        'Rest Time',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        isExpanded: true,
-                        hint: Row(
-                          children: const [
-                            Expanded(
-                              child: Text(
-                                'Rest Time',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.yellow,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ),
-                          ],
-                        ),
-                        items: itemsforrest
-                            .map((item) =>
-                            DropdownMenuItem<String>(
-                              value: item,
-                              child: Text(
-                                item,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                ),
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                            ))
-                            .toList(),
-                        value: selectedValueforrest,
-                        onChanged: (value) {
-                          setState(() {
-                            selectedValueforrest = value as String;
-                          });
-                        },
-                        icon: const Icon(
-                          Icons.arrow_drop_down_circle_outlined,
-                        ),
-                        iconSize: 22,
-                        iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
-                        iconDisabledColor: Colors.grey,
-                        buttonHeight: 50,
-                        buttonWidth: 160,
-                        buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-                        buttonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          border: Border.all(
-                            color: Colors.black26,
-                          ),
-                          color: Color.fromARGB(1000, 86, 80, 222),
-                        ),
-                        buttonElevation: 2,
-                        itemHeight: 40,
-                        itemPadding: const EdgeInsets.only(left: 14, right: 14),
-                        dropdownMaxHeight: 220,
-                        dropdownWidth: 160,
-                        dropdownPadding: null,
-                        dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(14),
-                          color: Color.fromARGB(1000, 86, 80, 222),
-                        ),
-                        dropdownElevation: 8,
-                        offset: const Offset(0, 0),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.fromLTRB(20, 15, 105, 0),
-                      child: Text(
-                        'Personal goal',
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
                     Padding(
-                      padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           isExpanded: true,
@@ -342,7 +243,84 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             children: const [
                               Expanded(
                                 child: Text(
-                                  'Goal',
+                                  'Select Rest Time',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.yellow,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                            ],
+                          ),
+                          items: itemsforrest
+                              .map((item) =>
+                              DropdownMenuItem<String>(
+                                value: item,
+                                child: Text(
+                                  item,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                  ),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ))
+                              .toList(),
+                          value: selectedValueforrest,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValueforrest = value as String;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_drop_down_circle_outlined,
+                          ),
+                          iconSize: 22,
+                          iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 40,
+                          buttonWidth:  MediaQuery.of(context).size.width * 0.95,
+                          buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                            color: Colors.deepPurple.shade900,
+                          ),
+                          buttonElevation: 2,
+                          itemHeight: 25,
+                          itemPadding: const EdgeInsets.only(left: 14, right: 14),
+                          dropdownMaxHeight: 220,
+                          dropdownWidth:  MediaQuery.of(context).size.width * 0.95,
+                          dropdownPadding: null,
+                          dropdownDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: Colors.deepPurple.shade900,
+                          ),
+                          dropdownElevation: 8,
+                          offset: const Offset(0, 0),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          hint: Row(
+                            children: const [
+                              Expanded(
+                                child: Text(
+                                  'Select Goal',
                                   style: TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
@@ -380,25 +358,25 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           iconSize: 22,
                           iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
                           iconDisabledColor: Colors.grey,
-                          buttonHeight: 50,
-                          buttonWidth: 160,
+                          buttonHeight: 40,
+                          buttonWidth: MediaQuery.of(context).size.width * 0.95,
                           buttonPadding: const EdgeInsets.only(left: 14, right: 14),
                           buttonDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
                             border: Border.all(
                               color: Colors.black26,
                             ),
-                            color: Color.fromARGB(1000, 86, 80, 222),
+                            color: Colors.deepPurple.shade900,
                           ),
                           buttonElevation: 2,
-                          itemHeight: 40,
+                          itemHeight: 30,
                           itemPadding: const EdgeInsets.only(left: 14, right: 14),
                           dropdownMaxHeight: 200,
-                          dropdownWidth: 160,
+                          dropdownWidth: MediaQuery.of(context).size.width * 0.95,
                           dropdownPadding: null,
                           dropdownDecoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(14),
-                            color: Color.fromARGB(1000, 86, 80, 222),
+                            color: Colors.deepPurple.shade900,
                           ),
                           dropdownElevation: 8,
                           offset: const Offset(0, 0),
@@ -409,8 +387,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                 ),
                 Container(
                   height: 30,
-                  width: MediaQuery.of(context).size.width * 0.875,
-                  margin: const EdgeInsets.fromLTRB(0, 15, 0, 25),
+                  width: MediaQuery.of(context).size.width * 0.95,
+                  margin: const EdgeInsets.fromLTRB(0, 25, 0, 25),
                   decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.all(
@@ -420,7 +398,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   child: TextButton(
                     onPressed: () {},
                     style: TextButton.styleFrom(
-                      backgroundColor: Color.fromARGB(1000, 86, 80, 222),
+                      backgroundColor: Colors.deepPurple.shade900,
                       foregroundColor: Colors.yellow,
                       side: const BorderSide(
                         width: 1.0,
