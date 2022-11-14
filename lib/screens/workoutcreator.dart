@@ -5,6 +5,8 @@ Move the row in exercise manager so that the buttons can be moved to the bottom 
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
+navigator pop
+fix
 
 change the pink button color to the f869d5
 EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
@@ -12,13 +14,6 @@ EDITING WORKOUT make it so on pressing cancel the program will revert all change
 Useful links etc.
 https://medium.com/aubergine-solutions/4-types-of-listview-in-flutter-you-should-know-30cf9e7f1739
 https://mercyjemosop.medium.com/flutter-list-view-1045969b1799
-void _updateMyItems(int oldIndex, int newIndex) {
-  if (newIndex > oldIndex) {
-    newIndex -= 1;
-  }
-  final String item = items.removeAt(oldIndex);
-  items.insert(newIndex, item);
-}
 
 Create an ID for every exercise
 Create a time value for exercises for workout.
@@ -26,6 +21,8 @@ Create a time value for exercises for workout.
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:elegant_notification/elegant_notification.dart';
+import 'package:elegant_notification/resources/arrays.dart';
 
 class CustomWorkout{
 
@@ -375,16 +372,16 @@ class BackExercises {
   static List<BackExercises> generateItems(int numberOfItems) {
     bool trigger = false;
     String titleOne = "Pull-Up";
-    String titleTwo = "";
-    String titleThree = "";
-    String titleFour = "";
-    String titleFive = "";
+    String titleTwo = "T-Bar Row";
+    String titleThree = "Seated Row";
+    String titleFour = "Single-Arm Smith Machine Row";
+    String titleFive = "Lat Pull-Down";
 
     String descriptionOne = "If you're a pull-up pro, you can do some light sets as a warm-up. If they're tougher for you, you can treat them more as a strength movement toward the start of your workout. Assisted variations make for great burnouts at the end of a back workout.";
-    String descriptionTwo = "";
-    String descriptionThree = "";
-    String descriptionFour = "";
-    String descriptionFive = "";
+    String descriptionTwo = "Do this toward the front half of your workout, especially if you're going to go heavy. Because it's slightly easier on the lower back, you could do it after deadlifts, but stay mindful of using strict form. If you find yourself cheating or struggling to maintain a flat back, a chest-supported row may be a better choice.";
+    String descriptionThree = "Like machines, cables can be loaded up pretty heavily without overly taxing you. These are best done toward the end of your workout, so don't be afraid to go slightly higher-rep here, like 10-12 or even 12-15 reps.";
+    String descriptionFour = "Do it about midway through your workout, after your heavy overhand pulls. And don't be afraid to throw on some wrist straps! Your goal is to hammer your back, not be constantly limited by your grip strength.";
+    String descriptionFive = "When used as a mass-building exercise, it's best placed toward the middle or end of your workout for sets of 8-12 reps. It's great as a pump-focused finishing move, as well.";
     return List<BackExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
         return BackExercises(
@@ -454,17 +451,17 @@ class LegsExercises {
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
   static List<LegsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String titleOne = "Crunches"; // Here we'd change the "Crunches" to String absTitleOne = (variable from some exercise data page)
-    String titleTwo = "Plank";
-    String titleThree = "V-Ups";
-    String titleFour = "Hollow Holds";
-    String titleFive = "Medicine Ball Slam";
+    String titleOne = "";
+    String titleTwo = "";
+    String titleThree = "";
+    String titleFour = "";
+    String titleFive = "";
 
-    String descriptionOne = "Crunches is an abdominal endurance training exercise to strengthen, abdominal muscles. It is similar to a crunch but with fuller range of motion and  additional muscles";
-    String descriptionTwo = "Focus on closing the distance between your ribs and hips by lifting your shoulders off the floor while maintaining contact between the ground and your lower back. Moving the top half up puts more emphasis on your upper abs. Start with sets of five and work towards 15.";
-    String descriptionThree = "Starting on your back, extend your legs and keep your arms by your side. In one movement, lift your upper-body, arms and legs to balance on your tailbone, forming a V shape. Lower your body down.";
-    String descriptionFour = "Lie on the floor with your legs stretched out in front of you and your feet together. Extend your arms above your head. Tilt your pelvis forward until your lower back is flush against the floor. Maintaining this position in your lower back, raise your arms and legs a few inches off the floor to create a straight line from fingers to toes.";
-    String descriptionFive = "Standing up with your knees slightly bent lift the medicine ball directly over your head with your arms extended. Rise up on the balls of your feet and use your core muscles to throw the ball to the ground as you bend forwards at the waist. Catch the ball and repeat. The motion will not only train your abs but will also give you powerful shoulders.";
+    String descriptionOne = "";
+    String descriptionTwo = "";
+    String descriptionThree = "";
+    String descriptionFour = "";
+    String descriptionFive = "";
     return List<LegsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
         return LegsExercises(
@@ -526,7 +523,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
   static String workoutName = "";
   static List<String> workoutList = [];
   final myController = TextEditingController();
-  static int exercises = 0;
   final _formKey = GlobalKey<FormState>();
 
   void _showAlertDialog(BuildContext context) {
@@ -564,18 +560,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         home: Scaffold(
             appBar: AppBar(
                 title: const Text('Create your workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
-                /*actions: <Widget>[
-                  IconButton(
-                    icon: const Icon(Icons.add),
-                    tooltip: 'Add exercise',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
-                      );
-                    },
-                  ),
-                ]*/
             ),
 
             body: Center(
@@ -616,25 +600,24 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                           itemCount: workoutList.length,
                                           scrollDirection: Axis.vertical,
                                           shrinkWrap: true,
+                                          padding: EdgeInsets.zero,
                                           itemBuilder: (BuildContext context, int index) {
                                             return ListTile(
-                                              leading: TextButton(
-                                                style: ButtonStyle(
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
-                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                                                ),
-                                                onPressed: () {
-                                                  workoutList.removeAt(index);
-                                                  Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(builder: (context) => const WorkoutCreator()),
-                                                        (Route<dynamic> route) => false,
-                                                  );
-                                                },
-                                                child: const Icon(Icons.close),
+                                              contentPadding: EdgeInsets.zero,
+                                              leading: IconButton(
+                                                onPressed: (){
+                                                workoutList.removeAt(index);
+                                                Navigator.pushAndRemoveUntil(
+                                                  context,
+                                                  MaterialPageRoute(builder: (context) => const WorkoutCreator()),
+                                                      (Route<dynamic> route) => false,
+                                                );
+                                              }, icon: Icon(Icons.close),
+                                                padding: EdgeInsets.zero,
+
                                               ),
                                               title: Text(workoutList[index]),
-                                              trailing: TextButton(
+                                              trailing: IconButton(
                                                 style: ButtonStyle(
                                                   padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
                                                   foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
@@ -652,7 +635,10 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                         (Route<dynamic> route) => false,
                                                   );
                                                 },
-                                                child: const Icon(Icons.upload),
+                                                icon: const Icon(
+                                                    Icons.menu,
+                                                        color: Colors.deepPurple,
+                                                ),
                                               ),
                                             );
                                           }
@@ -664,9 +650,15 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   children:<Widget>[
                                     //F869D5
                                   Expanded(
-                                    child: ElevatedButton(
-                                        style: ButtonStyle(
-                                          backgroundColor: MaterialStatePropertyAll<Color>(Colors.pinkAccent.shade100),
+                                    child: OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+
+                                          foregroundColor: Colors.deepPurple.shade900,
+
+                                          backgroundColor: Colors.white,
+
+                                          side: BorderSide(color: Colors.deepPurple.shade900, width: 1.5),
+
                                         ),
                                         onPressed: () {
                                           Navigator.push(
@@ -674,7 +666,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                             MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
                                           );
                                         },
-                                        child: const Text('Add exercise', style: TextStyle(color: Colors.white),
+                                        child: const Text('Add exercise', style: TextStyle(color: Colors.deepPurple),
                                         )
                                     ),
                                   ),
@@ -706,15 +698,21 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                             onPressed: () {
                                               if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
                                                 workoutName = myController.text;
-                                                const snackBar = SnackBar(
-                                                  content: Text('Created workout!'),
-                                                );
-                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                ElegantNotification.success(
+                                                  width: 360,
+                                                  notificationPosition: NotificationPosition.bottomCenter,
+                                                  animation: AnimationType.fromBottom,
+                                                  title: const Text('Created workout'),
+                                                  description: const Text('Your workout has been saved!'),
+                                                ).show(context);
                                               } else {
-                                                const snackBar = SnackBar(
-                                                  content: Text('Could not create workout!'),
-                                                );
-                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                ElegantNotification.error(
+                                                  width: 360,
+                                                  notificationPosition: NotificationPosition.bottomCenter,
+                                                  animation: AnimationType.fromBottom,
+                                                  title: const Text('Failed to save workout'),
+                                                  description: const Text('Make sure that you have a correct workout name and workouts.'),
+                                                ).show(context);
                                               }
                                             },
                                             child: const Text('Create'),
@@ -1109,30 +1107,24 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                   onPressed: () {
                     if (_data[0].value == true) {
                       _WorkoutCreatorState.workoutList.add("Crunches");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
                       _WorkoutCreatorState.workoutList.add("Plank");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
                       _WorkoutCreatorState.workoutList.add("V-Ups");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
                       _WorkoutCreatorState.workoutList.add("Hollow Holds");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
@@ -1192,30 +1184,24 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
                   onPressed: () {
                     if (_data[0].value == true) {
                       _WorkoutCreatorState.workoutList.add("Barbell Curl");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
                       _WorkoutCreatorState.workoutList.add("Cable curl");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
                       _WorkoutCreatorState.workoutList.add("Dumbbell Curl");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
                       _WorkoutCreatorState.workoutList.add("Chin-Up");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Reverse-Grip Barbell Row");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
@@ -1275,30 +1261,24 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                   onPressed: () {
                     if (_data[0].value == true) {
                       _WorkoutCreatorState.workoutList.add("Skull-crusher");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
                       _WorkoutCreatorState.workoutList.add("Triceps Dip");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
                       _WorkoutCreatorState.workoutList.add("Triceps Machine Dip");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
                       _WorkoutCreatorState.workoutList.add("Board Press");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Dumbbell Overhead Triceps Extension");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
@@ -1358,30 +1338,24 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                   onPressed: () {
                     if (_data[0].value == true) {
                       _WorkoutCreatorState.workoutList.add("Barbell Bench Press");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
                       _WorkoutCreatorState.workoutList.add("Incline Bench Press");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
                       _WorkoutCreatorState.workoutList.add("Decline Press");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
                       _WorkoutCreatorState.workoutList.add("Machine Chest Press");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Push-up");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
@@ -1440,31 +1414,25 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Crunches");
-                      _WorkoutCreatorState.exercises += 1;
+                      _WorkoutCreatorState.workoutList.add("Pull-Up");
                     }
                     if (_data[1].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Plank");
-                      _WorkoutCreatorState.exercises += 1;
+                      _WorkoutCreatorState.workoutList.add("T-Bar Row");
                     }
                     if (_data[2].value == true) {
-                      _WorkoutCreatorState.workoutList.add("V-Ups");
-                      _WorkoutCreatorState.exercises += 1;
+                      _WorkoutCreatorState.workoutList.add("Seated Row");
                     }
                     if (_data[3].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Hollow Holds");
-                      _WorkoutCreatorState.exercises += 1;
+                      _WorkoutCreatorState.workoutList.add("Single-Arm Smith Machine Row");
                     }
                     if (_data[4].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
-                      _WorkoutCreatorState.exercises += 1;
+                      _WorkoutCreatorState.workoutList.add("Lat Pull-Down");
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
@@ -1524,30 +1492,24 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
                   onPressed: () {
                     if (_data[0].value == true) {
                       _WorkoutCreatorState.workoutList.add("Crunches");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[1].value == true) {
                       _WorkoutCreatorState.workoutList.add("Plank");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[2].value == true) {
                       _WorkoutCreatorState.workoutList.add("V-Ups");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[3].value == true) {
                       _WorkoutCreatorState.workoutList.add("Hollow Holds");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
-                      _WorkoutCreatorState.exercises += 1;
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
-              //Text('Exercise counter: ${_WorkoutCreatorState.exercises}')
             ],
           )
       ),
