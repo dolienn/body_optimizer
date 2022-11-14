@@ -25,10 +25,7 @@ class _WorkoutState extends State<Workout> {
         height: double.infinity,
         width: double.infinity,
         decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage("assets/images/background.jpg"),
-            fit: BoxFit.cover,
-          ),
+
         ),
         child: Column(
           children: [
