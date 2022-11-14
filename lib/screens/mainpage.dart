@@ -17,12 +17,13 @@ class MainPage extends StatefulWidget {
 class PublicVariables {
   var mainColor = const Color(0xFF5650DE);
   var accentColor = const Color(0xFFF869D5);
-  var cardColor = const Color(0xFFFFFFFF);
   var paddingAll = const EdgeInsets.all(10);
   var marginSymmetricVertical = const EdgeInsets.symmetric(vertical: 10);
   var normalText = GoogleFonts.lato(color: Colors.black, fontSize: 16);
+  var normalItalizedText = GoogleFonts.lato(
+      color: Colors.black, fontSize: 16, fontStyle: FontStyle.italic);
   var normalWhiteText = GoogleFonts.lato(color: Colors.white, fontSize: 16);
-  var normalGreyText = GoogleFonts.lato(color: Colors.black54, fontSize: 16);
+  var normalGreyText = GoogleFonts.lato(color: Colors.grey, fontSize: 16);
   var normalMainColorText =
       GoogleFonts.lato(color: const Color(0xFF5650DE), fontSize: 16);
   var subheaderText = GoogleFonts.lato(color: Colors.black, fontSize: 20);
