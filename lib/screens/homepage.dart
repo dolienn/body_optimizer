@@ -18,7 +18,7 @@ class _MyHomePageState extends State<MyHomePage> {
       workoutToday2 = "Back workout",
       workoutTomorrow = "Custom workout",
       workoutTomorrow2 = "Custom workout 2";
-  int numOfExercises = 5, numOfExercisesLeft = 0;
+  int numOfExercises = 5, numOfExercisesLeft = 2;
 
   // TABLE CALENDAR //
   final titleController = TextEditingController(),
@@ -38,7 +38,6 @@ class _MyHomePageState extends State<MyHomePage> {
   // PROGRESS BAR //
   double currentProgress = 0.0, displayedProgress = 0.0;
 
-  // CALENDAR & PROGRESS BAR INITIALIZATION
   @override
   void initState() {
     super.initState();
@@ -62,7 +61,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Container(
             margin: const EdgeInsets.only(bottom: 10),
             width: double.infinity,
-            padding: const EdgeInsets.only(bottom: 15, left: 20),
+            padding: const EdgeInsets.only(top: 5, bottom: 10, left: 20),
             decoration: BoxDecoration(
               color: PublicVariables().mainColor,
             ),
@@ -220,20 +219,12 @@ class _MyHomePageState extends State<MyHomePage> {
                             subtitle: Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 5.0, vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Row(children: [
-                                    Text(
-                                      "${myEvents['eventDescp']}",
-                                      style: PublicVariables().normalGreyText,
-                                    ),
-                                    const Padding(
-                                        padding: EdgeInsets.only(right: 15)),
-                                  ]),
-                                ],
-                              ),
+                              child: Row(children: [
+                                Text(
+                                  "${myEvents['eventDescp']}",
+                                  style: PublicVariables().normalGreyText,
+                                ),
+                              ]),
                             ),
                           ),
                         ),
@@ -296,7 +287,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: PublicVariables().paddingAll,
                         child: Text(
-                          "$numOfExercisesLeft exercises left",
+                          "$numOfExercisesLeft exercise(s) left",
                           style: PublicVariables().normalText,
                         ),
                       ),
@@ -322,48 +313,50 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(children: [
                       Text("Tomorrow", style: PublicVariables().headerText),
                     ]),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          margin: PublicVariables().marginSymmetricVertical,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: PublicVariables().cardColor,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 1.5,
-                                  offset: Offset(1, 2)),
-                            ],
-                          ),
-                          child: Text(
-                            workoutTomorrow,
-                            style: PublicVariables().normalMainColorText,
-                          ),
+                    Column(children: [
+                      Container(
+                        width: 175,
+                        height: 50,
+                        alignment: Alignment.center,
+                        margin: PublicVariables().marginSymmetricVertical,
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: PublicVariables().cardColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.5,
+                                offset: Offset(1, 2)),
+                          ],
                         ),
-                        Container(
-                          margin: PublicVariables().marginSymmetricVertical,
-                          padding: const EdgeInsets.all(15),
-                          decoration: BoxDecoration(
-                            color: PublicVariables().cardColor,
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: const [
-                              BoxShadow(
-                                  color: Colors.grey,
-                                  blurRadius: 3,
-                                  offset: Offset(1, 1)),
-                            ],
-                          ),
-                          child: Text(
-                            workoutTomorrow2,
-                            style: PublicVariables().normalMainColorText,
-                          ),
+                        child: Text(
+                          workoutTomorrow,
+                          style: PublicVariables().normalMainColorText,
                         ),
-                      ],
-                    ),
+                      ),
+                      Container(
+                        width: 175,
+                        height: 50,
+                        alignment: Alignment.center,
+                        margin: PublicVariables().marginSymmetricVertical,
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: PublicVariables().cardColor,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 2.5,
+                                offset: Offset(1, 2)),
+                          ],
+                        ),
+                        child: Text(
+                          workoutTomorrow2,
+                          style: PublicVariables().normalMainColorText,
+                        ),
+                      ),
+                    ]),
                   ]),
                 ),
               ),
@@ -388,14 +381,14 @@ class _MyHomePageState extends State<MyHomePage> {
           "eventTitle": "Back Workout",
           "eventDescp": "Ipsum Ipsum",
           "eventTime": "22:50"
-        },
+        }
       ],
       "2022-11-16": [
         {
           "eventTitle": "Custom workout",
           "eventDescp": "Lorem ipsum",
           "eventTime": "12:15"
-        },
+        }
       ],
     };
   }
