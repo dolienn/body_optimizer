@@ -1,16 +1,8 @@
-//-------------------------------------------------//
-//                     TO DO                       //
-// 1. setState() isn't working for direct select   //
-// (you have to hot reload to see changes)         //
-// 2. Adding events on "Confirm" click (date is set//
-// on the selectedDay so you have to gather just   //
-// time and title (:                               //
-//-------------------------------------------------//
+import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:table_calendar/table_calendar.dart';
-import 'package:direct_select/direct_select.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
@@ -50,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
   // TABLE CALENDAR //
   final titleController = TextEditingController();
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime today = DateTime.now(), _focusedDay = DateTime.now();
+  DateTime today = DateTime.now(),
+      _focusedDay = DateTime.now(),
+      hoursAndMinutes = DateTime.now();
   DateTime? _selectedDay;
   Map<String, List> selectedEvents = {};
 
@@ -59,108 +53,6 @@ class _MyHomePageState extends State<MyHomePage> {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
     }
     return [];
-  }
-
-  // DIRECT SELECT //
-  int? hourIndex = 0, minuteIndex = 0;
-  final hours = [
-    '00',
-    '01',
-    '02',
-    '03',
-    '04',
-    '05',
-    '06',
-    '07',
-    '08',
-    '09',
-    '10',
-    '11',
-    '12',
-    '13',
-    '14',
-    '15',
-    '16',
-    '17',
-    '18',
-    '19',
-    '20',
-    '21',
-    '22',
-    '23'
-  ];
-  final minutes = [
-    '00',
-    '50',
-    '10',
-    '15',
-    '20',
-    '25',
-    '30',
-    '35',
-    '40',
-    '45',
-    '50',
-    '55'
-  ];
-
-  // Build hours and minutes for direct select //
-  List<Widget> _buildHours() {
-    return hours
-        .map((val) => MySelectionItem(
-              title: val,
-            ))
-        .toList();
-  }
-
-  List<Widget> _buildMinutes() {
-    return minutes
-        .map((val) => MySelectionItem(
-              title: val,
-            ))
-        .toList();
-  }
-
-  selectHours() {
-    return DirectSelect(
-      backgroundColor: Colors.white,
-      selectionColor: PublicVariables().mainColor.withOpacity(0.35),
-      itemExtent: 40,
-      selectedIndex: hourIndex!,
-      onSelectedItemChanged: (index) {
-        setState(() {
-          hourIndex = index;
-          selectHours();
-        });
-      },
-      mode: DirectSelectMode.tap,
-      items: _buildHours(),
-      child: MySelectionItem(
-        isForList: false,
-        title: hours[hourIndex!],
-      ),
-    );
-  }
-
-  selectMinutes() {
-    return DirectSelect(
-      backgroundColor: Colors.white,
-      selectionColor: PublicVariables().mainColor.withOpacity(0.35),
-      itemExtent: 40,
-      selectedIndex: minuteIndex!,
-      onSelectedItemChanged: (index) {
-        setState(() {
-          minuteIndex = index;
-          selectMinutes();
-        });
-      },
-      mode: DirectSelectMode.tap,
-      items: _buildMinutes(),
-      child: MySelectionItem(
-        isForList: false,
-        title: minutes[minuteIndex!],
-      ),
-    );
   }
 
   // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
@@ -187,6 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Column(children: [
@@ -228,11 +121,6 @@ class _MyHomePageState extends State<MyHomePage> {
                     Container(
                       margin: PublicVariables().marginSymmetricVertical,
                       padding: const EdgeInsets.only(bottom: 10),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        border: Border.all(
-                            color: PublicVariables().mainColor, width: 0.9),
-                      ),
                       child: TableCalendar(
                         focusedDay: _focusedDay,
                         firstDay: DateTime(2022),
@@ -245,8 +133,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           headerMargin: const EdgeInsets.only(bottom: 5),
                           decoration: BoxDecoration(
                             borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(9),
-                              topRight: Radius.circular(9),
+                              topLeft: Radius.circular(10),
+                              topRight: Radius.circular(10),
                             ),
                             color:
                                 PublicVariables().mainColor.withOpacity(0.85),
@@ -325,8 +213,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                 vertical: 10, horizontal: 5),
                             decoration: BoxDecoration(
                               border: Border.all(
-                                color: Colors.black,
-                                width: 1,
+                                color: PublicVariables().mainColor,
+                                width: 0.5,
                               ),
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(10),
@@ -356,8 +244,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         TextButton(
                           onPressed: () {
                             titleController.text = "";
-                            hourIndex = 0;
-                            minuteIndex = 0;
                             showDialog(
                               context: context,
                               builder: (context) => AlertDialog(
@@ -365,42 +251,34 @@ class _MyHomePageState extends State<MyHomePage> {
                                   "Plan your workout",
                                   style: PublicVariables().headerText,
                                 ),
-                                content: SizedBox(
-                                  height:
-                                      MediaQuery.of(context).size.height * 0.30,
-                                  child: Padding(
-                                    padding: PublicVariables().paddingAll,
-                                    child: Column(children: [
-                                      TextFormField(
-                                        style: PublicVariables().subheaderText,
-                                        controller: titleController,
-                                        decoration: InputDecoration(
-                                            labelText: "Input title",
-                                            labelStyle: PublicVariables()
-                                                .normalGreyText),
-                                      ),
-                                      Padding(
-                                        padding: PublicVariables().paddingAll,
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            selectHours(),
-                                            Text(
-                                              ":",
-                                              style: PublicVariables()
-                                                  .subheaderText,
-                                            ),
-                                            selectMinutes(),
-                                          ],
-                                        ),
-                                      ),
-                                    ]),
-                                  ),
+                                content: Padding(
+                                  padding: PublicVariables().paddingAll,
+                                  child: Column(children: [
+                                    TextFormField(
+                                      style: PublicVariables().subheaderText,
+                                      controller: titleController,
+                                      decoration: InputDecoration(
+                                          labelText: "Input title",
+                                          labelStyle:
+                                              PublicVariables().normalGreyText),
+                                    ),
+                                    TimePickerSpinner(
+                                      time: hoursAndMinutes,
+                                      alignment: Alignment.center,
+                                      isForce2Digits: true,
+                                      is24HourMode: true,
+                                      onTimeChange: (time) {
+                                        setState(() {
+                                          hoursAndMinutes = time;
+                                        });
+                                      },
+                                    ),
+                                  ]),
                                 ),
                                 actions: [
                                   Padding(
-                                    padding: PublicVariables().paddingAll,
+                                    padding: const EdgeInsets.only(
+                                        right: 5, bottom: 5),
                                     child: TextButton(
                                       child: Text("Cancel",
                                           style: PublicVariables()
@@ -411,7 +289,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                   ),
                                   Padding(
-                                    padding: PublicVariables().paddingAll,
+                                    padding: const EdgeInsets.only(
+                                        right: 5, bottom: 5),
                                     child: TextButton(
                                       child: Text("Confirm",
                                           style: PublicVariables()
@@ -446,7 +325,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                             description: const Text(
                                                 "Your workout has been added!"),
                                           ).show(context);
-                                          return;
+                                          if (selectedEvents.containsKey(
+                                              "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}")) {
+                                            selectedEvents[
+                                                    "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"]!
+                                                .addAll([
+                                              {
+                                                "eventTitle":
+                                                    titleController.text,
+                                                "eventTime": "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
+                                              }
+                                            ]);
+                                          } else {
+                                            selectedEvents.addAll({
+                                              "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
+                                                  [
+                                                {
+                                                  "eventTitle":
+                                                      titleController.text,
+                                                  "eventTime": "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
+                                                }
+                                              ]
+                                            });
+                                          }
+                                          setState(() {});
                                         }
                                       },
                                     ),
@@ -459,7 +361,8 @@ class _MyHomePageState extends State<MyHomePage> {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
                               border: Border.all(
-                                  color: PublicVariables().mainColor, width: 3),
+                                  color: PublicVariables().mainColor,
+                                  width: 1.5),
                             ),
                             padding: PublicVariables().paddingAll,
                             child: Text(
@@ -608,48 +511,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: PublicVariables().normalMainColorText,
                         ),
                       ),
-                      Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        margin: PublicVariables().marginSymmetricVertical,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 1.5,
-                                offset: Offset(1, 2)),
-                          ],
-                        ),
-                        child: Text(
-                          workouts[1],
-                          style: PublicVariables().normalMainColorText,
-                        ),
-                      ),
-                      Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        margin: PublicVariables().marginSymmetricVertical,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 1.5,
-                                offset: Offset(1, 2)),
-                          ],
-                        ),
-                        child: Text(
-                          workouts[1],
-                          style: PublicVariables().normalMainColorText,
-                        ),
-                      ),
                       TextButton(
                           onPressed: () {}, child: const Text("Add workout")),
                     ]),
@@ -660,51 +521,6 @@ class _MyHomePageState extends State<MyHomePage> {
             ]),
           ),
         ]),
-      ),
-    );
-  }
-}
-
-// Direct Select Builder //
-class MySelectionItem extends StatelessWidget {
-  final String? title;
-  final bool isForList;
-  const MySelectionItem({Key? key, this.title, this.isForList = true})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      width: 75,
-      height: 60,
-      child: isForList
-          ? Padding(
-              padding: PublicVariables().paddingAll,
-              child: _buildItem(context),
-            )
-          : Card(
-              margin: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Stack(
-                children: <Widget>[
-                  _buildItem(context),
-                ],
-              ),
-            ),
-    );
-  }
-
-  Widget _buildItem(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: MediaQuery.of(context).size.width,
-      alignment: Alignment.center,
-      child: FittedBox(
-        child: Text(
-          title!,
-          style: PublicVariables().subheaderText,
-        ),
       ),
     );
   }
