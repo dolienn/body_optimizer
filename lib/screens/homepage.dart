@@ -6,7 +6,8 @@
 // on the selectedDay so you have to gather just   //
 // time and title (:                               //
 //-------------------------------------------------//
-
+import 'package:elegant_notification/elegant_notification.dart';
+import 'package:elegant_notification/resources/arrays.dart';
 import 'package:body_optimizer/screens/mainpage.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:direct_select/direct_select.dart';
@@ -24,14 +25,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
-  String workoutToday = "Abs workout",
-      workoutToday2 = "Back workout",
-      workoutTomorrow = "Custom workout",
-      workoutTomorrow2 = "Custom workout 2";
+  List<String> workouts = [
+    "Abs workout",
+    "Custom workout",
+  ];
   int numOfExercises = 13, numOfExercisesLeft = 13;
 
   // PROGRESS BAR //
   double currentProgress = 0.0, displayedProgress = 0.0;
+
   countPercentage() {
     currentProgress =
         1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
@@ -40,7 +42,9 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       displayedProgress = currentProgress;
     }
-    setState(() {});
+    setState(() {
+      displayedProgress;
+    });
   }
 
   // TABLE CALENDAR //
@@ -49,6 +53,7 @@ class _MyHomePageState extends State<MyHomePage> {
   DateTime today = DateTime.now(), _focusedDay = DateTime.now();
   DateTime? _selectedDay;
   Map<String, List> selectedEvents = {};
+
   List _listOfDayEvents(DateTime dateTime) {
     if (selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
@@ -59,16 +64,16 @@ class _MyHomePageState extends State<MyHomePage> {
   // DIRECT SELECT //
   int? hourIndex = 0, minuteIndex = 0;
   final hours = [
-    '0',
-    '1',
-    '2',
-    '3',
-    '4',
-    '5',
-    '6',
-    '7',
-    '8',
-    '9',
+    '00',
+    '01',
+    '02',
+    '03',
+    '04',
+    '05',
+    '06',
+    '07',
+    '08',
+    '09',
     '10',
     '11',
     '12',
@@ -85,8 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
     '23'
   ];
   final minutes = [
-    '0',
-    '5',
+    '00',
+    '50',
     '10',
     '15',
     '20',
@@ -114,6 +119,48 @@ class _MyHomePageState extends State<MyHomePage> {
               title: val,
             ))
         .toList();
+  }
+
+  selectHours() {
+    return DirectSelect(
+      backgroundColor: Colors.white,
+      selectionColor: PublicVariables().mainColor.withOpacity(0.35),
+      itemExtent: 40,
+      selectedIndex: hourIndex!,
+      onSelectedItemChanged: (index) {
+        setState(() {
+          hourIndex = index;
+          selectHours();
+        });
+      },
+      mode: DirectSelectMode.tap,
+      items: _buildHours(),
+      child: MySelectionItem(
+        isForList: false,
+        title: hours[hourIndex!],
+      ),
+    );
+  }
+
+  selectMinutes() {
+    return DirectSelect(
+      backgroundColor: Colors.white,
+      selectionColor: PublicVariables().mainColor.withOpacity(0.35),
+      itemExtent: 40,
+      selectedIndex: minuteIndex!,
+      onSelectedItemChanged: (index) {
+        setState(() {
+          minuteIndex = index;
+          selectMinutes();
+        });
+      },
+      mode: DirectSelectMode.tap,
+      items: _buildMinutes(),
+      child: MySelectionItem(
+        isForList: false,
+        title: minutes[minuteIndex!],
+      ),
+    );
   }
 
   // WHEN APP LAUNCHES ADDS SOME EVENTS THAT I MANUALLY ADDED HERE //
@@ -273,7 +320,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       children: [
                         ..._listOfDayEvents(_selectedDay!).map(
                           (myEvents) => Container(
-                            width: MediaQuery.of(context).size.width * 0.80,
+                            width: MediaQuery.of(context).size.width * 0.85,
                             margin: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 5),
                             decoration: BoxDecoration(
@@ -307,108 +354,107 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                         TextButton(
-                          onPressed: () => showDialog(
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text(
-                                "Plan your workout",
-                                style: PublicVariables().headerText,
-                              ),
-                              content: SizedBox(
-                                height: 200,
-                                child: Padding(
-                                  padding: PublicVariables().paddingAll,
-                                  child: Column(children: [
-                                    TextFormField(
-                                      style: PublicVariables().subheaderText,
-                                      controller: titleController,
-                                      decoration: InputDecoration(
-                                          labelText: "Input title",
-                                          labelStyle:
-                                              PublicVariables().normalGreyText),
-                                    ),
-                                    Padding(
-                                      padding: PublicVariables().paddingAll,
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          DirectSelect(
-                                            backgroundColor: Colors.white,
-                                            selectionColor: PublicVariables()
-                                                .mainColor
-                                                .withOpacity(0.35),
-                                            itemExtent: 40,
-                                            selectedIndex: hourIndex!,
-                                            onSelectedItemChanged: (index) {
-                                              setState(() {
-                                                hourIndex = index;
-                                              });
-                                            },
-                                            mode: DirectSelectMode.tap,
-                                            items: _buildHours(),
-                                            child: MySelectionItem(
-                                              isForList: false,
-                                              title: hours[hourIndex!],
-                                            ),
-                                          ),
-                                          Text(
-                                            ":",
-                                            style:
-                                                PublicVariables().subheaderText,
-                                          ),
-                                          DirectSelect(
-                                            backgroundColor: Colors.white,
-                                            selectionColor: PublicVariables()
-                                                .mainColor
-                                                .withOpacity(0.35),
-                                            itemExtent: 40,
-                                            selectedIndex: minuteIndex!,
-                                            onSelectedItemChanged: (index) {
-                                              setState(() {
-                                                minuteIndex = index;
-                                              });
-                                            },
-                                            mode: DirectSelectMode.tap,
-                                            items: _buildMinutes(),
-                                            child: MySelectionItem(
-                                              isForList: false,
-                                              title: minutes[minuteIndex!],
-                                            ),
-                                          ),
-                                        ],
+                          onPressed: () {
+                            titleController.text = "";
+                            hourIndex = 0;
+                            minuteIndex = 0;
+                            showDialog(
+                              context: context,
+                              builder: (context) => AlertDialog(
+                                title: Text(
+                                  "Plan your workout",
+                                  style: PublicVariables().headerText,
+                                ),
+                                content: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.30,
+                                  child: Padding(
+                                    padding: PublicVariables().paddingAll,
+                                    child: Column(children: [
+                                      TextFormField(
+                                        style: PublicVariables().subheaderText,
+                                        controller: titleController,
+                                        decoration: InputDecoration(
+                                            labelText: "Input title",
+                                            labelStyle: PublicVariables()
+                                                .normalGreyText),
                                       ),
+                                      Padding(
+                                        padding: PublicVariables().paddingAll,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            selectHours(),
+                                            Text(
+                                              ":",
+                                              style: PublicVariables()
+                                                  .subheaderText,
+                                            ),
+                                            selectMinutes(),
+                                          ],
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                ),
+                                actions: [
+                                  Padding(
+                                    padding: PublicVariables().paddingAll,
+                                    child: TextButton(
+                                      child: Text("Cancel",
+                                          style: PublicVariables()
+                                              .normalMainColorText),
+                                      onPressed: () {
+                                        Navigator.pop(context);
+                                      },
                                     ),
-                                  ]),
-                                ),
+                                  ),
+                                  Padding(
+                                    padding: PublicVariables().paddingAll,
+                                    child: TextButton(
+                                      child: Text("Confirm",
+                                          style: PublicVariables()
+                                              .normalMainColorText),
+                                      onPressed: () {
+                                        if (titleController.text.isEmpty) {
+                                          ElegantNotification.error(
+                                            toastDuration:
+                                                const Duration(seconds: 2),
+                                            animationDuration: const Duration(
+                                                milliseconds: 500),
+                                            animation: AnimationType.fromTop,
+                                            notificationPosition:
+                                                NotificationPosition.topCenter,
+                                            showProgressIndicator: false,
+                                            title: const Text("Error"),
+                                            description:
+                                                const Text("Title is empty!"),
+                                          ).show(context);
+                                        } else {
+                                          Navigator.pop(context);
+                                          ElegantNotification.success(
+                                            toastDuration:
+                                                const Duration(seconds: 2),
+                                            animationDuration: const Duration(
+                                                milliseconds: 500),
+                                            animation: AnimationType.fromTop,
+                                            notificationPosition:
+                                                NotificationPosition.topCenter,
+                                            showProgressIndicator: false,
+                                            title: const Text("Success"),
+                                            description: const Text(
+                                                "Your workout has been added!"),
+                                          ).show(context);
+                                          return;
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                ],
                               ),
-                              actions: [
-                                Padding(
-                                  padding: PublicVariables().paddingAll,
-                                  child: TextButton(
-                                    child: Text("Cancel",
-                                        style: PublicVariables()
-                                            .normalMainColorText),
-                                    onPressed: () {
-                                      titleController.text = "";
-                                      hourIndex = 0;
-                                      minuteIndex = 0;
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: PublicVariables().paddingAll,
-                                  child: TextButton(
-                                    child: Text("Confirm",
-                                        style: PublicVariables()
-                                            .normalMainColorText),
-                                    onPressed: () {},
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
+                            );
+                          },
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
@@ -449,7 +495,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: PublicVariables().paddingAll,
                         child: Text(
-                          workoutToday,
+                          workouts[0],
                           style: PublicVariables().subheaderText,
                         ),
                       ),
@@ -459,21 +505,28 @@ class _MyHomePageState extends State<MyHomePage> {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.85,
                             decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                border:
-                                    Border.all(color: Colors.grey, width: 1)),
+                              borderRadius: BorderRadius.circular(20),
+                              border:
+                                  Border.all(color: Colors.grey, width: 0.5),
+                            ),
                             child: GFProgressBar(
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 7.5),
                               progressBarColor:
                                   PublicVariables().mainColor.withOpacity(0.9),
                               backgroundColor: Colors.white,
+                              linearGradient: LinearGradient(
+                                colors: [
+                                  PublicVariables().mainColor,
+                                  PublicVariables().accentColor,
+                                ],
+                              ),
                               percentage: currentProgress,
                               lineHeight: 35,
                               child: Center(
                                 child: Text(
                                   "${((displayedProgress) * 100).round()}%",
-                                  style: PublicVariables().normalItalizedText,
+                                  style: PublicVariables().normalText,
                                   textAlign: TextAlign.end,
                                 ),
                               ),
@@ -488,24 +541,29 @@ class _MyHomePageState extends State<MyHomePage> {
                           style: PublicVariables().normalText,
                         ),
                       ),
-                      TextButton(
-                          onPressed: () {
-                            if (numOfExercisesLeft < numOfExercises) {
-                              numOfExercisesLeft += 1;
-                              setState(() {});
-                              countPercentage();
-                            }
-                          },
-                          child: const Text("increase exercise")),
-                      TextButton(
-                          onPressed: () {
-                            if (numOfExercisesLeft > 0) {
-                              numOfExercisesLeft -= 1;
-                              setState(() {});
-                              countPercentage();
-                            }
-                          },
-                          child: const Text("decrease exercise")),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          TextButton(
+                              onPressed: () {
+                                if (numOfExercisesLeft < numOfExercises) {
+                                  numOfExercisesLeft += 1;
+                                  setState(() {});
+                                  countPercentage();
+                                }
+                              },
+                              child: const Text("increase exercise")),
+                          TextButton(
+                              onPressed: () {
+                                if (numOfExercisesLeft > 0) {
+                                  numOfExercisesLeft -= 1;
+                                  setState(() {});
+                                  countPercentage();
+                                }
+                              },
+                              child: const Text("decrease exercise")),
+                        ],
+                      ),
                     ]),
                   ]),
                 ),
@@ -546,7 +604,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                         child: Text(
-                          workoutTomorrow,
+                          workouts[1],
                           style: PublicVariables().normalMainColorText,
                         ),
                       ),
@@ -567,10 +625,33 @@ class _MyHomePageState extends State<MyHomePage> {
                           ],
                         ),
                         child: Text(
-                          workoutTomorrow2,
+                          workouts[1],
                           style: PublicVariables().normalMainColorText,
                         ),
                       ),
+                      Container(
+                        height: 50,
+                        alignment: Alignment.center,
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        margin: PublicVariables().marginSymmetricVertical,
+                        padding: const EdgeInsets.all(15),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: const [
+                            BoxShadow(
+                                color: Colors.grey,
+                                blurRadius: 1.5,
+                                offset: Offset(1, 2)),
+                          ],
+                        ),
+                        child: Text(
+                          workouts[1],
+                          style: PublicVariables().normalMainColorText,
+                        ),
+                      ),
+                      TextButton(
+                          onPressed: () {}, child: const Text("Add workout")),
                     ]),
                   ]),
                 ),
@@ -594,8 +675,8 @@ class MySelectionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 60.0,
-      width: 75.0,
+      width: 75,
+      height: 60,
       child: isForList
           ? Padding(
               padding: PublicVariables().paddingAll,
