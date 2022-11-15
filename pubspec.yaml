@@ -38,6 +38,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   dropdown_button2: ^1.8.9
   path_provider: ^2.0.11
+  lottie: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -63,6 +64,7 @@ flutter:
 
   assets:
     - textFiles/
+    - animation/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
