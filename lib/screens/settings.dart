@@ -7,6 +7,7 @@ Do zrobienia:
 import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
+import 'package:flutter/services.dart' show rootBundle;
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -23,11 +24,56 @@ class SettingsPage extends StatelessWidget {
 class MyStatefulWidget extends StatefulWidget {
   const MyStatefulWidget({super.key});
 
+  get storage => null;
+
   @override
   State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
 }
 
 class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+
+  String nick = "";
+  String sex = "";
+  String age = "";
+  String weight = "";
+  String height = "";
+  // ignore: non_constant_identifier_names
+  String rest_time = "";
+  String goal = "";
+  String url = "";
+
+  fetchFileData() async{
+    String responseText;
+    responseText = await rootBundle.loadString('textFiles/data.txt');
+    final splitted = responseText.split(' ');
+    setState(() {
+      nick = splitted[0];
+      sex = splitted[1];
+      age = splitted[2];
+      weight = splitted[3];
+      height = splitted[4];
+      rest_time = splitted[5];
+      rest_time += " ${splitted[6]}";
+      goal = splitted[7];
+      goal += " ${splitted[8]}";
+      if(sex == "Male"){
+        url = "https://cdn-icons-png.flaticon.com/512/18/18148.png";
+      }
+      else if(sex == "Female"){
+        url = "http://cdn.onlinewebfonts.com/svg/img_529937.png";
+      }
+      else{
+        url = "https://cdn-icons-png.flaticon.com/512/25/25634.png";
+      }
+    });
+  }
+
+  @override
+  void initState(){
+    fetchFileData();
+    super.initState();
+  }
+
   final List<String> itemsforsex = [
     'Male',
     'Female',
@@ -43,9 +89,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
   ];
   String? selectedValueforrest;
   final List<String> itemsforgoal = [
-    'lose weight',
-    'keep weight',
-    'gain muscle',
+    'lose Weight',
+    'keep Weight',
+    'gain Muscle',
   ];
   String? selectedValueforgoal;
   @override
@@ -74,22 +120,19 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Padding(
-                        padding: const EdgeInsets.all(7.5),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(5.0),
-                          child: Image.network("https://i1.sndcdn.com/artworks-DfDLRYUqkm9IDWcy-AYXT0w-t500x500.jpg",),
-                        ),
+                        padding: const EdgeInsets.all(5),
+                        child: Image.network(url, width: 50, height: 50),
                       ),
                     ],
                   ),
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const <Widget>[
+                  children: <Widget>[
                     Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text("Nickname",
-                          style: TextStyle(
+                      padding: const EdgeInsets.all(10),
+                      child: Text(nick,
+                          style: const TextStyle(
                             fontSize: 18,
                             color: Colors.black,
                             letterSpacing: 1,
@@ -107,11 +150,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         child: DropdownButton2(
                           isExpanded: true,
                           hint: Row(
-                            children: const [
+                            children: [
                               Expanded(
                                 child: Text(
-                                  'Select Sex',
-                                  style: TextStyle(
+                                  sex,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.yellow,
@@ -146,7 +189,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.arrow_drop_down_circle_outlined,
                           ),
                           iconSize: 22,
-                          iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
+                          iconEnabledColor: const Color.fromARGB(1000, 248, 105, 213),
                           iconDisabledColor: Colors.grey,
                           buttonHeight: 40,
                           buttonWidth:  MediaQuery.of(context).size.width * 0.95,
@@ -175,9 +218,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ],
                 ),
-                buildTextField('Enter your Age'),
-                buildTextField('Enter your Weight'),
-                buildTextField('Enter your Height'),
+                buildTextField('Your Age: $age'),
+                buildTextField('Your Weight: $weight'),
+                buildTextField('Your Height: $height'),
                 Container(
                   height: 30,
                   width: MediaQuery.of(context).size.width * 0.95,
@@ -189,7 +232,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     ),
                   ),
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: (){},
                     style: TextButton.styleFrom(
                       backgroundColor: Colors.deepPurple.shade900,
                       foregroundColor: Colors.yellow,
@@ -235,16 +278,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(5, 0, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(5, 0, 0, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           isExpanded: true,
                           hint: Row(
-                            children: const [
+                            children: [
                               Expanded(
                                 child: Text(
-                                  'Select Rest Time',
-                                  style: TextStyle(
+                                  rest_time,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.yellow,
@@ -279,7 +322,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.arrow_drop_down_circle_outlined,
                           ),
                           iconSize: 22,
-                          iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
+                          iconEnabledColor: const Color.fromARGB(1000, 248, 105, 213),
                           iconDisabledColor: Colors.grey,
                           buttonHeight: 40,
                           buttonWidth:  MediaQuery.of(context).size.width * 0.95,
@@ -312,16 +355,16 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.fromLTRB(5, 15, 0, 0),
+                      padding: const EdgeInsets.fromLTRB(5, 15, 0, 0),
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           isExpanded: true,
                           hint: Row(
-                            children: const [
+                            children: [
                               Expanded(
                                 child: Text(
-                                  'Select Goal',
-                                  style: TextStyle(
+                                  goal,
+                                  style: const TextStyle(
                                     fontSize: 14,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.yellow,
@@ -356,7 +399,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             Icons.arrow_drop_down_circle_outlined,
                           ),
                           iconSize: 22,
-                          iconEnabledColor: Color.fromARGB(1000, 248, 105, 213),
+                          iconEnabledColor: const Color.fromARGB(1000, 248, 105, 213),
                           iconDisabledColor: Colors.grey,
                           buttonHeight: 40,
                           buttonWidth: MediaQuery.of(context).size.width * 0.95,
