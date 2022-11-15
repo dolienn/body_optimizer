@@ -5,10 +5,8 @@ Move the row in exercise manager so that the buttons can be moved to the bottom 
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
-navigator pop
-fix
+fix elegant notifications
 
-change the pink button color to the f869d5
 EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
 
 Useful links etc.
@@ -451,17 +449,17 @@ class LegsExercises {
 //I may have to move this list somewhere higher so that it would be visible to the other pages of workout creator
   static List<LegsExercises> generateItems(int numberOfItems) {
     bool trigger = false;
-    String titleOne = "";
-    String titleTwo = "";
-    String titleThree = "";
-    String titleFour = "";
-    String titleFive = "";
+    String titleOne = "Squats";
+    String titleTwo = "Lunges";
+    String titleThree = "Plank leg lifts";
+    String titleFour = "Single-leg deadlifts";
+    String titleFive = "Stability ball knee tucks";
 
-    String descriptionOne = "";
-    String descriptionTwo = "";
-    String descriptionThree = "";
-    String descriptionFour = "";
-    String descriptionFive = "";
+    String descriptionOne = "For balance or extra support, perform your squats standing alongside a wall or next to a chair or the edge of a table with one hand on the object. Resist the urge to pull on it or push off from it.";
+    String descriptionTwo = "Lunges work your thighs, butt, and abs. This move uses both legs at the same time, making it a great exercise for strong legs.";
+    String descriptionThree = "Regular planks target the upper body, core, and hips. You can add leg lifts to strengthen your butt and upper legs.";
+    String descriptionFour = "The single-leg deadlift will sculpt your butt, hips, and upper legs. For balance, place your hands on a wall or chair.";
+    String descriptionFive = "Doing knee tucks on a stability ball will tone legs fast. It works your calves, shins, and abs. For this exercise, you’ll need a stability ball that’s properly inflated.";
     return List<LegsExercises>.generate(numberOfItems, (int index) {
       if(index == 0){
         return LegsExercises(
@@ -559,7 +557,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
         title: 'Body Optimizer',
         home: Scaffold(
             appBar: AppBar(
-                title: const Text('Create your workout'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+                title: const Text('Create your workout'), centerTitle: true, backgroundColor: const Color(0xFF5650DE),
             ),
 
             body: Center(
@@ -612,7 +610,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                   MaterialPageRoute(builder: (context) => const WorkoutCreator()),
                                                       (Route<dynamic> route) => false,
                                                 );
-                                              }, icon: Icon(Icons.close),
+                                              }, icon: const Icon(Icons.close),
                                                 padding: EdgeInsets.zero,
 
                                               ),
@@ -637,7 +635,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                 },
                                                 icon: const Icon(
                                                     Icons.menu,
-                                                        color: Colors.deepPurple,
+                                                        color: Color(0xFF5650DE)
                                                 ),
                                               ),
                                             );
@@ -652,13 +650,9 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   Expanded(
                                     child: OutlinedButton(
                                         style: OutlinedButton.styleFrom(
-
-                                          foregroundColor: Colors.deepPurple.shade900,
-
+                                          foregroundColor: const Color(0xFF5650DE),
                                           backgroundColor: Colors.white,
-
-                                          side: BorderSide(color: Colors.deepPurple.shade900, width: 1.5),
-
+                                          side: const BorderSide(color: Color(0xFF5650DE), width: 1.5),
                                         ),
                                         onPressed: () {
                                           Navigator.push(
@@ -666,7 +660,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                             MaterialPageRoute(builder: (context) => const WorkoutCreatorChooseCategory()),
                                           );
                                         },
-                                        child: const Text('Add exercise', style: TextStyle(color: Colors.deepPurple),
+                                        child: const Text('Add exercise', style: TextStyle(color: Color(0xFF5650DE)),
                                         )
                                     ),
                                   ),
@@ -675,51 +669,62 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                 //uhh yea I tried putting the buttons to the bottom like you said but somehow it made the buttons either normal size (still on top) or made my page blank
                                 Align(
                                   alignment: Alignment.bottomCenter,
-                                  child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                      children: <Widget>[
-                                        Expanded(
-                                          child: Padding(
-                                          padding: const EdgeInsets.only(right: 5.0),
-                                          child: OutlinedButton(
-                                              onPressed: () => _showAlertDialog(context),
-                                              child: const Text('Cancel', style: TextStyle(color: Colors.deepPurple),
-                                              )
-                                          ),
-                                          )
-                                        ),
-                                        Expanded(
-                                          child: Padding(
-                                            padding: const EdgeInsets.only(left: 5.0),
-                                          child: ElevatedButton(
-                                            style: ButtonStyle(
-                                              backgroundColor: MaterialStatePropertyAll<Color>(Colors.deepPurple.shade900),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(bottom: 15),
+                                    child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: <Widget>[
+                                          Expanded(
+                                            child: Padding(
+                                            padding: const EdgeInsets.only(right: 5.0),
+                                            child: OutlinedButton(
+                                                onPressed: () => _showAlertDialog(context),
+                                                child: const Text('Cancel', style: TextStyle(color: Color(0xFF5650DE)),
+                                                )
                                             ),
-                                            onPressed: () {
-                                              if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
-                                                workoutName = myController.text;
-                                                ElegantNotification.success(
-                                                  width: 360,
-                                                  notificationPosition: NotificationPosition.bottomCenter,
-                                                  animation: AnimationType.fromBottom,
-                                                  title: const Text('Created workout'),
-                                                  description: const Text('Your workout has been saved!'),
-                                                ).show(context);
-                                              } else {
-                                                ElegantNotification.error(
-                                                  width: 360,
-                                                  notificationPosition: NotificationPosition.bottomCenter,
-                                                  animation: AnimationType.fromBottom,
-                                                  title: const Text('Failed to save workout'),
-                                                  description: const Text('Make sure that you have a correct workout name and workouts.'),
-                                                ).show(context);
-                                              }
-                                            },
-                                            child: const Text('Create'),
+                                            )
                                           ),
-                                          )
-                                        ),
-                                      ]
+                                          Expanded(
+                                            child: Padding(
+                                              padding: const EdgeInsets.only(left: 5.0),
+                                            child: ElevatedButton(
+                                              style: const ButtonStyle(
+                                                backgroundColor: MaterialStatePropertyAll<Color>(Color(0xFF5650DE)),
+                                              ),
+                                              onPressed: () {
+                                                if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
+                                                  workoutName = myController.text;
+                                                  const snackBar = SnackBar(
+                                                    content: Text('Created workout!'),
+                                                  );
+                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                  /*ElegantNotification.success(
+                                                    width: 360,
+                                                    notificationPosition: NotificationPosition.bottomCenter,
+                                                    animation: AnimationType.fromBottom,
+                                                    title: const Text('Created workout'),
+                                                    description: const Text('Your workout has been saved!'),
+                                                  ).show(context);*/
+                                                } else {
+                                                  const snackBar = SnackBar(
+                                                    content: Text('Could not create the workout!'),
+                                                  );
+                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                  /*ElegantNotification.error(
+                                                    width: 360,
+                                                    notificationPosition: NotificationPosition.bottomCenter,
+                                                    animation: AnimationType.fromBottom,
+                                                    title: const Text('Failed to save workout'),
+                                                    description: const Text('Make sure that you have a correct workout name and workouts.'),
+                                                  ).show(context);*/
+                                                }
+                                              },
+                                              child: const Text('Create'),
+                                            ),
+                                            )
+                                          ),
+                                        ]
+                                    ),
                                   ),
                                 )
                               ],
@@ -737,12 +742,13 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
 class WorkoutCreatorChooseCategory extends StatelessWidget {
   const WorkoutCreatorChooseCategory({super.key});
 
+
   @override
   Widget build(BuildContext context) {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Select exercise category'), centerTitle: true, backgroundColor: Colors.deepPurple.shade900,
+        title: const Text('Select exercise category'), centerTitle: true, backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
         child: GridView.count(
@@ -1071,7 +1077,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
       appBar: AppBar(
         title: const Text('Select abs workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1100,9 +1106,9 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
@@ -1124,6 +1130,8 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
@@ -1148,7 +1156,7 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
       appBar: AppBar(
         title: const Text('Select biceps workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1177,9 +1185,9 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
@@ -1201,6 +1209,8 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
@@ -1225,7 +1235,7 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
       appBar: AppBar(
         title: const Text('Select triceps workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1254,9 +1264,9 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
@@ -1278,6 +1288,8 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
@@ -1302,7 +1314,7 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
       appBar: AppBar(
         title: const Text('Select chest workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1331,9 +1343,9 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
@@ -1355,6 +1367,8 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
@@ -1379,7 +1393,7 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
       appBar: AppBar(
         title: const Text('Select back workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1408,9 +1422,9 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
@@ -1432,6 +1446,8 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
@@ -1456,7 +1472,7 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
       appBar: AppBar(
         title: const Text('Select legs workouts'),
         centerTitle: true,
-        backgroundColor: Colors.deepPurple.shade900,
+        backgroundColor: const Color(0xFF5650DE),
       ),
       body: Center(
           child: ListView(
@@ -1485,30 +1501,32 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
                 }).toList(),
               ),
               TextButton(
-                  style: ButtonStyle(
+                  style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll<Color>(
-                        Colors.deepPurple.shade900),
+                        Color(0xFF5650DE)),
                   ),
                   onPressed: () {
                     if (_data[0].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Crunches");
+                      _WorkoutCreatorState.workoutList.add("Squats");
                     }
                     if (_data[1].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Plank");
+                      _WorkoutCreatorState.workoutList.add("Lunges");
                     }
                     if (_data[2].value == true) {
-                      _WorkoutCreatorState.workoutList.add("V-Ups");
+                      _WorkoutCreatorState.workoutList.add("Plank leg lifts");
                     }
                     if (_data[3].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Hollow Holds");
+                      _WorkoutCreatorState.workoutList.add("Single-leg deadlifts");
                     }
                     if (_data[4].value == true) {
-                      _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
+                      _WorkoutCreatorState.workoutList.add("Stability ball knee tucks");
                     }
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    Navigator.pop(context);
+                    Navigator.pop(context);
                   }, child: const Text('Add', style: TextStyle(color: Colors.white),)),
             ],
           )
