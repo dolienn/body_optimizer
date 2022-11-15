@@ -7,6 +7,7 @@ class Parts {
 }
 
 class PartsCreator {
+
   final List<Parts> partitions = [
     Parts(
         title: "Abs",
@@ -43,79 +44,203 @@ class PartsCreator {
   ];
 }
 
+class ExercisesList {
+  //---------ABS--------
+  var excAbsName1 = 'Laying Leg Raises';
+  var excAbsInstruction1 = "Lay on your back with your arms palms down on either side. "
+      "Keep your legs together and as straight as possible. "
+      "Slowly raise your legs to a 90° angle, pause at this position, or as high as you can reach your legs, and then slowly lower your legs back down. "
+      "Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";
+  var excAbsVideo1 = 'assets/videos/laying-leg-raises.gif';
+
+  var excAbsName2 = 'Hanging Knee Raises';
+  var excAbsInstruction2 = "Grab the bar and hang, your body still and your legs straight.Slowly draw your knees up to your chestOnce you have raised your knees as high as possible, lower your legs and repeat. Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";
+  var excAbsVideo2 = 'assets/videos/hanging-knee-raises.gif';
+
+  var excAbsName3 = 'Forearm Plank';
+  var excAbsInstruction3 = "Place forearms on the ground with your elbows bent at a 90° angle aligned beneath your shoulders, with your arms parallel at shoulder-width. Your feet should be together, with only your toes touching the floor. Lift your belly off the floor and form a straight line from your heels to the crown of your head and hold.";
+  var excAbsVideo3 = 'assets/videos/forearm-plank.gif';
+
+  //---------BICEPS--------
+
+  var excBicepsName1 = 'Barbell Curl';
+  var excBicepsInstruction1 = "While holding the upper arms stationary, curl the weights forward while contracting the biceps as you breathe out. Continue the movement until your biceps are fully contracted and the bar is at shoulder level. Hold the contracted position for a second and squeeze the biceps hard. Slowly bring the weight back down to the starting position.";
+  var excBicepsVideo1 = 'assets/videos/barbell-curl.gif';
+
+  var excBicepsName2 = 'Dumbbell Hammer Curl';
+  var excBicepsInstruction2 = "Hold the dumbbells with a neutral grip (thumbs facing the ceiling). Slowly lift the dumbbell up to chest height Return to starting position and repeat.";
+  var excBicepsVideo2 = 'assets/videos/dumbell-hammer-curl.gif';
+
+  var excBicepsName3 = 'Goblet Curl';
+  var excBicepsInstruction3 = "Stand up straight with a kettlebell in both hands in front of your pelvis. Raise the kettlebell bending your arms at the elbow until the kettlebell is level with your chest. Lower to the starting position and repeat.";
+  var excBicepsVideo3 = 'assets/videos/goblet-curl.gif';
+
+  //---------TRICEPS--------
+
+  var excTricepsName1 = 'Cable Push Down';
+  var excTricepsInstruction1 = "You can use any attachment for this. The cable should be set all the way at the top of the machine. Make sure to keep your upper arm glued at your side. Extend your elbows until you feel your triceps contract.";
+  var excTricepsVideo1 = 'assets/videos/cable-push-down.gif';
+
+  var excTricepsName2 = 'Cross Pushdown';
+  var excTricepsInstruction2 = 'Either use two handles or no attachment at all. Both sides of the cable crossover should be set to the top. Stand in the center of the machine holding each Cable in the opposing hand. Your upper arm should be at a 45 degree angle with your torso. Extend your elbows until you feel a contraction and then return to the starting position';
+  var excTricepsVideo2 = 'assets/videos/cross-pushdown.gif';
+
+  var excTricepsName3 = 'Cable Overhead Tricep Extension';
+  var excTricepsInstruction3 = 'You can use any attachment. The cable should be all the way to the bottom of the machine. Face away from the machine. Point your elbows straight up toward the ceiling. From there, extend your elbows until your fists are pointed straight toward the ceiling.';
+  var excTricepsVideo3 = 'assets/videos/cable-overhead-tricep-extension.gif';
+
+  //---------CHEST--------
+
+  var excChestName1 = 'Cable Pec Fly';
+  var excChestInstruction1 = 'Use a handle attachment set all the way to the bottom of the machine. Bring both of the handles to your chest and make sure you are in the center of the cable crossover. Walk a few steps forward. Then press the weight forward. From there, your shoulders should horizontally abduct and adduct while your elbows stay in a fixed position.';
+  var excChestVideo1 = 'assets/videos/cable-pec-fly.gif';
+
+  var excChestName2 = 'Incline Dumbbell Bench Press';
+  var excChestInstruction2 = 'Raise the bench to a 30 - 45 degree angle. Lay on the bench and set your feet on the ground. Raise the dumbbells with straight arms then slowly lower them to about shoulder width. Raise them again until your arms are locked and at the starting position again.';
+  var excChestVideo2 = 'assets/videos/incline-dumbbell-bench-press.gif';
+
+  var excChestName3 = 'Barbell Bench Press';
+  var excChestInstruction3 = 'Lay flat on the bench with your feet on the ground. With straight arms unrack the bar. Lower the bar to your mid chest. Raise the bar until you have locked your elbows';
+  var excChestVideo3 = 'assets/videos/barbell-bench-press.gif';
+
+  //---------BACK--------
+
+  var excBackName1 = 'Pull Ups';
+  var excBackInstruction1 = 'Grasp the bar with an overhand grip, arms and shoulders fully extended. Pull your body up until your chin is above the bar. Lower your body back to starting position.';
+  var excBackVideo1 = 'assets/videos/pull-ups.gif';
+
+  var excBackName2 = 'Upright Row';
+  var excBackInstruction2 = 'Use a handle attachment with the cable set to the bottom of the machine. Pull your elbows straight up toward the ceiling until the attachment is just below your chin then extend until your elbows are fully extended.';
+  var excBackVideo2 = 'assets/videos/upright-row.gif';
+
+  var excBackName3 = 'Cable Pullover';
+  var excBackInstruction3 = 'You can use any attachment. Cable should be set all the way to the top of the machine. Grab your attachment and walk a few steps back. Push your butt back to where you are leaning forward somewhat. Initiate the movement with your shoulders and not your elbows. Imagine trying to pull the attachment through your thighs at the bottom.';
+  var excBackVideo3 = 'assets/videos/cable-pullover.gif';
+
+  var excBackName4 = 'Deadlift';
+  var excBackInstruction4 = 'Stand with your mid-foot under the bar and grip the bar with your hands, about a shoulder width apart. Bend your knees, then lift the bar by straightening your back. It is important to keep your back straight. Stand to your full height and hold. Lower the bar to the floor by bending your knees and keeping your back straight.';
+  var excBackVideo4 = 'assets/videos/deadlift.gif';
+
+  //---------LEGS--------
+
+  var excLegsName1 = 'Barbell Squat';
+  var excLegsInstruction1 = 'Stand with your feet shoulder-width apart. Maintain the natural arch in your back, squeezing your shoulder blades and raising your chest. Grip the bar across your shoulders and support it on your upper back. Unwrack the bar by straightening your legs, and take a step back. Bend your knees as you lower the weight without altering the form of your back until your hips are below your knees. Raise the bar back to starting position, lift with your legs and exhale at the top.';
+  var excLegsVideo1 = 'assets/videos/barbell-squat.gif';
+
+  var excLegsName2 = 'Dumbbell Calf Raise';
+  var excLegsInstruction2 = 'Stand tall with your feet on the ground. You can put the the balls of your feet on top of a plate to extend the range of motion. Imagine you have a string attached to your heels and pull your heels up toward the ceiling.';
+  var excLegsVideo2 = 'assets/videos/dumbbell-calf-raise.gif';
+
+  var excLegsName3 = 'Pull Through';
+  var excLegsInstruction3 = '';
+  var excLegsVideo3 = '';
+
+  //---------SHOULDERS--------
+
+  var excShouldersName1 = '';
+  var excShouldersInstruction1 = '';
+  var excShouldersVideo1 = '';
+
+  var excShouldersName2 = '';
+  var excShouldersInstruction2 = '';
+  var excShouldersVideo2 = '';
+
+  var excShouldersName3 = '';
+  var excShouldersInstruction3 = '';
+  var excShouldersVideo3 = '';
+
+  //---------REAR--------
+
+  var excRearName1 = '';
+  var excRearInstruction1 = '';
+  var excRearVideo1 = '';
+
+  var excRearName2 = '';
+  var excRearInstruction2 = '';
+  var excRearVideo2 = '';
+
+  var excRearName3 = '';
+  var excRearInstruction3 = '';
+  var excRearVideo3 = '';
+}
+
 class WorkoutList {
   final String image, name, instruction, video;
 
   WorkoutList(
-      {required this.image,
-      required this.name,
-      required this.instruction,
-      required this.video});
+      {
+        required this.image,
+        required this.name,
+        required this.instruction,
+        required this.video
+      }
+      );
 }
 
   List exercisesName = [
     {
       'name': 'Abs',
       'exercise':[
-        "abs1",
-        "abs2",
-        "abs3"
+        ExercisesList().excAbsName1,
+        ExercisesList().excAbsName2,
+        ExercisesList().excAbsName3
       ]
     },
     {
       'name': 'Biceps',
       'exercise':[
-        "biceps1",
-        "biceps2",
-        "biceps3"
+        ExercisesList().excBicepsName1,
+        ExercisesList().excBicepsName2,
+        ExercisesList().excBicepsName3
       ]
     },
     {
       'name': 'Triceps',
       'exercise':[
-        "triceps1",
-        "triceps2",
-        "triceps3"
+        ExercisesList().excTricepsName1,
+        ExercisesList().excTricepsName2,
+        ExercisesList().excTricepsName3
       ]
     },
     {
       'name': 'Chest',
       'exercise':[
-        "chest1",
-        "chest2",
-        "chest3"
+        ExercisesList().excChestName1,
+        ExercisesList().excChestName2,
+        ExercisesList().excChestName3
       ]
     },
     {
       'name': 'Back',
       'exercise':[
-        "back1",
-        "back2",
-        "back3"
+        ExercisesList().excBackName1,
+        ExercisesList().excBackName2,
+        ExercisesList().excBackName3,
+        ExercisesList().excBackName4
       ]
     },
     {
       'name': 'Legs',
       'exercise':[
-        "legs1",
-        "legs2",
-        "legs3"
+        ExercisesList().excLegsName1,
+        ExercisesList().excLegsName2,
+        ExercisesList().excLegsName3
       ]
     },
     {
       'name': 'Shoulders',
       'exercise':[
-        "shoulders1",
-        "shoulders2",
-        "shoulders3"
+        ExercisesList().excShouldersName1,
+        ExercisesList().excShouldersName2,
+        ExercisesList().excShouldersName3
       ]
     },
     {
       'name': 'Rear',
       'exercise':[
-        "rear1",
-        "rear2",
-        "rear3"
+        ExercisesList().excRearName1,
+        ExercisesList().excRearName2,
+        ExercisesList().excRearName3
       ]
     },
   ];
@@ -159,6 +284,7 @@ List exercisesImage = [
     'exercise':[
       "assets/images/back.png",
       "assets/images/back.png",
+      "assets/images/back.png",
       "assets/images/back.png"
     ]
   },
@@ -192,174 +318,134 @@ List exercisesDescription = [
   {
     'name': 'Abs',
     'exercise':[
-      "absdescription1",
-      "absdescription2",
-      "absdescription3"
+      ExercisesList().excAbsInstruction1,
+      ExercisesList().excAbsInstruction2,
+      ExercisesList().excAbsInstruction3
     ]
   },
   {
     'name': 'Biceps',
     'exercise':[
-      "bicepsdescription1",
-      "bicepsdescription2",
-      "bicepsdescription3"
+      ExercisesList().excBicepsInstruction1,
+      ExercisesList().excBicepsInstruction2,
+      ExercisesList().excBicepsInstruction3
     ]
   },
   {
     'name': 'Triceps',
     'exercise':[
-      "tricepsdescription1",
-      "tricepsdescription2",
-      "tricepsdescription3"
+      ExercisesList().excTricepsInstruction1,
+      ExercisesList().excTricepsInstruction2,
+      ExercisesList().excTricepsInstruction3
     ]
   },
   {
     'name': 'Chest',
     'exercise':[
-      "chestdescription1",
-      "chestdescription2",
-      "chestdescription3"
+      ExercisesList().excChestInstruction1,
+      ExercisesList().excChestInstruction2,
+      ExercisesList().excChestInstruction3
     ]
   },
   {
     'name': 'Back',
     'exercise':[
-      "backdescription1",
-      "backdescription2",
-      "backdescription3"
+      ExercisesList().excBackInstruction1,
+      ExercisesList().excBackInstruction2,
+      ExercisesList().excBackInstruction3,
+      ExercisesList().excBackInstruction4
     ]
   },
   {
     'name': 'Legs',
     'exercise':[
-      "legsdescription1",
-      "legsdescription2",
-      "legsdescription3"
+      ExercisesList().excLegsInstruction1,
+      ExercisesList().excLegsInstruction2,
+      ExercisesList().excLegsInstruction3
     ]
   },
   {
     'name': 'Shoulders',
     'exercise':[
-      "shouldersdescription1",
-      "shouldersdescription2",
-      "shouldersdescription3"
+      ExercisesList().excShouldersInstruction1,
+      ExercisesList().excShouldersInstruction2,
+      ExercisesList().excShouldersInstruction3
     ]
   },
   {
     'name': 'Rear',
     'exercise':[
-      "reardescription1",
-      "reardescription2",
-      "reardescription3"
+      ExercisesList().excRearInstruction1,
+      ExercisesList().excRearInstruction2,
+      ExercisesList().excRearInstruction3
     ]
   },
 ];
-/*
-      'image': "assets/images/abs.png",
-      'name': "absExcercise1",
-      'instruction': "Lorem input",
-      'video': "Video"
-    }
-    ],
-    1: [{
 
-      'image': "assets/images/biceps.png",
-      'name': "absExcercise1",
-      'instruction': "Lorem input",
-      'video': "Video"
-    }, {
-
-
-      'image': "assets/images/biceps.png",
-      'name': "absExcercise1",
-      'instruction': "Lorem input",
-      'video': "Video"
-    }
+List exercisesVideo = [
+  {
+    'name': 'Abs',
+    'exercise':[
+      ExercisesList().excAbsVideo1,
+      ExercisesList().excAbsVideo2,
+      ExercisesList().excAbsVideo3
     ]
-  };
-    1: [
-      WorkoutList(
-          image: "assets/images/biceps.png",
-          name: "bicepsExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/biceps.png",
-          name: "bicepsExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    2: [
-      WorkoutList(
-          image: "assets/images/triceps.png",
-          name: "tricepsExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/triceps.png",
-          name: "tricepsExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    3: [
-      WorkoutList(
-          image: "assets/images/chest.png",
-          name: "chestExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/chest.png",
-          name: "chestExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    4: [
-      WorkoutList(
-          image: "assets/images/back.png",
-          name: "backExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/back.png",
-          name: "backExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    5: [
-      WorkoutList(
-          image: "assets/images/legs.png",
-          name: "legsExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/legs.png",
-          name: "legsExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    6: [
-      WorkoutList(
-          image: "assets/images/shoulders.png",
-          name: "shouldersExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/shoulders.png",
-          name: "shouldersExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-    7: [
-      WorkoutList(
-          image: "assets/images/rear.png",
-          name: "rearExcercise1",
-          instruction: "Lorem input",
-          video: "Video"),
-      WorkoutList(
-          image: "assets/images/rear.png",
-          name: "rearExcercise2",
-          instruction: "Lorem input2",
-          video: "Video2")
-    ],
-
- */
+  },
+  {
+    'name': 'Biceps',
+    'exercise':[
+      ExercisesList().excBicepsVideo1,
+      ExercisesList().excBicepsVideo2,
+      ExercisesList().excBicepsVideo3
+    ]
+  },
+  {
+    'name': 'Triceps',
+    'exercise':[
+      ExercisesList().excTricepsVideo1,
+      ExercisesList().excTricepsVideo2,
+      ExercisesList().excTricepsVideo3
+    ]
+  },
+  {
+    'name': 'Chest',
+    'exercise':[
+      ExercisesList().excChestVideo1,
+      ExercisesList().excChestVideo2,
+      ExercisesList().excChestVideo3
+    ]
+  },
+  {
+    'name': 'Back',
+    'exercise':[
+      ExercisesList().excBackVideo1,
+      ExercisesList().excBackVideo2,
+      ExercisesList().excBackVideo3,
+      ExercisesList().excBackVideo4
+    ]
+  },
+  {
+    'name': 'Legs',
+    'exercise':[
+      ExercisesList().excLegsVideo1,
+      ExercisesList().excLegsVideo2,
+      ExercisesList().excLegsVideo3
+    ]
+  },
+  {
+    'name': 'Shoulders',
+    'exercise':[
+      ExercisesList().excShouldersVideo1,
+      ExercisesList().excShouldersVideo2,
+      ExercisesList().excShouldersVideo3
+    ]
+  },
+  {
+    'name': 'Rear',
+    'exercise':[
+      ExercisesList().excRearVideo1,
+      ExercisesList().excRearVideo2,
+      ExercisesList().excRearVideo3
+    ]
+  },
+];

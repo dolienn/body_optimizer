@@ -23,13 +23,13 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
     body: Container(
-        child: renderTeams(exercisesName, exercisesImage, exercisesDescription),
+        child: renderTeams(exercisesName, exercisesImage, exercisesDescription, exercisesVideo),
     ),
     );
   }
 
 
-Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
+Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exercisesVideo) {
   return Scaffold(
     body: Container(
         decoration: BoxDecoration(
@@ -151,7 +151,7 @@ Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
                           child: ListView.builder(
                               padding: EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 8),
-                              itemCount: excercisesName.length,
+                              itemCount: exercisesName.length,
                               shrinkWrap: true,
                               itemBuilder: (_, index2) {
                                 return Container(
@@ -164,7 +164,7 @@ Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
                                       CrossAxisAlignment.start,
                                       children: [
                                         for(int i=0; i<exercisesImage[0]['exercise'].length; i++)
-                                        PartsCreator().partitions[index].title == excercisesName[index2]['name'] ?
+                                        PartsCreator().partitions[index].title == exercisesName[index2]['name'] ?
                                         Row(
                                           children: [
                                             Padding(
@@ -179,7 +179,7 @@ Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
                                                         10),
                                                     image: DecorationImage(
                                                         image: AssetImage(
-                                                            excercisesImage[index2]['exercise'][i]),
+                                                            exercisesImage[index2]['exercise'][i]),
                                                         fit: BoxFit.cover)),
                                               ),
                                             ),
@@ -193,7 +193,7 @@ Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
                                                   const EdgeInsets.only(
                                                       top: 1.0),
                                                   child: Text(
-                                                    excercisesName[index2]['exercise'][i],
+                                                    exercisesName[index2]['exercise'][i],
                                                     style: TextStyle(
                                                         fontSize: 18,
                                                         fontWeight:
@@ -201,17 +201,7 @@ Widget renderTeams(List excercisesName, excercisesImage, exercisesDescription) {
                                                   ),
                                                 ),
                                                 SizedBox(
-                                                  height: 1,
-                                                ),
-                                                Padding(
-                                                  padding:
-                                                  const EdgeInsets.all(8),
-                                                  child: Text(
-                                                    exercisesDescription[index2]['exercise'][i],
-                                                    style: TextStyle(
-                                                        color:
-                                                        Colors.grey[500]),
-                                                  ),
+                                                  height: 10,
                                                 ),
                                               ],
                                             ),
