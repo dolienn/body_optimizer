@@ -127,7 +127,7 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                       ),
                       Padding(
                         padding:
-                        EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
                         child: Row(
                           children: [
                             const SizedBox(
@@ -149,7 +149,7 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                       ),
                       Expanded(
                           child: ListView.builder(
-                              padding: EdgeInsets.symmetric(
+                              padding: const EdgeInsets.symmetric(
                                   horizontal: 10, vertical: 8),
                               itemCount: exercisesName.length,
                               shrinkWrap: true,
@@ -183,7 +183,7 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                                                         fit: BoxFit.cover)),
                                               ),
                                             ),
-                                            SizedBox(
+                                            const SizedBox(
                                               width: 1,
                                             ),
                                             Column(
@@ -200,7 +200,7 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                                                         FontWeight.bold),
                                                   ),
                                                 ),
-                                                SizedBox(
+                                                const SizedBox(
                                                   height: 10,
                                                 ),
                                               ],
@@ -231,7 +231,7 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                                             ),
                                           ],
                                         )
-                                      :Center()],
+                                      :const Center()],
                                     ));
                               }))
                     ],

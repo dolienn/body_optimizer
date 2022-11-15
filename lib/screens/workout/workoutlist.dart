@@ -45,12 +45,11 @@ class PartsCreator {
 }
 
 class ExercisesList {
+
   //---------ABS--------
+
   var excAbsName1 = 'Laying Leg Raises';
-  var excAbsInstruction1 = "Lay on your back with your arms palms down on either side. "
-      "Keep your legs together and as straight as possible. "
-      "Slowly raise your legs to a 90° angle, pause at this position, or as high as you can reach your legs, and then slowly lower your legs back down. "
-      "Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";
+  var excAbsInstruction1 = "Lay on your back with your arms palms down on either side. Keep your legs together and as straight as possible. Slowly raise your legs to a 90° angle, pause at this position, or as high as you can reach your legs, and then slowly lower your legs back down. Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";
   var excAbsVideo1 = 'assets/videos/laying-leg-raises.gif';
 
   var excAbsName2 = 'Hanging Knee Raises';
@@ -69,7 +68,7 @@ class ExercisesList {
 
   var excBicepsName2 = 'Dumbbell Hammer Curl';
   var excBicepsInstruction2 = "Hold the dumbbells with a neutral grip (thumbs facing the ceiling). Slowly lift the dumbbell up to chest height Return to starting position and repeat.";
-  var excBicepsVideo2 = 'assets/videos/dumbell-hammer-curl.gif';
+  var excBicepsVideo2 = 'assets/videos/dumbbell-hammer-curl.gif';
 
   var excBicepsName3 = 'Goblet Curl';
   var excBicepsInstruction3 = "Stand up straight with a kettlebell in both hands in front of your pelvis. Raise the kettlebell bending your arms at the elbow until the kettlebell is level with your chest. Lower to the starting position and repeat.";
@@ -85,7 +84,7 @@ class ExercisesList {
   var excTricepsInstruction2 = 'Either use two handles or no attachment at all. Both sides of the cable crossover should be set to the top. Stand in the center of the machine holding each Cable in the opposing hand. Your upper arm should be at a 45 degree angle with your torso. Extend your elbows until you feel a contraction and then return to the starting position';
   var excTricepsVideo2 = 'assets/videos/cross-pushdown.gif';
 
-  var excTricepsName3 = 'Cable Overhead Tricep Extension';
+  var excTricepsName3 = 'Cable Overhead Tricep Ext';
   var excTricepsInstruction3 = 'You can use any attachment. The cable should be all the way to the bottom of the machine. Face away from the machine. Point your elbows straight up toward the ceiling. From there, extend your elbows until your fists are pointed straight toward the ceiling.';
   var excTricepsVideo3 = 'assets/videos/cable-overhead-tricep-extension.gif';
 
@@ -95,7 +94,7 @@ class ExercisesList {
   var excChestInstruction1 = 'Use a handle attachment set all the way to the bottom of the machine. Bring both of the handles to your chest and make sure you are in the center of the cable crossover. Walk a few steps forward. Then press the weight forward. From there, your shoulders should horizontally abduct and adduct while your elbows stay in a fixed position.';
   var excChestVideo1 = 'assets/videos/cable-pec-fly.gif';
 
-  var excChestName2 = 'Incline Dumbbell Bench Press';
+  var excChestName2 = 'Incline Dumbbell Bench';
   var excChestInstruction2 = 'Raise the bench to a 30 - 45 degree angle. Lay on the bench and set your feet on the ground. Raise the dumbbells with straight arms then slowly lower them to about shoulder width. Raise them again until your arms are locked and at the starting position again.';
   var excChestVideo2 = 'assets/videos/incline-dumbbell-bench-press.gif';
 
@@ -131,8 +130,8 @@ class ExercisesList {
   var excLegsVideo2 = 'assets/videos/dumbbell-calf-raise.gif';
 
   var excLegsName3 = 'Pull Through';
-  var excLegsInstruction3 = '';
-  var excLegsVideo3 = '';
+  var excLegsInstruction3 = 'This exercise works best with a rope attachment but can be done with anything. The attachment should be set to the bottom of the machine. Face away from the cable machine, straddle the cable itself, and grab the attachment. Walk a few steps away. Break at the hips while maintaining a flat back and mostly extended knees. Push hips forward until you are back in a standing position.';
+  var excLegsVideo3 = 'assets/videos/pull-through.gif';
 
   //---------SHOULDERS--------
 
@@ -290,9 +289,9 @@ List exercisesImage = [
   {
     'name': 'Legs',
     'exercise':[
-      "assets/images/back.png",
-      "assets/images/back.png",
-      "assets/images/back.png"
+      "assets/images/legs.png",
+      "assets/images/legs.png",
+      "assets/images/legs.png"
     ]
   },
   {
