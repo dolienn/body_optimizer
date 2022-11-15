@@ -565,7 +565,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
                     child: ListView(
                         children: <Widget>[
-                          //Text('$Exercises'),
                           Form(
                             key: _formKey,
                             child: Column(
@@ -694,10 +693,10 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                               onPressed: () {
                                                 if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
                                                   workoutName = myController.text;
-                                                  const snackBar = SnackBar(
+                                                  /*const snackBar = SnackBar(
                                                     content: Text('Created workout!'),
                                                   );
-                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
                                                   /*ElegantNotification.success(
                                                     width: 360,
                                                     notificationPosition: NotificationPosition.bottomCenter,
@@ -706,10 +705,10 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                     description: const Text('Your workout has been saved!'),
                                                   ).show(context);*/
                                                 } else {
-                                                  const snackBar = SnackBar(
+                                                  /*const snackBar = SnackBar(
                                                     content: Text('Could not create the workout!'),
                                                   );
-                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
                                                   /*ElegantNotification.error(
                                                     width: 360,
                                                     notificationPosition: NotificationPosition.bottomCenter,
@@ -733,7 +732,8 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                         ]
                     )
                 )
-            )
+            ),
+            resizeToAvoidBottomInset: false
         )
     );
   }
