@@ -6,7 +6,7 @@ Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
 fix elegant notifications
-
+a
 EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
 
 Useful links etc.
