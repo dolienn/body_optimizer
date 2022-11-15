@@ -22,6 +22,7 @@ dependencies:
   intl: ^0.17.0
   google_fonts:
   elegant_notification: ^1.6.4
+  flutter_time_picker_spinner: ^2.0.0
 
 dev_dependencies:
   flutter_test:
