@@ -17,9 +17,12 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
-  List<String> workouts = [
-    "Abs workout",
-    "Custom workout",
+  String workoutToday = "Abs workout";
+  List<String> workoutTomorrow = [
+    "Custom Workout 1",
+    "Custom Workout 2",
+    "Custom Workout 3",
+    "Custom Workout 4"
   ];
   int numOfExercises = 13, numOfExercisesLeft = 13;
 
@@ -59,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   loadPreviousEvents() {
     selectedEvents = {
       "2022-11-15": [
-        {"eventTitle": "Abs Workout", "eventTime": "21:35"},
+        {"eventTitle": "Legs Workout", "eventTime": "21:35"},
         {"eventTitle": "Back Workout", "eventTime": "22:50"}
       ],
       "2022-11-16": [
@@ -71,9 +74,9 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
-    _selectedDay = _focusedDay;
     countPercentage();
     loadPreviousEvents();
+    _selectedDay = _focusedDay;
   }
 
   @override
@@ -333,7 +336,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                               {
                                                 "eventTitle":
                                                     titleController.text,
-                                                "eventTime": "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
+                                                "eventTime":
+                                                    "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
                                               }
                                             ]);
                                           } else {
@@ -343,7 +347,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                                 {
                                                   "eventTitle":
                                                       titleController.text,
-                                                  "eventTime": "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
+                                                  "eventTime":
+                                                      "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
                                                 }
                                               ]
                                             });
@@ -398,7 +403,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       Padding(
                         padding: PublicVariables().paddingAll,
                         child: Text(
-                          workouts[0],
+                          workoutToday,
                           style: PublicVariables().subheaderText,
                         ),
                       ),
@@ -490,29 +495,36 @@ class _MyHomePageState extends State<MyHomePage> {
                       Text("Tomorrow", style: PublicVariables().headerText),
                     ]),
                     Column(children: [
-                      Container(
-                        height: 50,
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.85,
-                        margin: PublicVariables().marginSymmetricVertical,
-                        padding: const EdgeInsets.all(15),
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: const [
-                            BoxShadow(
-                                color: Colors.grey,
-                                blurRadius: 1.5,
-                                offset: Offset(1, 2)),
-                          ],
-                        ),
-                        child: Text(
-                          workouts[1],
-                          style: PublicVariables().normalMainColorText,
-                        ),
-                      ),
-                      TextButton(
-                          onPressed: () {}, child: const Text("Add workout")),
+                      if (workoutTomorrow.isEmpty) ...[
+                        Text(
+                          "No workouts planned for tomorrow!",
+                          style: PublicVariables().subheaderText,
+                        )
+                      ] else ...[
+                        for (String workout in workoutTomorrow) ...[
+                          Container(
+                            height: 50,
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width * 0.85,
+                            margin: PublicVariables().marginSymmetricVertical,
+                            padding: const EdgeInsets.all(15),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: const [
+                                BoxShadow(
+                                    color: Colors.grey,
+                                    blurRadius: 1.5,
+                                    offset: Offset(1, 2)),
+                              ],
+                            ),
+                            child: Text(
+                              workout,
+                              style: PublicVariables().normalMainColorText,
+                            ),
+                          ),
+                        ],
+                      ],
                     ]),
                   ]),
                 ),
