@@ -122,7 +122,6 @@ class ExercisesList {
   var excBackVideo4 = 'assets/videos/deadlift.gif';
 
   //---------LEGS--------
-
   var excLegsName1 = 'Barbell Squat';
   var excLegsInstruction1 = 'Stand with your feet shoulder-width apart. Maintain the natural arch in your back, squeezing your shoulder blades and raising your chest. Grip the bar across your shoulders and support it on your upper back. Unwrack the bar by straightening your legs, and take a step back. Bend your knees as you lower the weight without altering the form of your back until your hips are below your knees. Raise the bar back to starting position, lift with your legs and exhale at the top.';
   var excLegsVideo1 = 'assets/videos/barbell-squat.gif';
