@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +21,23 @@ class _WorkoutStartState extends State<WorkoutStart> {
   get index => input;
   get index2 => input2;
 
+  static const maxSeconds = 30;
+  int seconds = maxSeconds;
+  Timer? timer;
+
+  void startTimer(){
+    timer = Timer.periodic(Duration(seconds: 1), (_) {
+      setState(() => seconds--);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
           child: Column(
             children: [
+              buildTime(),
               Row(
                 children: [
                   Image.asset(exercisesVideo[index2]['exercise'][0]),
@@ -46,4 +59,10 @@ class _WorkoutStartState extends State<WorkoutStart> {
       ),
     );
   }
+  Widget buildTime(){
+    return Text(
+      '$seconds',
+    );
+  }
 }
+

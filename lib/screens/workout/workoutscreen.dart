@@ -37,6 +37,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
 
   get index => input;
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
