@@ -1,6 +1,7 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
-import 'package:body_optimizer/screens/mainpage.dart';
+import 'package:body_optimizer/screens/nav_bar.dart';
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
 class Splash extends StatefulWidget {
   const Splash({super.key});
