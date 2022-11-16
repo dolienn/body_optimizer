@@ -41,6 +41,7 @@ dependencies:
   intl:
   persistent_bottom_nav_bar: ^5.0.2
   get:
+  modal_bottom_sheet:
 
 dev_dependencies:
   flutter_test:
