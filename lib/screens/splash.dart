@@ -24,7 +24,7 @@ class _Splash extends State<Splash> {
       ),
       duration: 1750,
       centered: true,
-      splashTransition: SplashTransition.slideTransition,
+      splashTransition: SplashTransition.fadeTransition,
       backgroundColor: Colors.white,
       nextScreen: const MainPage(),
     );

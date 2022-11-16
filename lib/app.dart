@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Splash(),
+      title: "Body Optimizer",
     );
   }
 }

@@ -6,9 +6,15 @@ import 'package:path_provider/path_provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:intl/intl.dart';
 import '../constants.dart';
 import 'dart:io';
+
+//     TO DO     //
+// delete events //
+// from file and //
+// widget        //
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({Key? key}) : super(key: key);
@@ -17,9 +23,7 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  // FILE //
-  String fileName = "savedEvents.json";
+class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout";
   List<String> workoutTomorrow = [
@@ -29,10 +33,12 @@ class _MyHomePageState extends State<MyHomePage> {
     "Custom Workout 4"
   ];
   int numOfExercises = 13, numOfExercisesLeft = 13;
-
+  // FILE //
+  String fileName = "savedEvents.json";
+  // ANIMATION CONTROLLER //
+  late AnimationController _animationController;
   // PROGRESS BAR //
   double currentProgress = 0.0, displayedProgress = 0.0;
-
   countPercentage() {
     currentProgress =
         1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
@@ -54,7 +60,6 @@ class _MyHomePageState extends State<MyHomePage> {
       hoursAndMinutes = DateTime.now();
   DateTime? _selectedDay;
   Map<String, List> selectedEvents = {};
-
   List _listOfDayEvents(DateTime dateTime) {
     if (selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
@@ -63,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   // FILE INITIALIZATION //
-
   Future<String> getFilePath() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String documentsPath = documentsDirectory.path;
@@ -109,6 +113,14 @@ class _MyHomePageState extends State<MyHomePage> {
     _selectedDay = _focusedDay;
     countPercentage();
     readFile();
+    _animationController =
+        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -162,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     child: TableCalendar(
                       focusedDay: _focusedDay,
                       firstDay: DateTime(2022),
-                      lastDay: DateTime(2050),
+                      lastDay: DateTime(2040),
                       calendarFormat: _calendarFormat,
                       formatAnimationCurve: Curves.easeInOut,
                       formatAnimationDuration:
@@ -289,12 +301,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          title: Container(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Plan your workout",
-                              style: PublicVariables().headerText,
-                            ),
+                          titlePadding: const EdgeInsets.all(5),
+                          contentPadding: const EdgeInsets.all(5),
+                          actionsPadding: const EdgeInsets.all(5),
+                          actionsAlignment: MainAxisAlignment.end,
+                          alignment: Alignment.center,
+                          title: Text(
+                            "Plan your workout",
+                            style: PublicVariables().headerText,
                           ),
                           content: Column(children: [
                             TextFormField(
@@ -302,8 +316,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               controller: titleController,
                               decoration: InputDecoration(
                                   labelText: "Input title",
-                                  labelStyle:
-                                      PublicVariables().normalGreyText),
+                                  labelStyle: PublicVariables().normalGreyText),
                             ),
                             TimePickerSpinner(
                               time: hoursAndMinutes,
@@ -318,83 +331,106 @@ class _MyHomePageState extends State<MyHomePage> {
                             ),
                           ]),
                           actions: [
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: TextButton(
-                                child: Text("Cancel",
-                                    style:
-                                        PublicVariables().normalMainColorText),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
+                            TextButton(
+                              child: Text("Cancel",
+                                  style: PublicVariables().normalMainColorText),
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(5),
-                              child: TextButton(
-                                child: Text("Confirm",
-                                    style:
-                                        PublicVariables().normalMainColorText),
-                                onPressed: () {
-                                  if (titleController.text.isEmpty) {
-                                    ElegantNotification.error(
-                                      toastDuration: const Duration(seconds: 2),
-                                      animationDuration:
-                                          const Duration(milliseconds: 500),
-                                      animation: AnimationType.fromTop,
-                                      notificationPosition:
-                                          NotificationPosition.topCenter,
-                                      showProgressIndicator: false,
-                                      title: const Text("Error"),
-                                      description:
-                                          const Text("Title is empty!"),
-                                    ).show(context);
-                                  } else {
-                                    Navigator.pop(context);
-                                    ElegantNotification.success(
-                                      toastDuration: const Duration(seconds: 2),
-                                      animationDuration:
-                                          const Duration(milliseconds: 500),
-                                      animation: AnimationType.fromTop,
-                                      notificationPosition:
-                                          NotificationPosition.topCenter,
-                                      showProgressIndicator: false,
-                                      title: const Text("Success"),
-                                      description: const Text(
-                                          "Your workout has been added!"),
-                                    ).show(context);
+                            TextButton(
+                              child: Text("Confirm",
+                                  style: PublicVariables().normalMainColorText),
+                              onPressed: () {
+                                if (titleController.text.isEmpty) {
+                                  ElegantNotification(
+                                    icon: Lottie.asset(
+                                      'assets/animations/error.json',
+                                      controller: _animationController,
+                                      repeat: true,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.1,
+                                      onLoaded: (composition) {
+                                        _animationController
+                                          ..duration = composition.duration
+                                          ..reset()
+                                          ..forward();
+                                      },
+                                    ),
+                                    toastDuration: const Duration(seconds: 2),
+                                    animationDuration:
+                                        const Duration(milliseconds: 500),
+                                    animation: AnimationType.fromTop,
+                                    notificationPosition:
+                                        NotificationPosition.topCenter,
+                                    showProgressIndicator: false,
+                                    title: const Text("Error"),
+                                    description: const Text("Title is empty!"),
+                                  ).show(context);
+                                } else {
+                                  Navigator.pop(context);
+                                  ElegantNotification(
+                                    icon: Lottie.asset(
+                                      'assets/animations/confirm.json',
+                                      controller: _animationController,
+                                      repeat: true,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.1,
+                                      height:
+                                          MediaQuery.of(context).size.width *
+                                              0.1,
+                                      onLoaded: (composition) {
+                                        _animationController
+                                          ..duration = composition.duration
+                                          ..reset()
+                                          ..forward();
+                                      },
+                                    ),
+                                    toastDuration: const Duration(seconds: 2),
+                                    animationDuration:
+                                        const Duration(milliseconds: 500),
+                                    animation: AnimationType.fromTop,
+                                    notificationPosition:
+                                        NotificationPosition.topCenter,
+                                    showProgressIndicator: false,
+                                    title: const Text("Success"),
+                                    description: const Text(
+                                        "Your workout has been added!"),
+                                  ).show(context);
 
-                                    if (selectedEvents.containsKey(
-                                        "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}")) {
-                                      selectedEvents[
-                                              "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"]!
-                                          .addAll([
+                                  if (selectedEvents.containsKey(
+                                      "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}")) {
+                                    selectedEvents[
+                                            "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"]!
+                                        .addAll([
+                                      {
+                                        "eventTitle": titleController.text,
+                                        "eventTime":
+                                            "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
+                                      }
+                                    ]);
+                                  } else {
+                                    selectedEvents.addAll({
+                                      "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
+                                          [
                                         {
                                           "eventTitle": titleController.text,
                                           "eventTime":
                                               "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
                                         }
-                                      ]);
-                                    } else {
-                                      selectedEvents.addAll({
-                                        "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
-                                            [
-                                          {
-                                            "eventTitle": titleController.text,
-                                            "eventTime":
-                                                "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
-                                          }
-                                        ]
-                                      });
-                                    }
-                                    setState(() {});
-                                    saveFile(
-                                        "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}",
-                                        titleController.text,
-                                        "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}");
+                                      ]
+                                    });
                                   }
-                                },
-                              ),
+                                  setState(() {});
+                                  saveFile(
+                                      "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}",
+                                      titleController.text,
+                                      "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}");
+                                }
+                              },
                             ),
                           ],
                         ),
@@ -495,7 +531,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 }
                               },
                               child: Text(
-                                "increase exercise",
+                                "Add 1 exercise",
                                 style: PublicVariables().normalMainColorText,
                               )),
                           TextButton(
