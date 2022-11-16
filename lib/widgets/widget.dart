@@ -11,19 +11,22 @@ Widget buildTextField(text) => Padding(
   ),
 );
 
-Widget buildTextField1(text)=>TextFormField(
-  decoration: InputDecoration(
-    enabledBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.transparent),
-      borderRadius: BorderRadius.circular(5.5),
-    ),
-    focusedBorder: OutlineInputBorder(
-      borderSide: const BorderSide(color: Colors.transparent),
-      borderRadius: BorderRadius.circular(5.5)
-    ),
-    hintText: text,
-    hintStyle: const TextStyle(color: Color(0xFF5650DE),),
-    filled: true,
-    fillColor: const Color(0xFF5650DE).withOpacity(0.15),
-  )
+Widget buildTextField1(text)=>Container(
+  height: 40,
+  child:   TextFormField(
+    decoration: InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(5.5),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(5.5)
+      ),
+      labelText: text,
+      hintStyle: const TextStyle(color: Color(0xFF5650DE),),
+      filled: true,
+      fillColor: const Color(0xFF5650DE).withOpacity(0.15),
+    )
+  ),
 );

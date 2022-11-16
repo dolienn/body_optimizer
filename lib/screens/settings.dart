@@ -9,6 +9,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -50,10 +51,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       age = splitted[2];
       weight = splitted[3];
       height = splitted[4];
-      rest_time = splitted[5];
-      rest_time += " ${splitted[6]}";
-      goal = splitted[7];
-      goal += " ${splitted[8]}";
+      rest_time = "${splitted[5]} ${splitted[6]}";
+      goal = "${splitted[7]} ${splitted[8]}";
     });
   }
 
@@ -131,7 +130,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
+                        padding: const EdgeInsets.symmetric(vertical: 10),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton2(
                             isExpanded: true,
@@ -173,7 +172,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             icon: const Icon(
                               Icons.arrow_drop_down_circle_outlined,
                             ),
-                            iconSize: 22,
+                            iconSize: 20,
                             iconEnabledColor: Colors.white,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
@@ -194,7 +193,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                 const EdgeInsets.symmetric(horizontal: 15),
                             dropdownMaxHeight: 200,
                             dropdownWidth:
-                                MediaQuery.of(context).size.width * 0.95,
+                                MediaQuery.of(context).size.width * 0.9,
                             dropdownPadding: null,
                             dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
@@ -211,9 +210,217 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                   buildTextField('Your Weight: $weight'),
                   buildTextField('Your Height: $height'),
                   Container(
-                    height: 30,
+                    height: 40,
                     width: MediaQuery.of(context).size.width * 0.9,
-                    margin: const EdgeInsets.symmetric(vertical: 25),
+                    margin: const EdgeInsets.symmetric(vertical: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                    ),
+                    child: TextButton(
+                      onPressed: () {},
+                      style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xFF5650DE),
+                        foregroundColor: Colors.white,
+                        side: const BorderSide(
+                          width: 1.0,
+                          color: Colors.deepPurple,
+                        ),
+                      ),
+                      child: const Text(
+                        'Save',
+                        style: TextStyle(fontSize: 14, letterSpacing: 1),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Card(
+              elevation: 1,
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 90,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Padding(
+                          padding: EdgeInsets.all(10),
+                          child: Text("Preferences",
+                              style: TextStyle(
+                                fontSize: 22,
+                                color: Colors.black,
+                              )),
+                        )
+                      ],
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2(
+                            isExpanded: true,
+                            hint: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    rest_time,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            items: itemsforrest
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ))
+                                .toList(),
+                            value: selectedValueforrest,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValueforrest = value as String;
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.arrow_drop_down_circle_outlined,
+                            ),
+                            iconSize: 20,
+                            iconEnabledColor: Colors.white,
+                            iconDisabledColor: Colors.grey,
+                            buttonHeight: 40,
+                            buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                            buttonPadding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                            buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: Colors.black26,
+                              ),
+                              color: const Color(0xFF5650DE),
+                            ),
+                            buttonElevation: 2,
+                            itemHeight: 25,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                            dropdownMaxHeight: 220,
+                            dropdownWidth:
+                                MediaQuery.of(context).size.width * 0.9,
+                            dropdownPadding: null,
+                            dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              color: const Color(0xFF5650DE),
+                            ),
+                            dropdownElevation: 8,
+                            offset: const Offset(0, 0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton2(
+                            isExpanded: true,
+                            hint: Row(
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    goal,
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                    ),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            items: itemsforgoal
+                                .map((item) => DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(
+                                        item,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ))
+                                .toList(),
+                            value: selectedValueforgoal,
+                            onChanged: (value) {
+                              setState(() {
+                                selectedValueforgoal = value as String;
+                              });
+                            },
+                            icon: const Icon(
+                              Icons.arrow_drop_down_circle_outlined,
+                            ),
+                            iconSize: 20,
+                            iconEnabledColor: Colors.white,
+                            iconDisabledColor: Colors.grey,
+                            buttonHeight: 40,
+                            buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                            buttonPadding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                            buttonDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15),
+                              border: Border.all(
+                                color: Colors.black26,
+                              ),
+                              color: const Color(0xFF5650DE),
+                            ),
+                            buttonElevation: 2,
+                            itemHeight: 30,
+                            itemPadding:
+                                const EdgeInsets.symmetric(horizontal: 15),
+                            dropdownMaxHeight: 200,
+                            dropdownWidth:
+                                MediaQuery.of(context).size.width * 0.9,
+                            dropdownPadding: null,
+                            dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: const Color(0xFF5650DE),
+                            ),
+                            dropdownElevation: 8,
+                            offset: const Offset(0, 0),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    margin: const EdgeInsets.symmetric(vertical: 30),
                     padding: const EdgeInsets.symmetric(horizontal: 2.5),
                     decoration: const BoxDecoration(
                       color: Colors.white,
@@ -241,213 +448,8 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
               ),
             ),
           ),
-          Card(
-            elevation: 1,
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 90,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: const <Widget>[
-                      Padding(
-                        padding: EdgeInsets.all(10),
-                        child: Text("Preferences",
-                            style: TextStyle(
-                              fontSize: 22,
-                              color: Colors.black,
-                            )),
-                      )
-                    ],
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          isExpanded: true,
-                          hint: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  rest_time,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          items: itemsforrest
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ))
-                              .toList(),
-                          value: selectedValueforrest,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValueforrest = value as String;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.arrow_drop_down_circle_outlined,
-                          ),
-                          iconSize: 22,
-                          iconEnabledColor: Colors.white,
-                          iconDisabledColor: Colors.grey,
-                          buttonHeight: 40,
-                          buttonWidth: MediaQuery.of(context).size.width * 0.90,
-                          buttonPadding:
-                              const EdgeInsets.symmetric(horizontal: 15),
-                          buttonDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.black26,
-                            ),
-                            color: const Color(0xFF5650DE),
-                          ),
-                          buttonElevation: 2,
-                          itemHeight: 25,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 15),
-                          dropdownMaxHeight: 220,
-                          dropdownWidth:
-                              MediaQuery.of(context).size.width * 0.95,
-                          dropdownPadding: null,
-                          dropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            color: Colors.deepPurple.shade900,
-                          ),
-                          dropdownElevation: 8,
-                          offset: const Offset(0, 0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 5),
-                      child: DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          isExpanded: true,
-                          hint: Row(
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  goal,
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.yellow,
-                                  ),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
-                          ),
-                          items: itemsforgoal
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item,
-                                    child: Text(
-                                      item,
-                                      style: const TextStyle(
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
-                                      ),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ))
-                              .toList(),
-                          value: selectedValueforgoal,
-                          onChanged: (value) {
-                            setState(() {
-                              selectedValueforgoal = value as String;
-                            });
-                          },
-                          icon: const Icon(
-                            Icons.arrow_drop_down_circle_outlined,
-                          ),
-                          iconSize: 22,
-                          iconEnabledColor: Colors.white,
-                          iconDisabledColor: Colors.grey,
-                          buttonHeight: 40,
-                          buttonWidth: MediaQuery.of(context).size.width * 0.9,
-                          buttonPadding:
-                              const EdgeInsets.symmetric(horizontal: 15),
-                          buttonDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border: Border.all(
-                              color: Colors.black26,
-                            ),
-                            color: const Color(0xFF5650DE),
-                          ),
-                          buttonElevation: 2,
-                          itemHeight: 30,
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 15),
-                          dropdownMaxHeight: 200,
-                          dropdownWidth:
-                              MediaQuery.of(context).size.width * 0.95,
-                          dropdownPadding: null,
-                          dropdownDecoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: const Color(0xFF5650DE),
-                          ),
-                          dropdownElevation: 8,
-                          offset: const Offset(0, 0),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  height: 30,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                  ),
-                  child: TextButton(
-                    onPressed: () {},
-                    style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xFF5650DE),
-                      foregroundColor: Colors.white,
-                      side: const BorderSide(
-                        width: 1.0,
-                        color: Color(0xFF5650DE),
-                      ),
-                    ),
-                    child: const Text(
-                      'Save',
-                      style: TextStyle(fontSize: 14, letterSpacing: 1),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
           Container(
+            padding: const EdgeInsets.all(10.0),
             child: Card(
               elevation: 1,
               child: Column(
@@ -459,38 +461,74 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       children: const <Widget>[
                         Padding(
                           padding: EdgeInsets.all(10),
-                          child: Text("About Us",
+                          child: Text("Made By",
                               style:
                                   TextStyle(fontSize: 22, color: Colors.black)),
                         )
                       ],
                     ),
                   ),
-                  SizedBox(
-                    child: Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(15, 0, 0, 15),
-                          child: Text(
-                            'App made by:',
-                            style: TextStyle(fontSize: 18),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.40,
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Bartłomiej Dzik',
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
                           ),
-                        )
+                        ),
+                        Card(
+                          child: Container(
+                              width: MediaQuery.of(context).size.width * 0.40,
+                              height: 50,
+                              child: Padding(
+                                padding: const EdgeInsets.all(15.0),
+                                child: Text(
+                                  'Dominik Bigus',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                  SizedBox(
-                    child: Row(
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.fromLTRB(25, 0, 0, 15),
-                          child: Text(
-                            'Bartłoemiej Dzik\nKamil Ludwikowski\nDominik Bigus\nJakub Cendecki',
-                            style: TextStyle(fontSize: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Card(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          height: 50,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              'Kamil Ludwikowski',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        )
-                      ],
-                    ),
+                        ),
+                      ),
+                      Card(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          height: 50,
+                          child: Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: Text(
+                              'Jakub Cendecki',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
                   ),
                 ],
               ),
