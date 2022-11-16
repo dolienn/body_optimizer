@@ -231,7 +231,42 @@ Widget renderTeams(List exercisesName, exercisesImage, exercisesDescription, exe
                                             ),
                                           ],
                                         )
-                                      :const Center()],
+                                      :const Center(),
+                                      SizedBox(height: 18,),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            width: 80,
+                                            height: 20,
+                                            decoration: BoxDecoration(
+                                              color: Color(0xFFeaeefc),
+                                              borderRadius: BorderRadius.circular(10),
+                                            ),
+                                            child: Center(
+                                              child: Text(
+                                                "15s rest",
+                                                style: TextStyle(
+                                                  color: Color(0xFF83fed),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                          Row(
+                                            children: [
+                                              for(int i=0; i<70; i++)
+                                              i.isEven?Container(
+                                                width: 3,
+                                                height: 1,
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFF839fed),
+                                                  borderRadius: BorderRadius.circular(2),
+                                                ),
+                                              ):Container()
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                      ],
                                     ));
                               }))
                     ],
