@@ -7,6 +7,7 @@ Create some sort of exercise data class/list that will be available in the entir
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
 fix elegant notifications
 a
+value notifier
 EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
 
 Useful links etc.
@@ -16,7 +17,9 @@ https://mercyjemosop.medium.com/flutter-list-view-1045969b1799
 Create an ID for every exercise
 Create a time value for exercises for workout.
  */
+import 'workoutExercises.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:elegant_notification/elegant_notification.dart';
@@ -518,6 +521,8 @@ class WorkoutCreator extends StatefulWidget {
   State<WorkoutCreator> createState() => _WorkoutCreatorState();
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
+  //static ValueNotifier<List> workoutList;
+  //final ValueNotifier<List> workoutLista = ValueNotifier([]);
   static String workoutName = "";
   static List<String> workoutList = [];
   final myController = TextEditingController();
