@@ -7,7 +7,6 @@ Create some sort of exercise data class/list that will be available in the entir
 I think that I somehow need to get the Row out of List view but I don't know how to do it.
 fix elegant notifications
 a
-value notifier
 EDITING WORKOUT make it so on pressing cancel the program will revert all changes and keep the workout details (right now it's basically a nuke, destroys everything)
 
 Useful links etc.
@@ -539,7 +538,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
         title: const Text('Delete the workout?'),
-        content: const Text('Leave without saving changes?'),
+        content: const Text('💣This is a nuclear option💣!'),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
             isDefaultAction: true,
@@ -710,25 +709,25 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                     content: Text('Created workout!'),
                                                   );
                                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
-                                                  /*ElegantNotification.success(
+                                                  ElegantNotification.success(
                                                     width: 360,
                                                     notificationPosition: NotificationPosition.bottomCenter,
                                                     animation: AnimationType.fromBottom,
                                                     title: const Text('Created workout'),
                                                     description: const Text('Your workout has been saved!'),
-                                                  ).show(context);*/
+                                                  ).show(context);
                                                 } else {
                                                   /*const snackBar = SnackBar(
                                                     content: Text('Could not create the workout!'),
                                                   );
                                                   ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
-                                                  /*ElegantNotification.error(
+                                                  ElegantNotification.error(
                                                     width: 360,
                                                     notificationPosition: NotificationPosition.bottomCenter,
                                                     animation: AnimationType.fromBottom,
                                                     title: const Text('Failed to save workout'),
                                                     description: const Text('Make sure that you have a correct workout name and workouts.'),
-                                                  ).show(context);*/
+                                                  ).show(context);
                                                 }
                                               },
                                               child: const Text('Create'),
