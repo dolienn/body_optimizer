@@ -522,17 +522,23 @@ class WorkoutCreator extends StatefulWidget {
 }
 class _WorkoutCreatorState extends State<WorkoutCreator>{
   //static ValueNotifier<List> workoutList;
-  //final ValueNotifier<List> workoutLista = ValueNotifier([]);
+  //static ValueNotifier<List<String>> workoutList = ValueNotifier([]);
   static String workoutName = "";
   static List<String> workoutList = [];
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  static ValueNotifier<int> notif = ValueNotifier<int>(0);
+  /*static void updateState(text){
+    setState(() {
+      workoutList.add(text);
+    });
+  }*/
 
   void _showAlertDialog(BuildContext context) {
     showCupertinoModalPopup<void>(
       context: context,
       builder: (BuildContext context) => CupertinoAlertDialog(
-        title: const Text('Discard changes?'),
+        title: const Text('Delete the workout?'),
         content: const Text('Leave without saving changes?'),
         actions: <CupertinoDialogAction>[
           CupertinoDialogAction(
@@ -548,6 +554,9 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
               workoutName = "";
               workoutList = [];
               Navigator.pop(context);
+              setState(() {
+
+              });
             },
             child: const Text('Yes'),
           ),
@@ -578,7 +587,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   controller: myController,
                                   textAlign: TextAlign.center,
                                   decoration: const InputDecoration(
-                                      hintText: 'Custom workout name'
+                                      hintText: 'Your workout name'
                                   ),
                                   onSaved: (String? value) {
                                     // This optional block of code can be used to run
@@ -597,53 +606,52 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   physics: const ScrollPhysics(),
                                   child: Column(
                                     children: [
-                                      ListView.builder(
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          itemCount: workoutList.length,
-                                          scrollDirection: Axis.vertical,
-                                          shrinkWrap: true,
-                                          padding: EdgeInsets.zero,
-                                          itemBuilder: (BuildContext context, int index) {
-                                            return ListTile(
-                                              contentPadding: EdgeInsets.zero,
-                                              leading: IconButton(
-                                                onPressed: (){
-                                                workoutList.removeAt(index);
-                                                Navigator.pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => const WorkoutCreator()),
-                                                      (Route<dynamic> route) => false,
-                                                );
-                                              }, icon: const Icon(Icons.close),
-                                                padding: EdgeInsets.zero,
+                                      ValueListenableBuilder(
+                                          builder: (BuildContext context, int value, Widget? child) {
+                                        return ListView.builder(
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemCount: workoutList.length,
+                                            scrollDirection: Axis.vertical,
+                                            shrinkWrap: true,
+                                            padding: EdgeInsets.zero,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              return ListTile(
+                                                contentPadding: EdgeInsets.zero,
+                                                leading: IconButton(
+                                                  onPressed: (){
+                                                    setState(() {
+                                                  workoutList.removeAt(index);
+                                                    });
+                                                }, icon: const Icon(Icons.close),
+                                                  padding: EdgeInsets.zero,
 
-                                              ),
-                                              title: Text(workoutList[index]),
-                                              trailing: IconButton(
-                                                style: ButtonStyle(
-                                                  padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
-                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                                 ),
-                                                onPressed: () {
-                                                  if(index != 0) {
-                                                    var placeholder = workoutList[index - 1];
-                                                    workoutList[index - 1] =
-                                                    workoutList[index];
-                                                    workoutList[index] = placeholder;
-                                                  }
-                                                  Navigator.pushAndRemoveUntil(
-                                                    context,
-                                                    MaterialPageRoute(builder: (context) => const WorkoutCreator()),
-                                                        (Route<dynamic> route) => false,
-                                                  );
-                                                },
-                                                icon: const Icon(
-                                                    Icons.menu,
-                                                        color: Color(0xFF5650DE)
+                                                title: Text(workoutList[index]),
+                                                trailing: IconButton(
+                                                  style: ButtonStyle(
+                                                    padding: MaterialStateProperty.all<EdgeInsets>(const EdgeInsets.all(0)),
+                                                    foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                                  ),
+                                                  onPressed: () {
+                                                    setState(() {
+
+
+                                                    if(index != 0) {
+                                                      var placeholder = workoutList[index - 1];
+                                                      workoutList[index - 1] =
+                                                      workoutList[index];
+                                                      workoutList[index] = placeholder;
+                                                    }
+                                                    });
+                                                  },
+                                                  icon: const Icon(
+                                                      Icons.menu,
+                                                          color: Color(0xFF5650DE)
+                                                  ),
                                                 ),
-                                              ),
-                                            );
-                                          }
+                                              );
+                                            }
+                                        );}, valueListenable: notif,
                                       ),
                                     ],
                                   ),
@@ -674,7 +682,7 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                 Align(
                                   alignment: Alignment.bottomCenter,
                                   child: Padding(
-                                    padding: EdgeInsets.only(bottom: 15),
+                                    padding: const EdgeInsets.only(bottom: 15),
                                     child: Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: <Widget>[
@@ -786,13 +794,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                               ]
                           ),
                           child: GridTile(
-                            header: const Padding(
-                              padding: EdgeInsets.only(top: 10),
+                            header: Padding(
+                              padding: const EdgeInsets.only(top: 10),
                               child: Center(
                                 child: SizedBox(
                                     height: 150,
                                     width: 150,
-                                    child: Icon(Icons.abc)),
+                                    child: Image.asset("assets/images/abs.png", scale: 10)),
                               ),
                             ),
 
@@ -836,13 +844,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                       ]
                   ),
                   child: GridTile(
-                    header: const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    header: Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: Icon(Icons.abc)),
+                            child: Image.asset("assets/images/biceps.png", scale: 10)),
                       ),
                     ),
 
@@ -885,13 +893,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                       ]
                   ),
                   child: GridTile(
-                    header: const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    header: Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: Icon(Icons.abc)),
+                            child: Image.asset("assets/images/triceps.png", scale: 10)),
                       ),
                     ),
 
@@ -934,13 +942,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                       ]
                   ),
                   child: GridTile(
-                    header: const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    header: Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: Icon(Icons.abc)),
+                            child: Image.asset("assets/images/chest.png", scale: 10)),
                       ),
                     ),
 
@@ -983,13 +991,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                       ]
                   ),
                   child: GridTile(
-                    header: const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    header: Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: Icon(Icons.abc)),
+                            child: Image.asset("assets/images/back.png", scale: 10)),
                       ),
                     ),
 
@@ -1032,13 +1040,13 @@ class WorkoutCreatorChooseCategory extends StatelessWidget {
                       ]
                   ),
                   child: GridTile(
-                    header: const Padding(
-                      padding: EdgeInsets.only(top: 10),
+                    header: Padding(
+                      padding: const EdgeInsets.only(top: 10),
                       child: Center(
                         child: SizedBox(
                             height: 150,
                             width: 150,
-                            child: Icon(Icons.abc)),
+                            child: Image.asset("assets/images/legs.png", scale: 10)),
                       ),
                     ),
 
@@ -1131,6 +1139,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Medicine Ball Slam");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
@@ -1210,6 +1219,7 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Reverse-Grip Barbell Row");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
@@ -1289,6 +1299,7 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Dumbbell Overhead Triceps Extension");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
@@ -1368,6 +1379,7 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Push-up");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
@@ -1447,6 +1459,7 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Lat Pull-Down");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
@@ -1526,6 +1539,7 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
                     if (_data[4].value == true) {
                       _WorkoutCreatorState.workoutList.add("Stability ball knee tucks");
                     }
+                    _WorkoutCreatorState.notif.value += 1;
                     const snackBar = SnackBar(
                       content: Text('Added exercises to the workout!'),
                     );
