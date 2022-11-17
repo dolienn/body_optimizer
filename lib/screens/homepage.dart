@@ -3,12 +3,11 @@ import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:body_optimizer/constants.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:intl/intl.dart';
-import '../constants.dart';
 import 'dart:io';
 
 //     TO DO     //
@@ -59,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       _focusedDay = DateTime.now(),
       hoursAndMinutes = DateTime.now();
   DateTime? _selectedDay;
-  Map<String, List> selectedEvents = {};
+  Map<String, dynamic> selectedEvents = {};
   List _listOfDayEvents(DateTime dateTime) {
     if (selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
@@ -84,11 +83,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   void readFile() async {
     File file = File(await getFilePath());
+    int id = 0;
     List<String> fileEvents = await file.readAsLines();
     for (int i = 0; i < fileEvents.length; i += 3) {
       if (selectedEvents.containsKey(fileEvents[i])) {
         selectedEvents[fileEvents[i]]!.addAll([
           {
+            "eventId": id,
             "eventTitle": fileEvents[i + 1],
             "eventTime": fileEvents[i + 2],
           }
@@ -97,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
         selectedEvents.addAll({
           fileEvents[i]: [
             {
+              "eventId": id,
               "eventTitle": fileEvents[i + 1],
               "eventTime": fileEvents[i + 2],
             }
@@ -113,8 +115,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     _selectedDay = _focusedDay;
     countPercentage();
     readFile();
-    _animationController =
-        AnimationController(duration: const Duration(seconds: 3), vsync: this);
+    _animationController = AnimationController(vsync: this);
   }
 
   @override
@@ -131,17 +132,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
-            alignment: Alignment.center,
-            margin: const EdgeInsets.all(5),
-            width: double.infinity,
-            padding: const EdgeInsets.only(bottom: 5),
-            decoration: const BoxDecoration(
-              color: Colors.white,
-            ),
+            margin: PublicVariables().all5,
+            decoration: const BoxDecoration(color: Colors.white),
             child: SafeArea(
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Icon(Icons.fitness_center_outlined,
                       size: 40, color: PublicVariables().mainColor),
@@ -153,37 +148,29 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
             ),
           ),
           Container(
-            width: double.infinity,
-            margin: const EdgeInsets.symmetric(horizontal: 7.5),
+            margin: PublicVariables().symmetricHorizontal,
             child: Column(children: [
               Container(
-                margin: PublicVariables().marginSymmetricVertical,
+                margin: PublicVariables().symmetricVertical,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2.5,
-                        offset: Offset(1, 1)),
-                  ],
+                  borderRadius: PublicVariables().borderCircular20,
+                  boxShadow: [PublicVariables().shadow],
                 ),
                 child: Column(children: [
                   Container(
-                    padding: PublicVariables().paddingAll,
+                    padding: PublicVariables().all10,
                     child: TableCalendar(
                       focusedDay: _focusedDay,
                       firstDay: DateTime(2022),
-                      lastDay: DateTime(2040),
+                      lastDay: DateTime(2042),
                       calendarFormat: _calendarFormat,
                       formatAnimationCurve: Curves.easeInOut,
                       formatAnimationDuration:
                           const Duration(milliseconds: 500),
                       startingDayOfWeek: StartingDayOfWeek.monday,
                       rowHeight: 50,
-                      daysOfWeekHeight: 25,
                       headerStyle: HeaderStyle(
-                        headerMargin: const EdgeInsets.only(bottom: 5),
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(10),
@@ -191,17 +178,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           ),
                           color: Colors.white,
                         ),
-                        titleTextStyle: GoogleFonts.lato(
-                          color: PublicVariables().mainColor,
-                          fontSize: 18,
-                        ),
-                        formatButtonTextStyle: GoogleFonts.lato(
-                          color: Colors.white,
-                          fontSize: 16,
-                          fontStyle: FontStyle.italic,
-                        ),
+                        titleTextStyle: PublicVariables().normalMainColorText,
+                        formatButtonTextStyle:
+                            PublicVariables().normalWhiteText,
                         formatButtonDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
+                          borderRadius: PublicVariables().borderCircular20,
                           color: PublicVariables().mainColor,
                         ),
                         leftChevronIcon: Icon(
@@ -252,84 +233,156 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       eventLoader: _listOfDayEvents,
                     ),
                   ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      ..._listOfDayEvents(_selectedDay!).map(
-                        (myEvents) => Container(
-                          width: MediaQuery.of(context).size.width * 0.85,
-                          margin: const EdgeInsets.all(10),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: PublicVariables().mainColor,
-                              width: 0.75,
-                            ),
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(10),
+                  Column(children: [
+                    ..._listOfDayEvents(_selectedDay!).map(
+                      (myEvents) => Container(
+                        width: MediaQuery.of(context).size.width * 0.85,
+                        margin: PublicVariables().symmetricVertical,
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: PublicVariables().mainColor,
+                            width: 1,
                           ),
-                          child: ListTile(
-                            title: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "${myEvents['eventTitle']}",
-                                    style: PublicVariables().subheaderText,
-                                  ),
-                                  IconButton(
-                                    onPressed: () {},
-                                    icon: const Icon(Icons.delete_outlined,
-                                        size: 24, color: Colors.black),
-                                  ),
-                                ]),
-                            subtitle: Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: Text(
-                                "${myEvents['eventTime']}",
-                                style: PublicVariables().normalText,
-                              ),
+                          color: Colors.white,
+                          borderRadius: PublicVariables().borderCircular10,
+                        ),
+                        child: ListTile(
+                          title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "${myEvents['eventTitle']}",
+                                  style: PublicVariables().subheaderText,
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    showDialog(
+                                      context: context,
+                                      builder: (context) => AlertDialog(
+                                        title: Text(
+                                            "Are you sure you want to delete this planned workout?",
+                                            style: PublicVariables()
+                                                .subheaderText),
+                                        content: SizedBox(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height *
+                                              0.025,
+                                        ),
+                                        actions: [
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              TextButton(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        PublicVariables()
+                                                            .borderCircular10,
+                                                    border: Border.all(
+                                                        color: PublicVariables()
+                                                            .mainColor,
+                                                        width: 1),
+                                                  ),
+                                                  padding:
+                                                      PublicVariables().all10,
+                                                  child: Text(
+                                                    "No",
+                                                    style: PublicVariables()
+                                                        .normalMainColorText,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: Container(
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        PublicVariables()
+                                                            .borderCircular10,
+                                                    border: Border.all(
+                                                        color: PublicVariables()
+                                                            .mainColor,
+                                                        width: 1),
+                                                  ),
+                                                  padding:
+                                                      PublicVariables().all10,
+                                                  child: Text(
+                                                    "Yes",
+                                                    style: PublicVariables()
+                                                        .normalMainColorText,
+                                                  ),
+                                                ),
+                                                onPressed: () {
+                                                  setState(() {});
+                                                },
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                  icon: const Icon(Icons.delete_outlined,
+                                      size: 24, color: Colors.black),
+                                ),
+                              ]),
+                          subtitle: Padding(
+                            padding: PublicVariables().all10,
+                            child: Text(
+                              "${myEvents['eventTime']}",
+                              style: PublicVariables().normalText,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ]),
                   TextButton(
                     onPressed: () {
                       titleController.text = "";
                       showDialog(
                         context: context,
                         builder: (context) => AlertDialog(
-                          titlePadding: const EdgeInsets.all(5),
-                          contentPadding: const EdgeInsets.all(5),
-                          actionsPadding: const EdgeInsets.all(5),
-                          actionsAlignment: MainAxisAlignment.end,
-                          alignment: Alignment.center,
-                          title: Text(
-                            "Plan your workout",
-                            style: PublicVariables().headerText,
+                          title: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: PublicVariables().all5,
+                                child: Text(
+                                  "Plan your workout",
+                                  style: PublicVariables().headerText,
+                                ),
+                              ),
+                            ],
                           ),
-                          content: Column(children: [
-                            TextFormField(
-                              style: PublicVariables().subheaderText,
-                              controller: titleController,
-                              decoration: InputDecoration(
-                                  labelText: "Input title",
-                                  labelStyle: PublicVariables().normalGreyText),
-                            ),
-                            TimePickerSpinner(
-                              time: hoursAndMinutes,
-                              alignment: Alignment.center,
-                              isForce2Digits: true,
-                              is24HourMode: true,
-                              onTimeChange: (time) {
-                                setState(() {
-                                  hoursAndMinutes = time;
-                                });
-                              },
-                            ),
-                          ]),
+                          content: Padding(
+                            padding: PublicVariables().all5,
+                            child: Column(children: [
+                              TextFormField(
+                                style: PublicVariables().subheaderText,
+                                controller: titleController,
+                                decoration: InputDecoration(
+                                    labelText: "Input title",
+                                    labelStyle:
+                                        PublicVariables().normalGreyText),
+                              ),
+                              TimePickerSpinner(
+                                time: hoursAndMinutes,
+                                alignment: Alignment.center,
+                                isForce2Digits: true,
+                                is24HourMode: true,
+                                onTimeChange: (time) {
+                                  setState(() {
+                                    hoursAndMinutes = time;
+                                  });
+                                },
+                              ),
+                            ]),
+                          ),
                           actions: [
                             TextButton(
                               child: Text("Cancel",
@@ -351,7 +404,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       width: MediaQuery.of(context).size.width *
                                           0.1,
                                       height:
-                                          MediaQuery.of(context).size.width *
+                                          MediaQuery.of(context).size.height *
                                               0.1,
                                       onLoaded: (composition) {
                                         _animationController
@@ -438,40 +491,35 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                     },
                     child: Container(
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: PublicVariables().borderCircular10,
                         border: Border.all(
-                            color: PublicVariables().mainColor, width: 1.5),
+                            color: PublicVariables().mainColor, width: 1),
                       ),
-                      padding: PublicVariables().paddingAll,
+                      padding: PublicVariables().all10,
                       child: Text(
                         "Plan workout",
-                        style: PublicVariables().normalMainColorText,
+                        style: PublicVariables().normalMainColorTextSmall,
                       ),
                     ),
                   ),
                 ]),
               ),
               Container(
-                margin: PublicVariables().marginSymmetricVertical,
+                margin: PublicVariables().symmetricVertical,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2.5,
-                        offset: Offset(1, 1)),
-                  ],
+                  borderRadius: PublicVariables().borderCircular20,
+                  boxShadow: [PublicVariables().shadow],
                 ),
                 child: Padding(
-                  padding: PublicVariables().paddingAll,
+                  padding: PublicVariables().all10,
                   child: Column(children: [
                     Row(children: [
                       Text("Today", style: PublicVariables().headerText),
                     ]),
                     Column(children: [
                       Padding(
-                        padding: PublicVariables().paddingAll,
+                        padding: PublicVariables().all10,
                         child: Text(
                           workoutToday,
                           style: PublicVariables().subheaderText,
@@ -483,29 +531,24 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.85,
                             decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              border:
-                                  Border.all(color: Colors.grey, width: 0.5),
+                              borderRadius: PublicVariables().borderCircular20,
+                              boxShadow: [PublicVariables().shadow],
                             ),
                             child: GFProgressBar(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 7.5),
+                              padding: PublicVariables().symmetricHorizontal,
                               progressBarColor:
                                   PublicVariables().mainColor.withOpacity(0.9),
+                              linearGradient: LinearGradient(colors: [
+                                PublicVariables().mainColor,
+                                PublicVariables().mainColor2,
+                              ]),
                               backgroundColor: Colors.white,
-                              linearGradient: LinearGradient(
-                                colors: [
-                                  PublicVariables().mainColor,
-                                  PublicVariables().accentColor,
-                                ],
-                              ),
                               percentage: currentProgress,
                               lineHeight: 35,
                               child: Center(
                                 child: Text(
                                   "${((displayedProgress) * 100).round()}%",
                                   style: PublicVariables().normalText,
-                                  textAlign: TextAlign.end,
                                 ),
                               ),
                             ),
@@ -513,7 +556,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         ],
                       ),
                       Padding(
-                        padding: PublicVariables().paddingAll,
+                        padding: PublicVariables().all10,
                         child: Text(
                           "$numOfExercisesLeft exercise(s) left",
                           style: PublicVariables().normalText,
@@ -532,7 +575,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               },
                               child: Text(
                                 "Add 1 exercise",
-                                style: PublicVariables().normalMainColorText,
+                                style:
+                                    PublicVariables().normalMainColorTextSmall,
                               )),
                           TextButton(
                               onPressed: () {
@@ -544,7 +588,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               },
                               child: Text(
                                 "Do 1 exercise",
-                                style: PublicVariables().normalMainColorText,
+                                style:
+                                    PublicVariables().normalMainColorTextSmall,
                               )),
                         ],
                       ),
@@ -553,19 +598,14 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 ),
               ),
               Container(
-                margin: const EdgeInsets.symmetric(vertical: 10),
+                margin: PublicVariables().symmetricVertical,
                 decoration: BoxDecoration(
                   color: Colors.white,
-                  borderRadius: BorderRadius.circular(25),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2.5,
-                        offset: Offset(1, 1)),
-                  ],
+                  borderRadius: PublicVariables().borderCircular20,
+                  boxShadow: [PublicVariables().shadow],
                 ),
                 child: Padding(
-                  padding: PublicVariables().paddingAll,
+                  padding: PublicVariables().all10,
                   child: Column(children: [
                     Row(children: [
                       Text("Tomorrow", style: PublicVariables().headerText),
@@ -580,23 +620,17 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                         for (String workout in workoutTomorrow) ...[
                           Container(
                             height: 50,
-                            alignment: Alignment.center,
                             width: MediaQuery.of(context).size.width * 0.85,
-                            margin: PublicVariables().marginSymmetricVertical,
-                            padding: const EdgeInsets.all(15),
+                            alignment: Alignment.center,
+                            margin: PublicVariables().symmetricVertical,
                             decoration: BoxDecoration(
                               color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                              boxShadow: const [
-                                BoxShadow(
-                                    color: Colors.grey,
-                                    blurRadius: 1.5,
-                                    offset: Offset(1, 2)),
-                              ],
+                              borderRadius: PublicVariables().borderCircular10,
+                              boxShadow: [PublicVariables().shadow],
                             ),
                             child: Text(
                               workout,
-                              style: PublicVariables().normalMainColorText,
+                              style: PublicVariables().normalMainColorTextSmall,
                             ),
                           ),
                         ],
