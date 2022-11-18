@@ -17,11 +17,11 @@ class StartButton extends StatelessWidget{
         height: 50,
         width: 200,
         decoration: BoxDecoration(
-            color: isButtonPressed ? PublicVariables().activeColor : const Color(0xFF453edb),
+            color: isButtonPressed ? PublicVariables().mainColor.withOpacity(0.75) : const Color(0xFF453edb),
             borderRadius: BorderRadius.circular(13),
             boxShadow: [
               BoxShadow(
-                  color: PublicVariables().darkenColor,
+                  color: PublicVariables().mainColor,
                   spreadRadius: 1,
                   blurRadius: 8,
                   offset: isButtonPressed ? const Offset(3,3) : const Offset(4,4),

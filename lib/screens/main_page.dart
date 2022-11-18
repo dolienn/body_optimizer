@@ -1,11 +1,11 @@
-import 'package:body_optimizer/constants.dart';
-import 'package:body_optimizer/screens/homepage.dart';
+import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
+import 'package:body_optimizer/screens/workout_creator.dart';
+import 'package:body_optimizer/screens/home_page.dart';
 import 'package:body_optimizer/screens/settings.dart';
 import 'package:body_optimizer/screens/workout.dart';
-import 'package:body_optimizer/screens/workoutcreator.dart';
+import 'package:body_optimizer/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -16,11 +16,11 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   final PersistentTabController _controller =
-  PersistentTabController(initialIndex: 0);
+      PersistentTabController(initialIndex: 0);
 
   List<Widget> _buildScreens() {
     return [
-      const MyHomePage(),
+      const HomePage(),
       const Workout(),
       const WorkoutCreator(),
       const Settings(),
@@ -82,8 +82,7 @@ class _MainPageState extends State<MainPage> {
           curve: Curves.ease,
           duration: Duration(milliseconds: 200),
         ),
-        navBarStyle:
-        NavBarStyle.style4,
+        navBarStyle: NavBarStyle.style4,
       ),
     );
   }

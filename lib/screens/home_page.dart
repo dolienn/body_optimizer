@@ -15,21 +15,20 @@ import 'dart:io';
 // from file and //
 // widget        //
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout";
   List<String> workoutTomorrow = [
     "Custom Workout 1",
     "Custom Workout 2",
     "Custom Workout 3",
-    "Custom Workout 4"
   ];
   int numOfExercises = 13, numOfExercisesLeft = 13;
   // FILE //
@@ -61,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   DateTime? _selectedDay;
   Map<String, dynamic> selectedEvents = {};
   int id = 0;
-  List _listOfDayEvents(DateTime dateTime) {
+  List listOfDayEvents(DateTime dateTime) {
     if (selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
     }
@@ -168,8 +167,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       lastDay: DateTime(2042),
                       calendarFormat: _calendarFormat,
                       formatAnimationCurve: Curves.easeInOut,
-                      formatAnimationDuration:
-                          const Duration(milliseconds: 500),
+                      formatAnimationDuration: const Duration(milliseconds: 500),
                       startingDayOfWeek: StartingDayOfWeek.monday,
                       rowHeight: 50,
                       headerStyle: HeaderStyle(
@@ -181,8 +179,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                           color: Colors.white,
                         ),
                         titleTextStyle: PublicVariables().normalMainColorText,
-                        formatButtonTextStyle:
-                            PublicVariables().normalWhiteText,
+                        formatButtonTextStyle: PublicVariables().normalWhiteText,
                         formatButtonDecoration: BoxDecoration(
                           borderRadius: PublicVariables().borderCircular20,
                           color: PublicVariables().mainColor,
@@ -232,11 +229,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                       onPageChanged: (focusedDay) {
                         _focusedDay = focusedDay;
                       },
-                      eventLoader: _listOfDayEvents,
+                      eventLoader: listOfDayEvents,
                     ),
                   ),
                   Column(children: [
-                    ..._listOfDayEvents(_selectedDay!).map(
+                    ...listOfDayEvents(_selectedDay!).map(
                       (myEvents) => Container(
                         width: MediaQuery.of(context).size.width * 0.85,
                         margin: PublicVariables().symmetricVertical,
@@ -313,7 +310,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  _listOfDayEvents(
+                                                  listOfDayEvents(
                                                           _selectedDay!)
                                                       .removeAt(
                                                           myEvents['eventId']);
