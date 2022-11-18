@@ -92,7 +92,8 @@ class SettingsPage extends State<Settings> {
                       children: <Widget>[
                         Padding(
                           padding: const EdgeInsets.all(5),
-                          child: Lottie.asset('animation/user-icon.json'),
+                          child:
+                              Lottie.asset('assets/animation/user-icon.json'),
                         ),
                       ],
                     ),
@@ -294,7 +295,8 @@ class SettingsPage extends State<Settings> {
                             iconEnabledColor: Colors.black,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
-                            buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                            buttonWidth:
+                                MediaQuery.of(context).size.width * 0.9,
                             buttonPadding:
                                 const EdgeInsets.symmetric(horizontal: 15),
                             buttonDecoration: BoxDecoration(
@@ -373,7 +375,8 @@ class SettingsPage extends State<Settings> {
                             iconEnabledColor: Colors.black,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
-                            buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                            buttonWidth:
+                                MediaQuery.of(context).size.width * 0.9,
                             buttonPadding:
                                 const EdgeInsets.symmetric(horizontal: 15),
                             buttonDecoration: BoxDecoration(
@@ -414,9 +417,7 @@ class SettingsPage extends State<Settings> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {
-
-                      },
+                      onPressed: () {},
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xFF5650DE),
                         foregroundColor: Colors.white,
@@ -455,37 +456,37 @@ class SettingsPage extends State<Settings> {
                       ],
                     ),
                   ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Card(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.40,
-                            height: 50,
-                            child: const Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                'Bartłomiej Dzik',
-                                textAlign: TextAlign.center,
-                              ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Card(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          height: 50,
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              'Bartłomiej Dzik',
+                              textAlign: TextAlign.center,
                             ),
                           ),
                         ),
-                        Card(
-                          child: SizedBox(
-                              width: MediaQuery.of(context).size.width * 0.40,
-                              height: 50,
-                              child: const Padding(
-                                padding: EdgeInsets.all(15.0),
-                                child: Text(
-                                  'Dominik Bigus',
-                                  textAlign: TextAlign.center,
-                                ),
-                              ),
+                      ),
+                      Card(
+                        child: SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.40,
+                          height: 50,
+                          child: const Padding(
+                            padding: EdgeInsets.all(15.0),
+                            child: Text(
+                              'Dominik Bigus',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
+                  ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
                     child: Row(
