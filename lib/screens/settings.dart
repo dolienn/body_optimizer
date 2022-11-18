@@ -9,6 +9,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:lottie/lottie.dart';
+import 'package:path_provider/path_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
@@ -141,7 +142,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -156,7 +157,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                         style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -172,7 +173,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               Icons.arrow_drop_down_circle_outlined,
                             ),
                             iconSize: 20,
-                            iconEnabledColor: Colors.white,
+                            iconEnabledColor: Colors.black,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
                             buttonWidth:
@@ -184,7 +185,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               border: Border.all(
                                 color: Colors.black26,
                               ),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             buttonElevation: 2,
                             itemHeight: 30,
@@ -196,7 +197,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             dropdownPadding: null,
                             dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             dropdownElevation: 8,
                             offset: const Offset(0, 0),
@@ -274,7 +275,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -289,7 +290,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                         style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -305,7 +306,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               Icons.arrow_drop_down_circle_outlined,
                             ),
                             iconSize: 20,
-                            iconEnabledColor: Colors.white,
+                            iconEnabledColor: Colors.black,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
                             buttonWidth: MediaQuery.of(context).size.width * 0.9,
@@ -316,7 +317,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               border: Border.all(
                                 color: Colors.black26,
                               ),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             buttonElevation: 2,
                             itemHeight: 25,
@@ -328,7 +329,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             dropdownPadding: null,
                             dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             dropdownElevation: 8,
                             offset: const Offset(0, 0),
@@ -353,7 +354,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
+                                      color: Colors.black,
                                     ),
                                     overflow: TextOverflow.ellipsis,
                                   ),
@@ -368,7 +369,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                                         style: const TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.bold,
-                                          color: Colors.white,
+                                          color: Colors.black,
                                         ),
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -384,7 +385,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               Icons.arrow_drop_down_circle_outlined,
                             ),
                             iconSize: 20,
-                            iconEnabledColor: Colors.white,
+                            iconEnabledColor: Colors.black,
                             iconDisabledColor: Colors.grey,
                             buttonHeight: 40,
                             buttonWidth: MediaQuery.of(context).size.width * 0.9,
@@ -395,7 +396,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               border: Border.all(
                                 color: Colors.black26,
                               ),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             buttonElevation: 2,
                             itemHeight: 30,
@@ -407,7 +408,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                             dropdownPadding: null,
                             dropdownDecoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
-                              color: const Color(0xFF5650DE),
+                              color: Colors.white,
                             ),
                             dropdownElevation: 8,
                             offset: const Offset(0, 0),
@@ -498,36 +499,39 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                         ),
                       ],
                     ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              'Kamil Ludwikowski',
-                              textAlign: TextAlign.center,
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Card(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.40,
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Kamil Ludwikowski',
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                      Card(
-                        child: Container(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: 50,
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              'Jakub Cendecki',
-                              textAlign: TextAlign.center,
+                        Card(
+                          child: Container(
+                            width: MediaQuery.of(context).size.width * 0.40,
+                            height: 50,
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Jakub Cendecki',
+                                textAlign: TextAlign.center,
+                              ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
+                        )
+                      ],
+                    ),
                   ),
                 ],
               ),
