@@ -9,7 +9,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 
 class SettingsPage extends StatelessWidget {
   const SettingsPage({super.key});
