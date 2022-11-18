@@ -601,6 +601,9 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                     return null;
                                   },
                                 ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
                                 SingleChildScrollView(
                                   physics: const ScrollPhysics(),
                                   child: Column(
@@ -657,7 +660,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                 ),
                                 Row(
                                   children:<Widget>[
-                                    //F869D5
                                   Expanded(
                                     child: OutlinedButton(
                                         style: OutlinedButton.styleFrom(
@@ -677,64 +679,67 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                   ),
                                   ]
                                 ),
-                                //uhh yea I tried putting the buttons to the bottom like you said but somehow it made the buttons either normal size (still on top) or made my page blank
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(bottom: 15),
-                                    child: Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                        children: <Widget>[
-                                          Expanded(
-                                            child: Padding(
-                                            padding: const EdgeInsets.only(right: 5.0),
-                                            child: OutlinedButton(
-                                                onPressed: () => _showAlertDialog(context),
-                                                child: const Text('Cancel', style: TextStyle(color: Color(0xFF5650DE)),
-                                                )
-                                            ),
-                                            )
-                                          ),
-                                          Expanded(
-                                            child: Padding(
-                                              padding: const EdgeInsets.only(left: 5.0),
-                                            child: ElevatedButton(
-                                              style: const ButtonStyle(
-                                                backgroundColor: MaterialStatePropertyAll<Color>(Color(0xFF5650DE)),
+                                //expanded flex 0 obok aligna
+                                Expanded(
+                                  flex: 0,
+                                  child: Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(bottom: 15),
+                                      child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                          children: <Widget>[
+                                            Expanded(
+                                              child: Padding(
+                                              padding: const EdgeInsets.only(right: 5.0),
+                                              child: OutlinedButton(
+                                                  onPressed: () => _showAlertDialog(context),
+                                                  child: const Text('Cancel', style: TextStyle(color: Color(0xFF5650DE)),
+                                                  )
                                               ),
-                                              onPressed: () {
-                                                if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
-                                                  workoutName = myController.text;
-                                                  /*const snackBar = SnackBar(
-                                                    content: Text('Created workout!'),
-                                                  );
-                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
-                                                  ElegantNotification.success(
-                                                    width: 360,
-                                                    notificationPosition: NotificationPosition.bottomCenter,
-                                                    animation: AnimationType.fromBottom,
-                                                    title: const Text('Created workout'),
-                                                    description: const Text('Your workout has been saved!'),
-                                                  ).show(context);
-                                                } else {
-                                                  /*const snackBar = SnackBar(
-                                                    content: Text('Could not create the workout!'),
-                                                  );
-                                                  ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
-                                                  ElegantNotification.error(
-                                                    width: 360,
-                                                    notificationPosition: NotificationPosition.bottomCenter,
-                                                    animation: AnimationType.fromBottom,
-                                                    title: const Text('Failed to save workout'),
-                                                    description: const Text('Make sure that you have a correct workout name and workouts.'),
-                                                  ).show(context);
-                                                }
-                                              },
-                                              child: const Text('Create'),
+                                              )
                                             ),
-                                            )
-                                          ),
-                                        ]
+                                            Expanded(
+                                              child: Padding(
+                                                padding: const EdgeInsets.only(left: 5.0),
+                                              child: ElevatedButton(
+                                                style: const ButtonStyle(
+                                                  backgroundColor: MaterialStatePropertyAll<Color>(Color(0xFF5650DE)),
+                                                ),
+                                                onPressed: () {
+                                                  if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
+                                                    workoutName = myController.text;
+                                                    /*const snackBar = SnackBar(
+                                                      content: Text('Created workout!'),
+                                                    );
+                                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
+                                                    ElegantNotification.success(
+                                                      width: 360,
+                                                      notificationPosition: NotificationPosition.bottomCenter,
+                                                      animation: AnimationType.fromBottom,
+                                                      title: const Text('Created workout'),
+                                                      description: const Text('Your workout has been saved!'),
+                                                    ).show(context);
+                                                  } else {
+                                                    /*const snackBar = SnackBar(
+                                                      content: Text('Could not create the workout!'),
+                                                    );
+                                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);*/
+                                                    ElegantNotification.error(
+                                                      width: 360,
+                                                      notificationPosition: NotificationPosition.bottomCenter,
+                                                      animation: AnimationType.fromBottom,
+                                                      title: const Text('Failed to save workout'),
+                                                      description: const Text('Make sure that you have a correct workout name and workouts.'),
+                                                    ).show(context);
+                                                  }
+                                                },
+                                                child: const Text('Create'),
+                                              ),
+                                              )
+                                            ),
+                                          ]
+                                      ),
                                     ),
                                   ),
                                 )
@@ -1102,6 +1107,7 @@ class _WorkoutCreatorExercisesAbsState extends State<WorkoutCreatorExercisesAbs>
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
@@ -1182,6 +1188,7 @@ class _WorkoutCreatorExercisesBicepsState extends State<WorkoutCreatorExercisesB
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
@@ -1262,6 +1269,7 @@ class _WorkoutCreatorExercisesTricepsState extends State<WorkoutCreatorExercises
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
@@ -1342,6 +1350,7 @@ class _WorkoutCreatorExercisesChestState extends State<WorkoutCreatorExercisesCh
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
@@ -1422,6 +1431,7 @@ class _WorkoutCreatorExercisesBackState extends State<WorkoutCreatorExercisesBac
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
@@ -1502,6 +1512,7 @@ class _WorkoutCreatorExercisesLegsState extends State<WorkoutCreatorExercisesLeg
                       value: item.id,
                       headerBuilder: (BuildContext context, bool isExpanded) {
                         return CheckboxListTile(
+                          activeColor: const Color(0xFF5650DE),
                           title: Text(item.headerValue),
                           controlAffinity: ListTileControlAffinity.leading,
                           value: item.value,
