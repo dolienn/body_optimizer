@@ -4,10 +4,11 @@ Do zrobienia:
 -Zmiana Celu i Odpoczynku
 -Wczytywanie wszystkich danych z pliku i updateowanie ich
 */
-import 'package:flutter/material.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
-import 'package:flutter/services.dart' show rootBundle;
+import 'package:body_optimizer/constants.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 
 class Settings extends StatefulWidget {
@@ -18,7 +19,7 @@ class Settings extends StatefulWidget {
 }
 
 class SettingsPage extends State<Settings> {
-  String nick = "";
+  String nickname = "";
   String sex = "";
   String age = "";
   String weight = "";
@@ -31,7 +32,7 @@ class SettingsPage extends State<Settings> {
     responseText = await rootBundle.loadString('textFiles/data.txt');
     final splitted = responseText.split(' ');
     setState(() {
-      nick = splitted[0];
+      nickname = splitted[0];
       sex = splitted[1];
       age = splitted[2];
       weight = splitted[3];
@@ -49,14 +50,8 @@ class SettingsPage extends State<Settings> {
 
   final List<String> itemsforsex = ['Male', 'Female', 'Other'];
   String? selectedValueforsex;
-  final List<String> itemsforrest = [
-    '1 min',
-    '2 min',
-    '3 min',
-    '4 min',
-    '5 min'
-  ];
-  String? selectedValueforrest;
+  final List<String> restItems = ['1 min', '2 min', '3 min', '4 min', '5 min'];
+  String? restValue;
   final List<String> itemsforgoal = [
     'lose Weight',
     'keep Weight',
@@ -66,467 +61,422 @@ class SettingsPage extends State<Settings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView(
-        children: [
-          const Padding(
-            padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-            child: Text(
-              'Settings',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 22,
+      body: ListView(children: [
+        Padding(
+          padding: PublicVariables().symmetricVertical,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                'Settings',
+                textAlign: TextAlign.center,
+                style: PublicVariables().headerText,
               ),
+            ],
+          ),
+        ),
+        Padding(
+          padding: PublicVariables().all5,
+          child: Card(
+            elevation: 1,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  height: 100,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: PublicVariables().all5,
+                        child: Lottie.asset('assets/animations/user-icon.json'),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      margin: PublicVariables().all5,
+                      padding: PublicVariables().all10,
+                      child: Text(
+                        nickname,
+                        style: PublicVariables().subheaderText,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: PublicVariables().all5,
+                      child: Text(
+                        "Your sex: ",
+                        style: PublicVariables().boldText,
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          hint: Row(children: [
+                            Text(sex, style: PublicVariables().dropdownText),
+                          ]),
+                          items: itemsforsex
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: PublicVariables().dropdownText,
+                                    ),
+                                  ))
+                              .toList(),
+                          value: selectedValueforsex,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValueforsex = value as String;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_drop_down_circle_outlined,
+                          ),
+                          iconSize: 20,
+                          iconEnabledColor: Colors.black,
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 40,
+                          buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                          buttonPadding:
+                              const EdgeInsets.symmetric(horizontal: 15),
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                            color: Colors.white,
+                          ),
+                          buttonElevation: 2,
+                          itemHeight: 30,
+                          dropdownMaxHeight: 200,
+                          dropdownWidth:
+                              MediaQuery.of(context).size.width * 0.5,
+                          dropdownPadding: null,
+                          dropdownDecoration: BoxDecoration(
+                            borderRadius: PublicVariables().borderCircular10,
+                            color: Colors.white,
+                          ),
+                          dropdownElevation: 8,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                buildTextField('Your Age: $age'),
+                buildTextField('Your Weight: $weight'),
+                buildTextField('Your Height: $height'),
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: const EdgeInsets.symmetric(vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      backgroundColor: PublicVariables().mainColor,
+                      foregroundColor: Colors.white,
+                      side: const BorderSide(
+                        width: 1.0,
+                        color: Colors.deepPurple,
+                      ),
+                    ),
+                    child: Text(
+                      'Save',
+                      style: PublicVariables().normalWhiteText,
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Card(
-              elevation: 1,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    height: 90,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Padding(
-                          padding: const EdgeInsets.all(5),
-                          child:
-                              Lottie.asset('assets/animation/user-icon.json'),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(10),
-                        child: Text(nick,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              color: Colors.black,
-                              letterSpacing: 1,
-                            )),
-                      )
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            isExpanded: true,
-                            hint: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    sex,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            items: itemsforsex
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ))
-                                .toList(),
-                            value: selectedValueforsex,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedValueforsex = value as String;
-                              });
-                            },
-                            icon: const Icon(
-                              Icons.arrow_drop_down_circle_outlined,
-                            ),
-                            iconSize: 20,
-                            iconEnabledColor: Colors.black,
-                            iconDisabledColor: Colors.grey,
-                            buttonHeight: 40,
-                            buttonWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            buttonPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            buttonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Colors.black26,
-                              ),
-                              color: Colors.white,
-                            ),
-                            buttonElevation: 2,
-                            itemHeight: 30,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            dropdownMaxHeight: 200,
-                            dropdownWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            dropdownPadding: null,
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
-                            ),
-                            dropdownElevation: 8,
-                            offset: const Offset(0, 0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  buildTextField('Your Age: $age'),
-                  buildTextField('Your Weight: $weight'),
-                  buildTextField('Your Height: $height'),
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    margin: const EdgeInsets.symmetric(vertical: 30),
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xFF5650DE),
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(
-                          width: 1.0,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      child: const Text(
-                        'Save',
-                        style: TextStyle(fontSize: 14, letterSpacing: 1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(10.0),
-            child: Card(
-              elevation: 1,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 90,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text("Preferences",
-                              style: TextStyle(
-                                fontSize: 22,
-                                color: Colors.black,
-                              )),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            isExpanded: true,
-                            hint: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    restTime,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            items: itemsforrest
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ))
-                                .toList(),
-                            value: selectedValueforrest,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedValueforrest = value as String;
-                              });
-                            },
-                            icon: const Icon(
-                              Icons.arrow_drop_down_circle_outlined,
-                            ),
-                            iconSize: 20,
-                            iconEnabledColor: Colors.black,
-                            iconDisabledColor: Colors.grey,
-                            buttonHeight: 40,
-                            buttonWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            buttonPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            buttonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Colors.black26,
-                              ),
-                              color: Colors.white,
-                            ),
-                            buttonElevation: 2,
-                            itemHeight: 25,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            dropdownMaxHeight: 220,
-                            dropdownWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            dropdownPadding: null,
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: Colors.white,
-                            ),
-                            dropdownElevation: 8,
-                            offset: const Offset(0, 0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            isExpanded: true,
-                            hint: Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    goal,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            items: itemsforgoal
-                                .map((item) => DropdownMenuItem<String>(
-                                      value: item,
-                                      child: Text(
-                                        item,
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.black,
-                                        ),
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ))
-                                .toList(),
-                            value: selectedValueforgoal,
-                            onChanged: (value) {
-                              setState(() {
-                                selectedValueforgoal = value as String;
-                              });
-                            },
-                            icon: const Icon(
-                              Icons.arrow_drop_down_circle_outlined,
-                            ),
-                            iconSize: 20,
-                            iconEnabledColor: Colors.black,
-                            iconDisabledColor: Colors.grey,
-                            buttonHeight: 40,
-                            buttonWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            buttonPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            buttonDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              border: Border.all(
-                                color: Colors.black26,
-                              ),
-                              color: Colors.white,
-                            ),
-                            buttonElevation: 2,
-                            itemHeight: 30,
-                            itemPadding:
-                                const EdgeInsets.symmetric(horizontal: 15),
-                            dropdownMaxHeight: 200,
-                            dropdownWidth:
-                                MediaQuery.of(context).size.width * 0.9,
-                            dropdownPadding: null,
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: Colors.white,
-                            ),
-                            dropdownElevation: 8,
-                            offset: const Offset(0, 0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Container(
-                    height: 40,
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    margin: const EdgeInsets.symmetric(vertical: 30),
-                    padding: const EdgeInsets.symmetric(horizontal: 2.5),
-                    decoration: const BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      style: TextButton.styleFrom(
-                        backgroundColor: const Color(0xFF5650DE),
-                        foregroundColor: Colors.white,
-                        side: const BorderSide(
-                          width: 1.0,
-                          color: Colors.deepPurple,
-                        ),
-                      ),
-                      child: const Text(
-                        'Save',
-                        style: TextStyle(fontSize: 14, letterSpacing: 1),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Container(
-            padding: const EdgeInsets.all(10.0),
-            child: Card(
-              elevation: 1,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 90,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[
-                        Padding(
-                          padding: EdgeInsets.all(10),
-                          child: Text("Made By",
-                              style:
-                                  TextStyle(fontSize: 22, color: Colors.black)),
-                        )
-                      ],
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Card(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: 50,
-                          child: const Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text(
-                              'Bartłomiej Dzik',
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Card(
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.40,
-                          height: 50,
-                          child: const Padding(
-                            padding: EdgeInsets.all(15.0),
-                            child: Text(
-                              'Dominik Bigus',
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
-                    child: Row(
+        ),
+        Padding(
+          padding: PublicVariables().all5,
+          child: Card(
+            elevation: 1,
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 90,
+                  child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Card(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.40,
-                            height: 50,
-                            child: const Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                'Kamil Ludwikowski',
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
+                        Padding(
+                          padding: PublicVariables().all5,
+                          child: Text(
+                            "Preferences",
+                            style: PublicVariables().headerText,
                           ),
                         ),
-                        Card(
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width * 0.40,
-                            height: 50,
-                            child: const Padding(
-                              padding: EdgeInsets.all(15.0),
-                              child: Text(
-                                'Jakub Cendecki',
-                                textAlign: TextAlign.center,
-                              ),
+                      ]),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: PublicVariables().all5,
+                      child: Text(
+                        "Rest time: ",
+                        style: PublicVariables().boldText,
+                      ),
+                    ),
+                    SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          hint: Row(children: [
+                            Text(
+                              restTime,
+                              style: PublicVariables().boldText,
+                              overflow: TextOverflow.ellipsis,
                             ),
+                          ]),
+                          items: restItems
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: PublicVariables().dropdownText,
+                                    ),
+                                  ))
+                              .toList(),
+                          value: restValue,
+                          onChanged: (value) {
+                            setState(() {
+                              restValue = value as String;
+                            });
+                          },
+                          icon:
+                              const Icon(Icons.arrow_drop_down_circle_outlined),
+                          iconSize: 20,
+                          iconEnabledColor: Colors.black,
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 40,
+                          buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                          buttonPadding: PublicVariables().symmetricHorizontal,
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: PublicVariables().borderCircular10,
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                            color: Colors.white,
                           ),
-                        )
-                      ],
+                          buttonElevation: 2,
+                          itemHeight: 25,
+                          dropdownMaxHeight: 220,
+                          dropdownWidth:
+                              MediaQuery.of(context).size.width * 0.5,
+                          dropdownPadding: null,
+                          dropdownDecoration: BoxDecoration(
+                            borderRadius: PublicVariables().borderCircular10,
+                            color: Colors.white,
+                          ),
+                          dropdownElevation: 8,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Padding(
+                      padding: PublicVariables().all5,
+                      child: Text(
+                        "Your goal: ",
+                        style: PublicVariables().boldText,
+                      ),
+                    ),
+                    Container(
+                      margin: PublicVariables().symmetricVertical,
+                      width: MediaQuery.of(context).size.width * 0.65,
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          hint: Row(children: [
+                            Text(
+                              goal,
+                              style: PublicVariables().boldText,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ]),
+                          items: itemsforgoal
+                              .map(
+                                (item) => DropdownMenuItem<String>(
+                                  value: item,
+                                  child: Text(
+                                    item,
+                                    style: PublicVariables().dropdownText,
+                                  ),
+                                ),
+                              )
+                              .toList(),
+                          value: selectedValueforgoal,
+                          onChanged: (value) {
+                            setState(() {
+                              selectedValueforgoal = value as String;
+                            });
+                          },
+                          icon: const Icon(
+                            Icons.arrow_drop_down_circle_outlined,
+                          ),
+                          iconSize: 20,
+                          iconEnabledColor: Colors.black,
+                          iconDisabledColor: Colors.grey,
+                          buttonHeight: 40,
+                          buttonWidth: MediaQuery.of(context).size.width * 0.9,
+                          buttonPadding: PublicVariables().symmetricHorizontal,
+                          buttonDecoration: BoxDecoration(
+                            borderRadius: PublicVariables().borderCircular10,
+                            border: Border.all(
+                              color: Colors.black26,
+                            ),
+                            color: Colors.white,
+                          ),
+                          buttonElevation: 2,
+                          itemHeight: 30,
+                          dropdownWidth:
+                              MediaQuery.of(context).size.width * 0.5,
+                          dropdownPadding: null,
+                          dropdownDecoration: BoxDecoration(
+                            borderRadius: PublicVariables().borderCircular10,
+                            color: Colors.white,
+                          ),
+                          dropdownElevation: 8,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  height: 40,
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  margin: const EdgeInsets.symmetric(vertical: 30),
+                  padding: const EdgeInsets.symmetric(horizontal: 2.5),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(10),
+                    ),
+                  ),
+                  child: TextButton(
+                    onPressed: () {},
+                    style: TextButton.styleFrom(
+                      backgroundColor: PublicVariables().mainColor,
+                      foregroundColor: Colors.white,
+                      side: BorderSide(
+                        color: PublicVariables().mainColor.withOpacity(0.75),
+                      ),
+                    ),
+                    child: const Text(
+                      'Save',
+                      style: TextStyle(fontSize: 14, letterSpacing: 1),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.all(10.0),
+          child: Card(
+            elevation: 1,
+            child: Column(children: [
+              SizedBox(
+                height: 90,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const <Widget>[
+                    Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text("Made By",
+                          style: TextStyle(fontSize: 22, color: Colors.black)),
+                    )
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      height: 50,
+                      child: const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          'Bartłomiej Dzik',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Card(
+                    child: SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      height: 50,
+                      child: const Padding(
+                        padding: EdgeInsets.all(15.0),
+                        child: Text(
+                          'Dominik Bigus',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-          )
-        ],
-      ),
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 10, 0, 25),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Card(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: 50,
+                        child: const Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            'Kamil Ludwikowski',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Card(
+                      child: SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.40,
+                        height: 50,
+                        child: const Padding(
+                          padding: EdgeInsets.all(15.0),
+                          child: Text(
+                            'Jakub Cendecki',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ),
+        )
+      ]),
     );
   }
 }

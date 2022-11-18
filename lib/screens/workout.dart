@@ -1,5 +1,5 @@
-import 'package:body_optimizer/screens/workout/workoutlist.dart';
-import 'package:body_optimizer/screens/workout/workoutscreen.dart';
+import 'package:body_optimizer/screens/workout/workout_list.dart';
+import 'package:body_optimizer/screens/workout/workout_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -80,7 +80,7 @@ class _WorkoutState extends State<Workout> {
                 shrinkWrap: true,
                 reverse: true,
                 scrollDirection: Axis.vertical,
-                itemCount: PartsCreator().partitions.length,
+                itemCount: PartsCreator().parts.length,
                 itemBuilder: (BuildContext context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 10, right: 5, left: 5),
@@ -111,13 +111,13 @@ class _WorkoutState extends State<Workout> {
                                     child: SizedBox(
                                       height: 150,
                                       width: 150,
-                                      child: Image.asset(PartsCreator().partitions[index].image, scale: 10),
+                                      child: Image.asset(PartsCreator().parts[index].image, scale: 10),
                                     ),
                                   ),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsets.only(top: 140),
-                                  child: Text(PartsCreator().partitions[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
+                                  child: Text(PartsCreator().parts[index].title, style: GoogleFonts.lato(fontSize: 19, fontWeight: FontWeight.bold, color: Colors.black), textAlign: TextAlign.center,),
                                 ),
                               ),
                                 ),

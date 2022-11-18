@@ -1,6 +1,5 @@
 /*
 To do:
-
 Move the row in exercise manager so that the buttons can be moved to the bottom of the page
 Saving workout
 Create some sort of exercise data class/list that will be available in the entire program
@@ -16,13 +15,11 @@ https://mercyjemosop.medium.com/flutter-list-view-1045969b1799
 Create an ID for every exercise
 Create a time value for exercises for workout.
  */
-import 'workoutExercises.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:elegant_notification/elegant_notification.dart';
 import 'package:elegant_notification/resources/arrays.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class CustomWorkout{
 
@@ -522,7 +519,6 @@ class WorkoutCreator extends StatefulWidget {
 class _WorkoutCreatorState extends State<WorkoutCreator>{
   //static ValueNotifier<List> workoutList;
   //static ValueNotifier<List<String>> workoutList = ValueNotifier([]);
-  static String workoutName = "";
   static List<String> workoutList = [];
   final myController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -550,7 +546,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
           CupertinoDialogAction(
             isDestructiveAction: true,
             onPressed: () {
-              workoutName = "";
               workoutList = [];
               Navigator.pop(context);
               setState(() {
@@ -708,7 +703,6 @@ class _WorkoutCreatorState extends State<WorkoutCreator>{
                                                 ),
                                                 onPressed: () {
                                                   if(_formKey.currentState!.validate() && workoutList.isNotEmpty){
-                                                    workoutName = myController.text;
                                                     /*const snackBar = SnackBar(
                                                       content: Text('Created workout!'),
                                                     );

@@ -1,6 +1,6 @@
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:body_optimizer/screens/workoutcreator.dart';
-import 'package:body_optimizer/screens/homepage.dart';
+import 'package:body_optimizer/screens/workout_creator.dart';
+import 'package:body_optimizer/screens/home_page.dart';
 import 'package:body_optimizer/screens/settings.dart';
 import 'package:body_optimizer/screens/workout.dart';
 import 'package:body_optimizer/constants.dart';
@@ -20,7 +20,7 @@ class _MainPageState extends State<MainPage> {
 
   List<Widget> _buildScreens() {
     return [
-      const MyHomePage(),
+      const HomePage(),
       const Workout(),
       const WorkoutCreator(),
       const Settings(),

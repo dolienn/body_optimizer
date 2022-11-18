@@ -1,7 +1,5 @@
-import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
 class WorkoutVideoPlayer extends StatefulWidget {
   int index2;
