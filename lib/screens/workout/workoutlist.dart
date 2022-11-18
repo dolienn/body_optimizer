@@ -50,7 +50,7 @@ class ExercisesList {
 
   var excAbsName1 = 'Laying Leg Raises';
   var excAbsInstruction1 = "Lay on your back with your arms palms down on either side. Keep your legs together and as straight as possible. Slowly raise your legs to a 90° angle, pause at this position, or as high as you can reach your legs, and then slowly lower your legs back down. Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";
-  var excAbsVideo1 = 'assets/videos/laying-leg-raises.gif';
+  var excAbsVideo1 = 'assets/videos/laying-legs-raises.gif';
 
   var excAbsName2 = 'Hanging Knee Raises';
   var excAbsInstruction2 = "Grab the bar and hang, your body still and your legs straight.Slowly draw your knees up to your chestOnce you have raised your knees as high as possible, lower your legs and repeat. Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.Duration of these movements should be slow so that you do not utilize momentum, enabling you to get the most out of the exercise.";

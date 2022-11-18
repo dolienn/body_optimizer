@@ -3,6 +3,9 @@ import 'dart:async';
 import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import '../workout.dart';
 
 class WorkoutStart extends StatefulWidget {
   int input, input2;
@@ -15,17 +18,20 @@ class WorkoutStart extends StatefulWidget {
 
 
 class _WorkoutStartState extends State<WorkoutStart> {
+
   int input, input2;
+
   _WorkoutStartState(this.input, this.input2);
 
   get index => input;
+
   get index2 => input2;
 
   static const maxSeconds = 30;
   int seconds = maxSeconds;
   Timer? timer;
 
-  void startTimer(){
+  void startTimer() {
     timer = Timer.periodic(Duration(seconds: 1), (_) {
       setState(() => seconds--);
     });
@@ -35,34 +41,40 @@ class _WorkoutStartState extends State<WorkoutStart> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-          child: Column(
-            children: [
-              buildTime(),
-              Row(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(colors: [
+              PublicVariables().darkenColor,
+              PublicVariables().activeColor,
+            ], begin: const FractionalOffset(0.0, 0.4), end: Alignment.topRight)),
+        child: Column(
+          children: [
+            SizedBox(height: 70,),
+            Padding(
+              padding: const EdgeInsets.all(5.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Image.asset(exercisesVideo[index2]['exercise'][0]),
+                  Image.asset(exercisesVideo[index2]['exercise'][0],
+                  scale: 1.42,
+                  ),
 
                 ],
               ),
-              Row(
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(exercisesName[index2]['exercise'][0],
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                        fontSize: 40
-                    ),
-                  ),
+                style: GoogleFonts.lato(fontSize: 32, fontWeight: FontWeight.bold, color: Colors.white), textAlign: TextAlign.center,
+              ),
                 ],
-              )
-            ],
-          ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
-  Widget buildTime(){
-    return Text(
-      '$seconds',
-    );
-  }
 }
-

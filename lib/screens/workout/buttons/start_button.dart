@@ -7,7 +7,7 @@ class StartButton extends StatelessWidget{
   final onTap;
   bool isButtonPressed;
 
-  StartButton({this.onTap, required this.isButtonPressed});
+  StartButton({super.key, this.onTap, required this.isButtonPressed});
 
   @override
   Widget build(BuildContext context) {
