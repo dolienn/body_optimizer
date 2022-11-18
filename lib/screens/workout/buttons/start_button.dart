@@ -1,7 +1,6 @@
-import 'package:flutter/cupertino.dart';
+import 'package:body_optimizer/constants.dart';
 import 'package:flutter/material.dart';
 
-import '../../workout.dart';
 
 class StartButton extends StatelessWidget{
   final onTap;
@@ -18,14 +17,14 @@ class StartButton extends StatelessWidget{
         height: 50,
         width: 200,
         decoration: BoxDecoration(
-            color: isButtonPressed ? PublicVariables().activeColor : Color(0xFF453edb),
+            color: isButtonPressed ? PublicVariables().activeColor : const Color(0xFF453edb),
             borderRadius: BorderRadius.circular(13),
             boxShadow: [
               BoxShadow(
                   color: PublicVariables().darkenColor,
                   spreadRadius: 1,
                   blurRadius: 8,
-                  offset: isButtonPressed ? Offset(3,3) : Offset(4,4),
+                  offset: isButtonPressed ? const Offset(3,3) : const Offset(4,4),
               ),
             ]),
         child: const Center(

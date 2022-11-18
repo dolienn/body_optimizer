@@ -9,36 +9,21 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:body_optimizer/widgets/widget.dart';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:lottie/lottie.dart';
-import 'package:path_provider/path_provider.dart';
 
-class SettingsPage extends StatelessWidget {
-  const SettingsPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: MyStatefulWidget(),
-    );
-  }
-}
-
-class MyStatefulWidget extends StatefulWidget {
-  const MyStatefulWidget({super.key});
-
-  get storage => null;
+class Settings extends StatefulWidget {
+  const Settings({super.key});
 
   @override
-  State<MyStatefulWidget> createState() => _MyStatefulWidgetState();
+  State<Settings> createState() => SettingsPage();
 }
 
-class _MyStatefulWidgetState extends State<MyStatefulWidget> {
+class SettingsPage extends State<Settings> {
   String nick = "";
   String sex = "";
   String age = "";
   String weight = "";
   String height = "";
-  String rest_time = "";
+  String restTime = "";
   String goal = "";
   String url = "";
   fetchFileData() async {
@@ -51,7 +36,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
       age = splitted[2];
       weight = splitted[3];
       height = splitted[4];
-      rest_time = "${splitted[5]} ${splitted[6]}";
+      restTime = "${splitted[5]} ${splitted[6]}";
       goal = "${splitted[7]} ${splitted[8]}";
     });
   }
@@ -271,7 +256,7 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                               children: [
                                 Expanded(
                                   child: Text(
-                                    rest_time,
+                                    restTime,
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -429,7 +414,9 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       ),
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+
+                      },
                       style: TextButton.styleFrom(
                         backgroundColor: const Color(0xFF5650DE),
                         foregroundColor: Colors.white,
@@ -472,11 +459,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card(
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.40,
                             height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Text(
                                 'Bartłomiej Dzik',
                                 textAlign: TextAlign.center,
@@ -485,11 +472,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           ),
                         ),
                         Card(
-                          child: Container(
+                          child: SizedBox(
                               width: MediaQuery.of(context).size.width * 0.40,
                               height: 50,
-                              child: Padding(
-                                padding: const EdgeInsets.all(15.0),
+                              child: const Padding(
+                                padding: EdgeInsets.all(15.0),
                                 child: Text(
                                   'Dominik Bigus',
                                   textAlign: TextAlign.center,
@@ -505,11 +492,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Card(
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.40,
                             height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Text(
                                 'Kamil Ludwikowski',
                                 textAlign: TextAlign.center,
@@ -518,11 +505,11 @@ class _MyStatefulWidgetState extends State<MyStatefulWidget> {
                           ),
                         ),
                         Card(
-                          child: Container(
+                          child: SizedBox(
                             width: MediaQuery.of(context).size.width * 0.40,
                             height: 50,
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
+                            child: const Padding(
+                              padding: EdgeInsets.all(15.0),
                               child: Text(
                                 'Jakub Cendecki',
                                 textAlign: TextAlign.center,

@@ -1,4 +1,4 @@
-import 'package:body_optimizer/screens/workout.dart';
+import 'package:body_optimizer/constants.dart';
 import 'package:body_optimizer/screens/workout/buttons/start_button.dart';
 import 'package:body_optimizer/screens/workout/workoutlist.dart';
 import 'package:body_optimizer/screens/workout/workoutstart.dart';
@@ -36,7 +36,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
   _WorkoutScreenState(this.input);
 
   get index => input;
-
 
   @override
   Widget build(BuildContext context) {
@@ -328,10 +327,10 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
                                                               BorderRadius
                                                                   .circular(10),
                                                         ),
-                                                        child: const Center(
+                                                        child: Center(
                                                           child: Text(
-                                                            "15s rest",
-                                                            style: TextStyle(
+                                                            "",
+                                                            style: const TextStyle(
                                                               color: Color(
                                                                   0xFF839fed),
                                                             ),
