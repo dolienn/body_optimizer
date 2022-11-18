@@ -33,7 +33,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   ];
   int numOfExercises = 13, numOfExercisesLeft = 13;
   // FILE //
-  String fileName = "savedEvents.json";
+  String fileName = "savedEvents.sav";
   // ANIMATION CONTROLLER //
   late AnimationController _animationController;
   // PROGRESS BAR //
@@ -57,8 +57,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   DateTime today = DateTime.now(),
       _focusedDay = DateTime.now(),
       hoursAndMinutes = DateTime.now();
+  String hours = "", minutes = "";
   DateTime? _selectedDay;
   Map<String, dynamic> selectedEvents = {};
+  int id = 0;
   List _listOfDayEvents(DateTime dateTime) {
     if (selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)] != null) {
       return selectedEvents[DateFormat("yyyy-MM-dd").format(dateTime)]!;
@@ -75,17 +77,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return filePath;
   }
 
-  void saveFile(date, title, time) async {
+  void saveFile(date, title, time, eventId) async {
     File file = File(await getFilePath());
-    file.writeAsString("$date\n$title\n$time\n",
+    file.writeAsString("$date\n$eventId\n$title\n$time\n",
         mode: FileMode.writeOnlyAppend);
   }
 
   void readFile() async {
     File file = File(await getFilePath());
-    int id = 0;
     List<String> fileEvents = await file.readAsLines();
-    for (int i = 0; i < fileEvents.length; i += 3) {
+    for (int i = 0; i < fileEvents.length; i += 4) {
+      /*
+    }
       if (selectedEvents.containsKey(fileEvents[i])) {
         selectedEvents[fileEvents[i]]!.addAll([
           {
@@ -95,16 +98,18 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
           }
         ]);
       } else {
-        selectedEvents.addAll({
-          fileEvents[i]: [
-            {
-              "eventId": id,
-              "eventTitle": fileEvents[i + 1],
-              "eventTime": fileEvents[i + 2],
-            }
-          ]
-        });
-      }
+      */
+
+      selectedEvents.addAll({
+        fileEvents[i]: [
+          {
+            "eventId": fileEvents[i + 1],
+            "eventTitle": fileEvents[i + 2],
+            "eventTime": fileEvents[i + 3],
+          }
+        ]
+      });
+      //}
     }
     setState(() {});
   }
@@ -317,6 +322,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                                 onPressed: () {
+                                                  _listOfDayEvents(
+                                                          _selectedDay!)
+                                                      .removeAt(
+                                                          myEvents['eventId']);
+                                                  print(selectedEvents);
                                                   setState(() {});
                                                 },
                                               ),
@@ -453,7 +463,21 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                     description: const Text(
                                         "Your workout has been added!"),
                                   ).show(context);
-
+                                  if (hoursAndMinutes.hour.toString().length ==
+                                      1) {
+                                    hours = "0${hoursAndMinutes.hour}";
+                                  } else {
+                                    hours = hoursAndMinutes.hour.toString();
+                                  }
+                                  if (hoursAndMinutes.minute
+                                          .toString()
+                                          .length ==
+                                      1) {
+                                    minutes = "0${hoursAndMinutes.minute}";
+                                  } else {
+                                    minutes = hoursAndMinutes.minute.toString();
+                                  }
+                                  /*
                                   if (selectedEvents.containsKey(
                                       "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}")) {
                                     selectedEvents[
@@ -466,22 +490,25 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                       }
                                     ]);
                                   } else {
-                                    selectedEvents.addAll({
-                                      "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
-                                          [
-                                        {
-                                          "eventTitle": titleController.text,
-                                          "eventTime":
-                                              "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
-                                        }
-                                      ]
-                                    });
-                                  }
+                                  */
+                                  selectedEvents.addAll({
+                                    "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
+                                        [
+                                      {
+                                        "eventId": id,
+                                        "eventTitle": titleController.text,
+                                        "eventTime": "$hours:$minutes"
+                                      }
+                                    ]
+                                  });
+                                  id++;
+                                  //}
                                   setState(() {});
                                   saveFile(
                                       "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}",
+                                      id,
                                       titleController.text,
-                                      "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}");
+                                      "$hours:$minutes");
                                 }
                               },
                             ),
@@ -608,7 +635,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   padding: PublicVariables().all10,
                   child: Column(children: [
                     Row(children: [
-                      Text("Tomorrow", style: PublicVariables().headerText),
+                      Text("Comming next", style: PublicVariables().headerText),
                     ]),
                     Column(children: [
                       if (workoutTomorrow.isEmpty) ...[
