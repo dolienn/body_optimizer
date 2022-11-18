@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 class PublicVariables {
   var mainColor = const Color(0xFF5650DE);
   var mainColor2 = const Color(0xFFF869D5);
+  var darkenColor = const Color(0xFF1c177f);
+  var activeColor = const Color(0xFF5650DE);
+  var lightenColor = const Color(0xFFaaa7ee);
   var all10 = const EdgeInsets.all(10);
   var all5 = const EdgeInsets.all(5);
   var symmetricHorizontal = const EdgeInsets.symmetric(horizontal: 7.5);

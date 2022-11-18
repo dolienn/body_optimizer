@@ -1,3 +1,4 @@
+import 'package:body_optimizer/constants.dart';
 import 'package:body_optimizer/screens/homepage.dart';
 import 'package:body_optimizer/screens/settings.dart';
 import 'package:body_optimizer/screens/workout.dart';
@@ -11,10 +12,6 @@ class MainPage extends StatefulWidget {
 
   @override
   State<MainPage> createState() => _MainPageState();
-}
-
-class PublicVariables {
-  var mainColor = const Color(0xFF5650DE);
 }
 
 class _MainPageState extends State<MainPage> {

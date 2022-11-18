@@ -77,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     return filePath;
   }
 
-  void saveFile(date, title, time, eventId) async {
+  void saveFile(date, eventId, title, time) async {
     File file = File(await getFilePath());
     file.writeAsString("$date\n$eventId\n$title\n$time\n",
         mode: FileMode.writeOnlyAppend);
@@ -87,29 +87,26 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     File file = File(await getFilePath());
     List<String> fileEvents = await file.readAsLines();
     for (int i = 0; i < fileEvents.length; i += 4) {
-      /*
-    }
+      id = int.parse(fileEvents[i + 1]);
       if (selectedEvents.containsKey(fileEvents[i])) {
         selectedEvents[fileEvents[i]]!.addAll([
-          {
-            "eventId": id,
-            "eventTitle": fileEvents[i + 1],
-            "eventTime": fileEvents[i + 2],
-          }
-        ]);
-      } else {
-      */
-
-      selectedEvents.addAll({
-        fileEvents[i]: [
           {
             "eventId": fileEvents[i + 1],
             "eventTitle": fileEvents[i + 2],
             "eventTime": fileEvents[i + 3],
           }
-        ]
-      });
-      //}
+        ]);
+      } else {
+        selectedEvents.addAll({
+          fileEvents[i]: [
+            {
+              "eventId": fileEvents[i + 1],
+              "eventTitle": fileEvents[i + 2],
+              "eventTime": fileEvents[i + 3],
+            }
+          ]
+        });
+      }
     }
     setState(() {});
   }
@@ -268,12 +265,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                             "Are you sure you want to delete this planned workout?",
                                             style: PublicVariables()
                                                 .subheaderText),
-                                        content: SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.025,
-                                        ),
                                         actions: [
                                           Row(
                                             mainAxisAlignment:
@@ -326,7 +317,6 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                                           _selectedDay!)
                                                       .removeAt(
                                                           myEvents['eventId']);
-                                                  print(selectedEvents);
                                                   setState(() {});
                                                 },
                                               ),
@@ -477,32 +467,31 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   } else {
                                     minutes = hoursAndMinutes.minute.toString();
                                   }
-                                  /*
                                   if (selectedEvents.containsKey(
                                       "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}")) {
                                     selectedEvents[
                                             "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}"]!
                                         .addAll([
                                       {
+                                        "eventId": id,
                                         "eventTitle": titleController.text,
                                         "eventTime":
                                             "${hoursAndMinutes.hour}:${hoursAndMinutes.minute}"
                                       }
                                     ]);
                                   } else {
-                                  */
-                                  selectedEvents.addAll({
-                                    "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
-                                        [
-                                      {
-                                        "eventId": id,
-                                        "eventTitle": titleController.text,
-                                        "eventTime": "$hours:$minutes"
-                                      }
-                                    ]
-                                  });
+                                    selectedEvents.addAll({
+                                      "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}":
+                                          [
+                                        {
+                                          "eventId": id,
+                                          "eventTitle": titleController.text,
+                                          "eventTime": "$hours:$minutes"
+                                        }
+                                      ]
+                                    });
+                                  }
                                   id++;
-                                  //}
                                   setState(() {});
                                   saveFile(
                                       "${_selectedDay!.year}-${_selectedDay!.month}-${_selectedDay!.day}",
@@ -635,7 +624,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   padding: PublicVariables().all10,
                   child: Column(children: [
                     Row(children: [
-                      Text("Comming next", style: PublicVariables().headerText),
+                      Text("Coming next", style: PublicVariables().headerText),
                     ]),
                     Column(children: [
                       if (workoutTomorrow.isEmpty) ...[

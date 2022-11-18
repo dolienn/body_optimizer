@@ -1,10 +1,10 @@
 import 'dart:async';
 
 import 'package:body_optimizer/screens/workout/workoutlist.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../constants.dart';
 import '../workout.dart';
 
 class WorkoutStart extends StatefulWidget {

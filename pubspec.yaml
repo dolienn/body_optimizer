@@ -9,24 +9,16 @@ environment:
   sdk: '>=2.18.2 <3.0.0'
 
 dependencies:
-  elegant_notification: ^1.6.3
-  persistent_bottom_nav_bar: any
   flutter:
     sdk: flutter
   flutter_time_picker_spinner: ^2.0.0
-  persistent_bottom_nav_bar: ^5.0.2
   flutter_launcher_icons: ^0.11.0
   animated_splash_screen: ^1.3.0
   elegant_notification: ^1.6.4
-  cupertino_icons: ^1.0.5
   table_calendar: ^3.0.8
-  path_provider: ^2.0.11
   flutter_lints: ^2.0.1
   direct_select: ^2.0.0
   getwidget: ^3.0.1
-  lottie: ^2.0.0
-  intl: ^0.17.0
-  google_fonts:
 
 
   # The following adds the Cupertino Icons font to your application.
@@ -56,9 +48,7 @@ flutter:
   assets:
     - assets/images/
     - assets/animations/
-  uses-material-design: true
-    - assets/images/
     - assets/videos/
     - textFiles/
     - animation/
-    - assets/animations/
+  uses-material-design: true
