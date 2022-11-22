@@ -8,7 +8,7 @@ class PublicVariables {
   var all5 = const EdgeInsets.all(5);
   var symmetricHorizontal = const EdgeInsets.symmetric(horizontal: 7.5);
   var symmetricVertical = const EdgeInsets.symmetric(vertical: 12.5);
-  var normalText = GoogleFonts.lato(color: Colors.black, fontSize: 14);
+  var normalText = GoogleFonts.lato(color: Colors.black, fontSize: 16);
   var normalItalizedText = GoogleFonts.lato(
       color: Colors.black, fontSize: 16, fontStyle: FontStyle.italic);
   var normalWhiteText = GoogleFonts.lato(color: Colors.white, fontSize: 16);
@@ -30,9 +30,11 @@ class PublicVariables {
       color: const Color(0xFF5650DE),
       fontSize: 32,
       fontWeight: FontWeight.w900);
+  var pageNameText = GoogleFonts.lato(color: Colors.black, fontSize: 32);
   var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 38);
   var borderCircular20 = BorderRadius.circular(20);
   var borderCircular10 = BorderRadius.circular(10);
   var shadow = const BoxShadow(
       color: Colors.grey, blurRadius: 2.5, offset: Offset(1, 1));
+  DateTime today = DateTime.now();
 }

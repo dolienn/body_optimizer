@@ -105,7 +105,7 @@ packages:
       name: dropdown_button2
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.8.9"
+    version: "1.9.1"
   elegant_notification:
     dependency: "direct main"
     description:

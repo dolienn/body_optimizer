@@ -50,8 +50,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // TABLE CALENDAR //
   final titleController = TextEditingController();
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime today = DateTime.now(),
-      _focusedDay = DateTime.now(),
+  DateTime _focusedDay = DateTime.now(),
       hoursAndMinutes = DateTime.now();
   String hours = "", minutes = "";
   DateTime? _selectedDay;
