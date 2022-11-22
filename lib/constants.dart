@@ -17,19 +17,20 @@ class PublicVariables {
       GoogleFonts.lato(color: const Color(0xFF5650DE), fontSize: 18);
   var normalMainColorTextSmall =
       GoogleFonts.lato(color: const Color(0xFF5650DE), fontSize: 16);
-  var boldText = GoogleFonts.lato(fontSize: 18, fontWeight: FontWeight.w700);
+  var boldText = GoogleFonts.lato(
+      fontSize: 18, color: Colors.black, fontWeight: FontWeight.w700);
   var dropdownText = GoogleFonts.lato(
-      fontSize: 14, fontWeight: FontWeight.bold, color: Colors.black);
+      fontSize: 16, fontWeight: FontWeight.w700, color: Colors.black);
   var setsText = GoogleFonts.lato(
       fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black54);
   var subheaderText = GoogleFonts.lato(color: Colors.black, fontSize: 20);
-  var headerText = GoogleFonts.lato(color: Colors.black, fontSize: 26);
-  var headerWhiteText = GoogleFonts.lato(color: Colors.white, fontSize: 26);
+  var headerText = GoogleFonts.lato(color: Colors.black, fontSize: 24);
+  var headerWhiteText = GoogleFonts.lato(color: Colors.white, fontSize: 24);
   var bannerText = GoogleFonts.lato(
       color: const Color(0xFF5650DE),
-      fontSize: 34,
+      fontSize: 32,
       fontWeight: FontWeight.w900);
-  var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 42);
+  var titleText = GoogleFonts.lato(color: Colors.black, fontSize: 38);
   var borderCircular20 = BorderRadius.circular(20);
   var borderCircular10 = BorderRadius.circular(10);
   var shadow = const BoxShadow(

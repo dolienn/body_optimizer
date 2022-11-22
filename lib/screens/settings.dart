@@ -19,17 +19,10 @@ class Settings extends StatefulWidget {
 }
 
 class SettingsPage extends State<Settings> {
-  String nickname = "";
-  String sex = "";
-  String age = "";
-  String weight = "";
-  String height = "";
-  String restTime = "";
-  String goal = "";
-  String url = "";
+  String? nickname, sex, age, weight, height, restTime, goal;
   fetchFileData() async {
     String responseText;
-    responseText = await rootBundle.loadString('textFiles/data.txt');
+    responseText = await rootBundle.loadString('assets/files/private_info.txt');
     final splitted = responseText.split(' ');
     setState(() {
       nickname = splitted[0];
@@ -101,7 +94,7 @@ class SettingsPage extends State<Settings> {
                       margin: PublicVariables().all5,
                       padding: PublicVariables().all10,
                       child: Text(
-                        nickname,
+                        nickname!,
                         style: PublicVariables().subheaderText,
                       ),
                     ),
@@ -122,7 +115,7 @@ class SettingsPage extends State<Settings> {
                       child: DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           hint: Row(children: [
-                            Text(sex, style: PublicVariables().dropdownText),
+                            Text(sex!, style: PublicVariables().dropdownText),
                           ]),
                           items: itemsforsex
                               .map((item) => DropdownMenuItem<String>(
@@ -239,9 +232,8 @@ class SettingsPage extends State<Settings> {
                         child: DropdownButton2(
                           hint: Row(children: [
                             Text(
-                              restTime,
-                              style: PublicVariables().boldText,
-                              overflow: TextOverflow.ellipsis,
+                              restTime!,
+                              style: PublicVariables().dropdownText,
                             ),
                           ]),
                           items: restItems
@@ -307,9 +299,8 @@ class SettingsPage extends State<Settings> {
                         child: DropdownButton2(
                           hint: Row(children: [
                             Text(
-                              goal,
-                              style: PublicVariables().boldText,
-                              overflow: TextOverflow.ellipsis,
+                              goal!,
+                              style: PublicVariables().dropdownText,
                             ),
                           ]),
                           items: itemsforgoal

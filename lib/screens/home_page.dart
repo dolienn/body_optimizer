@@ -25,25 +25,22 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout";
-  List<String> workoutTomorrow = [
-    "Custom Workout 1",
-    "Custom Workout 2",
-    "Custom Workout 3",
-  ];
+  List<String> workoutTomorrow = ["Custom Workout 1", "Custom Workout 2"];
   int numOfExercises = 13, numOfExercisesLeft = 13;
   // FILE //
   String fileName = "savedEvents.sav";
   // ANIMATION CONTROLLER //
-  late AnimationController _animationController;
+  late AnimationController _homepageAnimationController;
   // PROGRESS BAR //
-  double currentProgress = 0.0, displayedProgress = 0.0;
+  double currentProgress = 0.0;
+  String displayedProgress = "0%";
   countPercentage() {
     currentProgress =
         1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
     if (currentProgress == 0.99) {
-      displayedProgress = currentProgress + 0.01;
+      displayedProgress = "Done!";
     } else {
-      displayedProgress = currentProgress;
+      displayedProgress = "${((currentProgress) * 100).round()}%";
     }
     setState(() {
       displayedProgress;
@@ -116,12 +113,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     _selectedDay = _focusedDay;
     countPercentage();
     readFile();
-    _animationController = AnimationController(vsync: this);
+    _homepageAnimationController = AnimationController(vsync: this);
   }
 
   @override
   void dispose() {
-    _animationController.dispose();
+    _homepageAnimationController.dispose();
     super.dispose();
   }
 
@@ -396,7 +393,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ElegantNotification(
                                     icon: Lottie.asset(
                                       'assets/animations/error.json',
-                                      controller: _animationController,
+                                      controller: _homepageAnimationController,
                                       repeat: true,
                                       width: MediaQuery.of(context).size.width *
                                           0.1,
@@ -404,7 +401,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           MediaQuery.of(context).size.height *
                                               0.1,
                                       onLoaded: (composition) {
-                                        _animationController
+                                        _homepageAnimationController
                                           ..duration = composition.duration
                                           ..reset()
                                           ..forward();
@@ -425,7 +422,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   ElegantNotification(
                                     icon: Lottie.asset(
                                       'assets/animations/confirm.json',
-                                      controller: _animationController,
+                                      controller: _homepageAnimationController,
                                       repeat: true,
                                       width: MediaQuery.of(context).size.width *
                                           0.1,
@@ -433,7 +430,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           MediaQuery.of(context).size.width *
                                               0.1,
                                       onLoaded: (composition) {
-                                        _animationController
+                                        _homepageAnimationController
                                           ..duration = composition.duration
                                           ..reset()
                                           ..forward();
@@ -560,7 +557,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               lineHeight: 35,
                               child: Center(
                                 child: Text(
-                                  "${((displayedProgress) * 100).round()}%",
+                                  displayedProgress,
                                   style: PublicVariables().normalText,
                                 ),
                               ),
