@@ -22,7 +22,12 @@ class Settings extends StatefulWidget {
 
 class SettingsPage extends State<Settings> with TickerProviderStateMixin {
   late AnimationController _settingsAnimationController;
+  final nickController = TextEditingController();
+  final ageController = TextEditingController();
+  final weightController = TextEditingController();
+  final heightController = TextEditingController();
   String? nickname, sex, age, weight, height, restTime, goal;
+  bool editInfo = false;
   fetchFileData() async {
     String responseText;
     responseText = await rootBundle.loadString('assets/files/private_info.txt');
@@ -82,14 +87,27 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                   child: Lottie.asset('assets/animations/user-icon.json'),
                 ),
               ),
-              Padding(
-                padding: PublicVariables().symmetricVertical,
-                child: Text(
-                  nickname!,
-                  style: PublicVariables().subheaderText,
-                  textAlign: TextAlign.center,
+              if (editInfo == false) ...[
+                Padding(
+                  padding: PublicVariables().symmetricVertical,
+                  child: Text(
+                    nickname!,
+                    style: PublicVariables().subheaderText,
+                    textAlign: TextAlign.center,
+                  ),
                 ),
-              ),
+              ] else ...[
+                Padding(
+                  padding: PublicVariables().all10,
+                  child: TextFormField(
+                    style: PublicVariables().subheaderText,
+                    controller: nickController,
+                    decoration: InputDecoration(
+                        labelText: "Enter nickname",
+                        labelStyle: PublicVariables().normalGreyText),
+                  ),
+                ),
+              ],
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
@@ -153,48 +171,169 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-              buildTextField('Your Age: $age'),
-              buildTextField('Your Weight: $weight'),
-              buildTextField('Your Height: $height'),
-              Container(
-                height: 40,
-                width: MediaQuery.of(context).size.width * 0.85,
-                margin: const EdgeInsets.symmetric(vertical: 30),
-                decoration: BoxDecoration(
-                  color: PublicVariables().mainColor,
-                  borderRadius: PublicVariables().borderCircular10,
-                ),
-                child: TextButton(
-                  onPressed: () {
-                    ElegantNotification(
-                      icon: Lottie.asset(
-                        'assets/animations/confirm.json',
-                        controller: _settingsAnimationController,
-                        repeat: true,
-                        width: MediaQuery.of(context).size.width * 0.1,
-                        height: MediaQuery.of(context).size.width * 0.1,
-                        onLoaded: (composition) {
-                          _settingsAnimationController
-                            ..duration = composition.duration
-                            ..reset()
-                            ..forward();
-                        },
-                      ),
-                      toastDuration: const Duration(seconds: 2),
-                      animationDuration: const Duration(milliseconds: 500),
-                      animation: AnimationType.fromTop,
-                      notificationPosition: NotificationPosition.topCenter,
-                      showProgressIndicator: false,
-                      title: const Text("Success"),
-                      description: const Text("Information saved!"),
-                    ).show(context);
-                  },
-                  child: Text(
-                    'Save',
-                    style: PublicVariables().normalWhiteText,
+              if (editInfo == true) ...[
+                Padding(
+                  padding: PublicVariables().all5,
+                  child: TextFormField(
+                    style: PublicVariables().subheaderText,
+                    controller: ageController,
+                    decoration: InputDecoration(
+                        labelText: "Enter your age",
+                        labelStyle: PublicVariables().normalGreyText),
                   ),
                 ),
-              ),
+                Padding(
+                  padding: PublicVariables().all5,
+                  child: TextFormField(
+                    style: PublicVariables().subheaderText,
+                    controller: weightController,
+                    decoration: InputDecoration(
+                        labelText: "Enter your weight (in kilos)",
+                        labelStyle: PublicVariables().normalGreyText),
+                  ),
+                ),
+                Padding(
+                  padding: PublicVariables().all5,
+                  child: TextFormField(
+                    style: PublicVariables().subheaderText,
+                    controller: heightController,
+                    decoration: InputDecoration(
+                        labelText: "Enter your height (in cm)",
+                        labelStyle: PublicVariables().normalGreyText),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 40,
+                      margin: PublicVariables().all5,
+                      width: MediaQuery.of(context).size.width * 0.40,
+                      decoration: BoxDecoration(
+                        color: PublicVariables().mainColor,
+                        borderRadius: PublicVariables().borderCircular10,
+                      ),
+                      child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            editInfo = false;
+                          });
+                        },
+                        child: Text("Cancel",
+                            style: PublicVariables().normalWhiteText),
+                      ),
+                    ),
+                  ],
+                ),
+              ] else ...[
+                buildTextField('Your Age: $age'),
+                buildTextField('Your Weight: $weight'),
+                buildTextField('Your Height: $height'),
+              ],
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    margin: const EdgeInsets.symmetric(vertical: 30),
+                    decoration: BoxDecoration(
+                      color: PublicVariables().mainColor,
+                      borderRadius: PublicVariables().borderCircular10,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          editInfo = true;
+                        });
+                      },
+                      child: Text("Edit",
+                          style: PublicVariables().normalWhiteText),
+                    ),
+                  ),
+                  Container(
+                    height: 40,
+                    width: MediaQuery.of(context).size.width * 0.40,
+                    margin: const EdgeInsets.symmetric(vertical: 30),
+                    decoration: BoxDecoration(
+                      color: PublicVariables().mainColor,
+                      borderRadius: PublicVariables().borderCircular10,
+                    ),
+                    child: TextButton(
+                      onPressed: () {
+                        if (editInfo == true) {
+                          if (nickController.text.isEmpty ||
+                              ageController.text.isEmpty ||
+                              weightController.text.isEmpty ||
+                              heightController.text.isEmpty) {
+                            ElegantNotification(
+                              icon: Lottie.asset(
+                                'assets/animations/error.json',
+                                controller: _settingsAnimationController,
+                                repeat: true,
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.1,
+                                onLoaded: (composition) {
+                                  _settingsAnimationController
+                                    ..duration = composition.duration
+                                    ..reset()
+                                    ..forward();
+                                },
+                              ),
+                              toastDuration: const Duration(seconds: 2),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              animation: AnimationType.fromTop,
+                              notificationPosition:
+                                  NotificationPosition.topCenter,
+                              showProgressIndicator: false,
+                              title: const Text("Error"),
+                              description: const Text("Some field is empty!"),
+                            ).show(context);
+                          } else {
+                            setState(() {
+                              editInfo = false;
+                              nickname = nickController.text;
+                              age = ageController.text;
+                              weight = weightController.text;
+                              height = heightController.text;
+                            });
+                            ElegantNotification(
+                              icon: Lottie.asset(
+                                'assets/animations/confirm.json',
+                                controller: _settingsAnimationController,
+                                repeat: true,
+                                width: MediaQuery.of(context).size.width * 0.1,
+                                height: MediaQuery.of(context).size.width * 0.1,
+                                onLoaded: (composition) {
+                                  _settingsAnimationController
+                                    ..duration = composition.duration
+                                    ..reset()
+                                    ..forward();
+                                },
+                              ),
+                              toastDuration: const Duration(seconds: 2),
+                              animationDuration:
+                                  const Duration(milliseconds: 500),
+                              animation: AnimationType.fromTop,
+                              notificationPosition:
+                                  NotificationPosition.topCenter,
+                              showProgressIndicator: false,
+                              title: const Text("Success"),
+                              description: const Text("Information saved!"),
+                            ).show(context);
+                          }
+                        }
+                      },
+                      child: Text(
+                        'Save',
+                        style: PublicVariables().normalWhiteText,
+                      ),
+                    ),
+                  ),
+                ],
+              )
             ]),
           ),
         ),
@@ -501,7 +640,7 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
         Padding(
           padding: PublicVariables().symmetricVertical,
           child: Text(
-            "© Copyright Body Optimizer ${PublicVariables().today.year}.",
+            "© Copyright Body Optimizer ${PublicVariables().today.year}",
             style: PublicVariables().normalText,
             textAlign: TextAlign.center,
           ),

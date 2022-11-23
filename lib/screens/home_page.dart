@@ -10,11 +10,6 @@ import 'package:lottie/lottie.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 
-//     TO DO     //
-// delete events //
-// from file and //
-// widget        //
-
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -50,8 +45,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // TABLE CALENDAR //
   final titleController = TextEditingController();
   CalendarFormat _calendarFormat = CalendarFormat.week;
-  DateTime _focusedDay = DateTime.now(),
-      hoursAndMinutes = DateTime.now();
+  DateTime _focusedDay = DateTime.now(), hoursAndMinutes = DateTime.now();
   String hours = "", minutes = "";
   DateTime? _selectedDay;
   Map<String, dynamic> selectedEvents = {};
@@ -86,7 +80,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       if (selectedEvents.containsKey(fileEvents[i])) {
         selectedEvents[fileEvents[i]]!.addAll([
           {
-            "eventId": fileEvents[i + 1],
+            "eventId": int.parse(fileEvents[i + 1]),
             "eventTitle": fileEvents[i + 2],
             "eventTime": fileEvents[i + 3],
           }
@@ -95,7 +89,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         selectedEvents.addAll({
           fileEvents[i]: [
             {
-              "eventId": fileEvents[i + 1],
+              "eventId": int.parse(fileEvents[i + 1]),
               "eventTitle": fileEvents[i + 2],
               "eventTime": fileEvents[i + 3],
             }
@@ -163,7 +157,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       lastDay: DateTime(2042),
                       calendarFormat: _calendarFormat,
                       formatAnimationCurve: Curves.easeInOut,
-                      formatAnimationDuration: const Duration(milliseconds: 500),
+                      formatAnimationDuration:
+                          const Duration(milliseconds: 500),
                       startingDayOfWeek: StartingDayOfWeek.monday,
                       rowHeight: 50,
                       headerStyle: HeaderStyle(
@@ -175,7 +170,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           color: Colors.white,
                         ),
                         titleTextStyle: PublicVariables().normalMainColorText,
-                        formatButtonTextStyle: PublicVariables().normalWhiteText,
+                        formatButtonTextStyle:
+                            PublicVariables().normalWhiteText,
                         formatButtonDecoration: BoxDecoration(
                           borderRadius: PublicVariables().borderCircular20,
                           color: PublicVariables().mainColor,
@@ -306,11 +302,57 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  listOfDayEvents(
-                                                          _selectedDay!)
+                                                  // ERROR WHEN I DELETE ENTRY
+                                                  // IT DOESN'T DELETE IT SOMEWHERE
+                                                  // AND THE SAME NUMBER OF ID IS SHOWN
+                                                  // ALSO IT NEEDS TO BE DELETED FROM FILE!
+                                                  listOfDayEvents(_selectedDay!)
                                                       .removeAt(
                                                           myEvents['eventId']);
-                                                  setState(() {});
+                                                  Navigator.pop(context);
+                                                  ElegantNotification(
+                                                    icon: Lottie.asset(
+                                                      'assets/animations/information.json',
+                                                      controller:
+                                                          _homepageAnimationController,
+                                                      repeat: true,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .width *
+                                                              0.1,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                                  .size
+                                                                  .height *
+                                                              0.1,
+                                                      onLoaded: (composition) {
+                                                        _homepageAnimationController
+                                                          ..duration =
+                                                              composition
+                                                                  .duration
+                                                          ..reset()
+                                                          ..forward();
+                                                      },
+                                                    ),
+                                                    toastDuration:
+                                                        const Duration(
+                                                            seconds: 2),
+                                                    animationDuration:
+                                                        const Duration(
+                                                            milliseconds: 500),
+                                                    animation:
+                                                        AnimationType.fromTop,
+                                                    notificationPosition:
+                                                        NotificationPosition
+                                                            .topCenter,
+                                                    showProgressIndicator:
+                                                        false,
+                                                    title: const Text(
+                                                        "Workout deleted"),
+                                                    description: const Text(
+                                                        "Your workout has been successfully deleted!"),
+                                                  ).show(context);
                                                 },
                                               ),
                                             ],
@@ -363,16 +405,25 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                     labelStyle:
                                         PublicVariables().normalGreyText),
                               ),
-                              TimePickerSpinner(
-                                time: hoursAndMinutes,
-                                alignment: Alignment.center,
-                                isForce2Digits: true,
-                                is24HourMode: true,
-                                onTimeChange: (time) {
-                                  setState(() {
-                                    hoursAndMinutes = time;
-                                  });
-                                },
+                              Padding(
+                                padding: PublicVariables().all5,
+                                child: TimePickerSpinner(
+                                  itemHeight: 40,
+                                  itemWidth: 30,
+                                  normalTextStyle:
+                                      PublicVariables().subheaderText,
+                                  highlightedTextStyle:
+                                      PublicVariables().headerText,
+                                  time: hoursAndMinutes,
+                                  alignment: Alignment.center,
+                                  isForce2Digits: true,
+                                  is24HourMode: true,
+                                  onTimeChange: (time) {
+                                    setState(() {
+                                      hoursAndMinutes = time;
+                                    });
+                                  },
+                                ),
                               ),
                             ]),
                           ),
