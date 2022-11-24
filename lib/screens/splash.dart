@@ -22,7 +22,7 @@ class _Splash extends State<Splash> {
           Text("Body optimizer", style: PublicVariables().titleText),
         ],
       ),
-      duration: 1750,
+      duration: 1250,
       centered: true,
       splashTransition: SplashTransition.fadeTransition,
       backgroundColor: Colors.white,

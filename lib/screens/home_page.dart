@@ -1,12 +1,10 @@
 import 'package:flutter_time_picker_spinner/flutter_time_picker_spinner.dart';
-import 'package:elegant_notification/elegant_notification.dart';
-import 'package:elegant_notification/resources/arrays.dart';
+import 'package:body_optimizer/widgets/notifications.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:body_optimizer/constants.dart';
 import 'package:getwidget/getwidget.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:intl/intl.dart';
 import 'dart:io';
 
@@ -23,7 +21,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<String> workoutTomorrow = ["Custom Workout 1", "Custom Workout 2"];
   int numOfExercises = 13, numOfExercisesLeft = 13;
   // FILE //
-  String fileName = "savedEvents.sav";
+  String eventsFile = "savedEvents.sav";
   // ANIMATION CONTROLLER //
   late AnimationController _homepageAnimationController;
   // PROGRESS BAR //
@@ -61,7 +59,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<String> getFilePath() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String documentsPath = documentsDirectory.path;
-    String filePath = '$documentsPath/$fileName';
+    String filePath = '$documentsPath/$eventsFile';
     File(filePath).createSync();
     return filePath;
   }
@@ -310,49 +308,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                       .removeAt(
                                                           myEvents['eventId']);
                                                   Navigator.pop(context);
-                                                  ElegantNotification(
-                                                    icon: Lottie.asset(
-                                                      'assets/animations/information.json',
-                                                      controller:
-                                                          _homepageAnimationController,
-                                                      repeat: true,
-                                                      width:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .width *
-                                                              0.1,
-                                                      height:
-                                                          MediaQuery.of(context)
-                                                                  .size
-                                                                  .height *
-                                                              0.1,
-                                                      onLoaded: (composition) {
-                                                        _homepageAnimationController
-                                                          ..duration =
-                                                              composition
-                                                                  .duration
-                                                          ..reset()
-                                                          ..forward();
-                                                      },
-                                                    ),
-                                                    toastDuration:
-                                                        const Duration(
-                                                            seconds: 2),
-                                                    animationDuration:
-                                                        const Duration(
-                                                            milliseconds: 500),
-                                                    animation:
-                                                        AnimationType.fromTop,
-                                                    notificationPosition:
-                                                        NotificationPosition
-                                                            .topCenter,
-                                                    showProgressIndicator:
-                                                        false,
-                                                    title: const Text(
-                                                        "Workout deleted"),
-                                                    description: const Text(
-                                                        "Your workout has been successfully deleted!"),
-                                                  ).show(context);
+                                                  Notifications().buildNotificationInfo(
+                                                      _homepageAnimationController,
+                                                      context,
+                                                      "Workout deleted",
+                                                      "Your workout has been successfully deleted!");
                                                 },
                                               ),
                                             ],
@@ -440,63 +400,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   style: PublicVariables().normalMainColorText),
                               onPressed: () {
                                 if (titleController.text.isEmpty) {
-                                  ElegantNotification(
-                                    icon: Lottie.asset(
-                                      'assets/animations/error.json',
-                                      controller: _homepageAnimationController,
-                                      repeat: true,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.1,
-                                      onLoaded: (composition) {
-                                        _homepageAnimationController
-                                          ..duration = composition.duration
-                                          ..reset()
-                                          ..forward();
-                                      },
-                                    ),
-                                    toastDuration: const Duration(seconds: 2),
-                                    animationDuration:
-                                        const Duration(milliseconds: 500),
-                                    animation: AnimationType.fromTop,
-                                    notificationPosition:
-                                        NotificationPosition.topCenter,
-                                    showProgressIndicator: false,
-                                    title: const Text("Error"),
-                                    description: const Text("Title is empty!"),
-                                  ).show(context);
+                                  Notifications().buildNotificationError(
+                                      _homepageAnimationController,
+                                      context,
+                                      "Title is empty!");
                                 } else {
                                   Navigator.pop(context);
-                                  ElegantNotification(
-                                    icon: Lottie.asset(
-                                      'assets/animations/confirm.json',
-                                      controller: _homepageAnimationController,
-                                      repeat: true,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.1,
-                                      height:
-                                          MediaQuery.of(context).size.width *
-                                              0.1,
-                                      onLoaded: (composition) {
-                                        _homepageAnimationController
-                                          ..duration = composition.duration
-                                          ..reset()
-                                          ..forward();
-                                      },
-                                    ),
-                                    toastDuration: const Duration(seconds: 2),
-                                    animationDuration:
-                                        const Duration(milliseconds: 500),
-                                    animation: AnimationType.fromTop,
-                                    notificationPosition:
-                                        NotificationPosition.topCenter,
-                                    showProgressIndicator: false,
-                                    title: const Text("Success"),
-                                    description: const Text(
-                                        "Your workout has been added!"),
-                                  ).show(context);
+                                  Notifications().buildNotificationSuccess(
+                                      _homepageAnimationController,
+                                      context,
+                                      "Your workout has been added!");
                                   if (hoursAndMinutes.hour.toString().length ==
                                       1) {
                                     hours = "0${hoursAndMinutes.hour}";

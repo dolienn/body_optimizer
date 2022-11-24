@@ -43,5 +43,4 @@ flutter:
     - assets/images/
     - assets/animations/
     - assets/videos/
-    - assets/files/
   uses-material-design: true
