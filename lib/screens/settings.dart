@@ -157,9 +157,8 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                           ),
                           color: Colors.white,
                         ),
-                        buttonElevation: 2,
-                        itemHeight: 30,
-                        dropdownMaxHeight: 200,
+                        itemHeight: 35,
+                        dropdownMaxHeight: 220,
                         dropdownWidth: MediaQuery.of(context).size.width * 0.5,
                         dropdownPadding: null,
                         dropdownDecoration: BoxDecoration(
@@ -227,8 +226,8 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                 ),
               ] else ...[
                 buildTextField('Your Age: $age'),
-                buildTextField('Your Weight: $weight'),
-                buildTextField('Your Height: $height'),
+                buildTextField('Your Weight: ${weight}kg'),
+                buildTextField('Your Height: ${height}cm'),
               ],
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -406,8 +405,7 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                             ),
                             color: Colors.white,
                           ),
-                          buttonElevation: 2,
-                          itemHeight: 25,
+                          itemHeight: 35,
                           dropdownMaxHeight: 220,
                           dropdownWidth:
                               MediaQuery.of(context).size.width * 0.5,
@@ -416,7 +414,6 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                             borderRadius: PublicVariables().borderCircular10,
                             color: Colors.white,
                           ),
-                          dropdownElevation: 8,
                         ),
                       ),
                     ),
@@ -477,8 +474,8 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                           ),
                           color: Colors.white,
                         ),
-                        buttonElevation: 2,
-                        itemHeight: 30,
+                        itemHeight: 35,
+                        dropdownMaxHeight: 220,
                         dropdownWidth: MediaQuery.of(context).size.width * 0.5,
                         dropdownPadding: null,
                         dropdownDecoration: BoxDecoration(
