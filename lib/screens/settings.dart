@@ -61,7 +61,7 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
       restTime = fileInfo[5];
       goal = fileInfo[6];
     } else {
-      nickname = 'Your nickname';
+      nickname = 'nickname';
       sex = sexes[0];
       age = '18';
       weight = '70';
@@ -84,6 +84,7 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
     _settingsAnimationController.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -240,7 +241,7 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 10),
                       child: Text(
-                        "Your sex: ",
+                        "Sex: ",
                         style: PublicVariables().boldText,
                       ),
                     ),
@@ -307,11 +308,9 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
                     ),
                   ],
                 ),
-                TextFields().buildTextInfo('Your Age: ', '${age} years old', context),
-                TextFields()
-                    .buildTextInfo('Your Weight: ', '${weight}kg', context),
-                TextFields()
-                    .buildTextInfo('Your Height: ', '${height}cm', context),
+                TextFields().buildTextInfo('Age: ', '$age yo', context),
+                TextFields().buildTextInfo('Weight: ', '$weight kg', context),
+                TextFields().buildTextInfo('Height: ', '$height cm', context),
                 Container(
                   height: 40,
                   width: MediaQuery.of(context).size.width * 0.85,
@@ -426,15 +425,17 @@ class SettingsPage extends State<Settings> with TickerProviderStateMixin {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding: PublicVariables().all5,
+                Container(
+                  padding: const EdgeInsets.only(left: 20),
+                  margin: PublicVariables().symmetricHorizontal,
                   child: Text(
-                    "Your goal: ",
+                    "Goal:",
                     style: PublicVariables().boldText,
                   ),
                 ),
+                const Padding(padding: EdgeInsets.symmetric(horizontal: 7.5)),
                 Container(
-                  margin: PublicVariables().symmetricVertical,
+                  margin: PublicVariables().all10,
                   width: MediaQuery.of(context).size.width * 0.6,
                   child: DropdownButtonHideUnderline(
                     child: DropdownButton2(

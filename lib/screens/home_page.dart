@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   countPercentage() {
     currentProgress =
         1.0 - (((numOfExercisesLeft * 100 / numOfExercises).round()) / 100);
-    if (currentProgress == 0.99) {
+    if (numOfExercisesLeft == 0) {
       displayedProgress = "Done!";
     } else {
       displayedProgress = "${((currentProgress) * 100).round()}%";
@@ -470,7 +470,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       ),
                       padding: PublicVariables().all10,
                       child: Text(
-                        "Plan workout",
+                        "Plan your workout",
                         style: PublicVariables().normalMainColorTextSmall,
                       ),
                     ),

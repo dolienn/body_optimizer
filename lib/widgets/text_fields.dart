@@ -7,7 +7,7 @@ class TextFields {
         child: Row(children: [
           Container(
             height: 40,
-            width: MediaQuery.of(context).size.width * 0.55,
+            width: MediaQuery.of(context).size.width * 0.5,
             margin: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               color: PublicVariables().mainColor.withOpacity(0.25),
