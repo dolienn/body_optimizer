@@ -16,12 +16,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  // FILE //
+  String eventsFile = "savedEvents.sav";
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout";
   List<String> workoutTomorrow = ["Custom Workout 1", "Custom Workout 2"];
   int numOfExercises = 13, numOfExercisesLeft = 13;
-  // FILE //
-  String eventsFile = "savedEvents.sav";
   // ANIMATION CONTROLLER //
   late AnimationController _homepageAnimationController;
   // PROGRESS BAR //
