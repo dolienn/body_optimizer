@@ -16,7 +16,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  // FILE //
+  // FILE NAME //
   String eventsFile = "savedEvents.sav";
   // VARIABLES FROM OTHER SITES (for now placeholder) //
   String workoutToday = "Abs workout";
@@ -300,10 +300,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  // ERROR WHEN I DELETE ENTRY
-                                                  // IT DOESN'T DELETE IT SOMEWHERE
-                                                  // AND THE SAME NUMBER OF ID IS SHOWN
-                                                  // ALSO IT NEEDS TO BE DELETED FROM FILE!
+                                                  /*
+                                                   ERROR WHEN I DELETE ENTRY
+                                                   IT DOESN'T DELETE IT SOMEWHERE
+                                                   AND THE SAME NUMBER OF ID IS SHOWN
+                                                   ALSO IT NEEDS TO BE DELETED FROM FILE!
+                                                   */
                                                   listOfDayEvents(_selectedDay!)
                                                       .removeAt(
                                                           myEvents['eventId']);
@@ -533,6 +535,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         child: Text(
                           "$numOfExercisesLeft exercise(s) left",
                           style: PublicVariables().normalText,
+                        ),
+                      ),
+                      Padding(
+                        padding: PublicVariables().all5,
+                        child: Text(
+                          "Debug options",
+                          style: PublicVariables().normalItalizedText,
                         ),
                       ),
                       Row(
